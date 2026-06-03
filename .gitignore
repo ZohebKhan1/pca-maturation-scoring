@@ -3,12 +3,39 @@
 *_cache/
 /index_files/
 /tutorial_workflow_files/
+/assets/figures/
+/scripts/assets/figures/*.png
+/scripts/_site/
+/scripts/_book/
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+.DS_Store
+*Zone.Identifier
 
-# Local analysis outputs not used by the published tutorial
+# Local project/runtime files
+/coding_guidelines.md
+/differentiation_score.Rproj
+/tools/
+
+# Local analysis outputs and scratch files
 /plots/
 /results/
+/reports/
+/tmp/
+/scratch/
 /maturation_scores.csv
 /pca_trajectory_plot.png
 /docs/tutorial_workflow.html
 /docs/tutorial_workflow_files/
-/lrt/s2a-tpm-lineplots-LS1.R
+
+# Raw/source datasets and preprocessing scratch outputs are excluded.
+/raw/
+/dat/
+/data/raw/
+/data/processed/
+/data/interim/
+/data/qc/
+/data/external/
+/data/*.csv

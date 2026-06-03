@@ -1,0 +1,769 @@
+---
+title: "AB01 Interval Maturation Scoring"
+description: "A standalone test of adjacent-interval PCA maturation scoring in AB01."
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    code_folding: none
+    df_print: paged
+---
+
+```{r setup}
+# Created:
+# 2026-06-03
+#
+# Inputs:
+# - data/AB01/metadata/WC24_metadata_clean.rds: AB01 sample metadata
+# - data/AB01/raw counts/WC24_filt_raw_counts.rds: AB01 raw count matrix
+#
+# Outputs:
+# - docs/AB01_interval_maturation_score.html: rendered standalone HTML report
+#
+# Purpose:
+# Test an adjacent-interval PCA maturation score for AB01. Each interval is
+# trained on D21 samples only, using the top genes with the largest absolute
+# D21 timepoint mean VST difference. T21 samples are projected into the fixed
+# D21-trained PCA space and scored relative to the D21 interval centroid vector.
+#
+# Notes:
+# VST is computed exactly once with DESeq2::vst(blind = FALSE) using the
+# genotype_timepoint condition after CPM-based expression filtering.
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = TRUE,
+  fig.align = 'center',
+  dpi = 600
+)
+
+required_packages <- base::c(
+  'DESeq2',
+  'SummarizedExperiment',
+  'ggplot2'
+)
+missing_packages <- required_packages[
+  !base::vapply(
+    required_packages,
+    base::requireNamespace,
+    base::logical(1),
+    quietly = TRUE
+  )
+]
+if (base::length(missing_packages) > 0L) {
+  base::stop(
+    'missing required packages: ',
+    base::paste(missing_packages, collapse = ', ')
+  )
+}
+
+plot_font_family <- 'Arial'
+
+theme_ab01 <- function(base_size = 10) {
+  ggplot2::theme_classic(
+    base_size = base_size,
+    base_family = plot_font_family
+  ) +
+    ggplot2::theme(
+      text = ggplot2::element_text(color = 'black', family = plot_font_family),
+      axis.text = ggplot2::element_text(color = 'black', family = plot_font_family),
+      axis.title = ggplot2::element_text(color = 'black', family = plot_font_family),
+      axis.line = ggplot2::element_line(color = 'black', linewidth = 0.3),
+      axis.ticks = ggplot2::element_line(color = 'black', linewidth = 0.3),
+      panel.grid.major.y = ggplot2::element_line(color = 'grey92', linewidth = 0.2),
+      panel.grid.major.x = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      strip.background = ggplot2::element_blank(),
+      strip.text = ggplot2::element_text(
+        color = 'black',
+        face = 'bold',
+        family = plot_font_family
+      ),
+      legend.title = ggplot2::element_blank(),
+      legend.text = ggplot2::element_text(color = 'black', family = plot_font_family)
+    )
+}
+```
+
+# Overview
+
+This report tests an adjacent-interval maturation score in AB01. The workflow
+uses D21 as the reference trajectory and scores T21 samples relative to two
+separate D21-trained intervals:
+
+- D6 to D10, anchored so D21 D6 = 0 and D21 D10 = 1.
+- D10 to D17, anchored so D21 D10 = 1 and D21 D17 = 2.
+
+Each interval gets its own gene set and PCA model. The intervals are therefore
+independent scoring spaces, even though D10 appears in both intervals.
+
+# Load AB01 Data
+
+```{r load-data}
+metadata <- base::readRDS('data/AB01/metadata/WC24_metadata_clean.rds')
+counts <- base::readRDS('data/AB01/raw counts/WC24_filt_raw_counts.rds')
+
+base::stopifnot(!base::anyDuplicated(metadata$sample_id))
+base::stopifnot(base::all(metadata$sample_id %in% base::colnames(counts)))
+
+counts <- counts[, metadata$sample_id, drop = FALSE]
+base::stopifnot(base::identical(
+  base::as.character(metadata$sample_id),
+  base::colnames(counts)
+))
+
+metadata$timepoint_numeric <- base::as.numeric(base::as.character(metadata$timepoint))
+timepoint_levels <- base::paste0(
+  'D',
+  base::sort(base::unique(metadata$timepoint_numeric))
+)
+metadata$timepoint_label <- base::factor(
+  base::paste0('D', metadata$timepoint_numeric),
+  levels = timepoint_levels
+)
+metadata$genotype <- base::factor(metadata$genotype, levels = base::c('D21', 'T21'))
+metadata$genotype_timepoint <- base::factor(
+  metadata$genotype_timepoint,
+  levels = base::unique(metadata$genotype_timepoint[
+    base::order(metadata$timepoint_numeric, metadata$genotype)
+  ])
+)
+base::rownames(metadata) <- metadata$sample_id
+
+input_summary <- base::data.frame(
+  samples = base::nrow(metadata),
+  genotypes = base::paste(base::levels(metadata$genotype), collapse = ', '),
+  timepoints = base::paste(
+    base::sort(base::unique(metadata$timepoint_numeric)),
+    collapse = ', '
+  ),
+  stringsAsFactors = FALSE
+)
+
+input_summary
+```
+
+# Preprocess Counts and Compute VST Once
+
+This preprocessing section applies one expression filter before VST:
+retain genes with CPM >= 1 in at least 3 samples. The filtered count matrix is
+then used to generate one VST matrix, and that same VST matrix is reused for
+every interval and every sensitivity-test gene count.
+
+```{r compute-vst}
+library_sizes <- base::colSums(counts)
+cpm_matrix <- base::sweep(counts, 2, library_sizes, FUN = '/') * 1e6
+keep_genes <- base::rowSums(cpm_matrix >= 1) >= 3
+filtered_counts <- counts[keep_genes, , drop = FALSE]
+
+preprocessing_summary <- base::data.frame(
+  retained_genes_after_cpm_filter = base::nrow(filtered_counts),
+  cpm_cutoff = 1,
+  minimum_samples = 3,
+  stringsAsFactors = FALSE
+)
+
+preprocessing_summary
+
+dds <- DESeq2::DESeqDataSetFromMatrix(
+  countData = filtered_counts,
+  colData = metadata,
+  design = ~genotype_timepoint
+)
+
+vst_matrix <- SummarizedExperiment::assay(
+  DESeq2::vst(dds, blind = FALSE)
+)
+
+base::stopifnot(base::identical(base::colnames(vst_matrix), metadata$sample_id))
+```
+
+# Define Interval Scoring Functions
+
+```{r define-functions}
+interval_specs <- base::data.frame(
+  interval = base::c('D6-D10', 'D10-D17'),
+  start_timepoint = base::c(6, 10),
+  end_timepoint = base::c(10, 17),
+  score_start = base::c(0, 1),
+  score_end = base::c(1, 2),
+  stringsAsFactors = FALSE
+)
+interval_specs$interval <- base::factor(
+  interval_specs$interval,
+  levels = base::c('D6-D10', 'D10-D17')
+)
+
+sensitivity_gene_counts <- base::unique(base::c(
+  base::seq(100L, base::nrow(vst_matrix), by = 100L),
+  base::nrow(vst_matrix)
+))
+sensitivity_x_breaks <- base::seq(500L, base::max(sensitivity_gene_counts), by = 500L)
+
+get_interval_sample_ids <- function(sample_metadata, start_timepoint, end_timepoint, genotype = NULL) {
+  keep <- sample_metadata$timepoint_numeric %in% base::c(start_timepoint, end_timepoint)
+  if (!base::is.null(genotype)) {
+    keep <- keep & sample_metadata$genotype == genotype
+  }
+  base::as.character(sample_metadata$sample_id[keep])
+}
+
+select_top_interval_genes <- function(vst_matrix, sample_metadata,
+                                      start_timepoint, end_timepoint,
+                                      requested_gene_count) {
+  start_ids <- get_interval_sample_ids(
+    sample_metadata,
+    start_timepoint = start_timepoint,
+    end_timepoint = start_timepoint,
+    genotype = 'D21'
+  )
+  end_ids <- get_interval_sample_ids(
+    sample_metadata,
+    start_timepoint = end_timepoint,
+    end_timepoint = end_timepoint,
+    genotype = 'D21'
+  )
+
+  # Rank genes by the absolute difference between D21 timepoint means.
+  # This intentionally targets between-timepoint change instead of
+  # replicate-to-replicate spread within either timepoint.
+  start_mean <- base::rowMeans(vst_matrix[, start_ids, drop = FALSE])
+  end_mean <- base::rowMeans(vst_matrix[, end_ids, drop = FALSE])
+  abs_mean_delta <- base::abs(end_mean - start_mean)
+  ranked_genes <- base::names(base::sort(abs_mean_delta, decreasing = TRUE))
+  effective_gene_count <- base::min(requested_gene_count, base::length(ranked_genes))
+
+  base::data.frame(
+    gene_id = ranked_genes[base::seq_len(effective_gene_count)],
+    abs_mean_delta = abs_mean_delta[ranked_genes[base::seq_len(effective_gene_count)]],
+    requested_gene_count = requested_gene_count,
+    effective_gene_count = effective_gene_count,
+    stringsAsFactors = FALSE
+  )
+}
+
+project_samples_into_pca <- function(vst_subset, pca_fit) {
+  if (!base::identical(base::rownames(vst_subset), base::rownames(pca_fit$rotation))) {
+    base::stop('vst_subset rows must match pca_fit rotation rows exactly.')
+  }
+
+  projected <- base::scale(
+    base::t(vst_subset),
+    center = pca_fit$center,
+    scale = FALSE
+  )
+  coord <- base::as.data.frame(projected %*% pca_fit$rotation)
+  coord$sample_id <- base::rownames(coord)
+  coord
+}
+
+score_interval <- function(vst_matrix, sample_metadata, interval_row,
+                           requested_gene_count = 1000L,
+                           n_scoring_pcs = 3L) {
+  start_timepoint <- interval_row$start_timepoint[[1]]
+  end_timepoint <- interval_row$end_timepoint[[1]]
+  score_start <- interval_row$score_start[[1]]
+  score_end <- interval_row$score_end[[1]]
+
+  gene_table <- select_top_interval_genes(
+    vst_matrix = vst_matrix,
+    sample_metadata = sample_metadata,
+    start_timepoint = start_timepoint,
+    end_timepoint = end_timepoint,
+    requested_gene_count = requested_gene_count
+  )
+  gene_ids <- gene_table$gene_id
+
+  training_ids <- get_interval_sample_ids(
+    sample_metadata,
+    start_timepoint = start_timepoint,
+    end_timepoint = end_timepoint,
+    genotype = 'D21'
+  )
+  projection_ids <- get_interval_sample_ids(
+    sample_metadata,
+    start_timepoint = start_timepoint,
+    end_timepoint = end_timepoint
+  )
+
+  pca_fit <- stats::prcomp(
+    base::t(vst_matrix[gene_ids, training_ids, drop = FALSE]),
+    center = TRUE,
+    scale. = FALSE
+  )
+  pc_cols <- base::paste0(
+    'PC',
+    base::seq_len(base::min(n_scoring_pcs, base::ncol(pca_fit$x)))
+  )
+
+  coords <- project_samples_into_pca(
+    vst_subset = vst_matrix[gene_ids, projection_ids, drop = FALSE],
+    pca_fit = pca_fit
+  )
+  coords <- coords[, base::c('sample_id', pc_cols), drop = FALSE]
+  score_df <- base::merge(
+    sample_metadata,
+    coords,
+    by = 'sample_id',
+    sort = FALSE
+  )
+  score_df <- score_df[base::match(projection_ids, score_df$sample_id), , drop = FALSE]
+
+  start_centroid <- base::colMeans(score_df[
+    score_df$genotype == 'D21' & score_df$timepoint_numeric == start_timepoint,
+    pc_cols,
+    drop = FALSE
+  ])
+  end_centroid <- base::colMeans(score_df[
+    score_df$genotype == 'D21' & score_df$timepoint_numeric == end_timepoint,
+    pc_cols,
+    drop = FALSE
+  ])
+  vector_raw <- end_centroid - start_centroid
+  vector_length_sq <- base::sum(vector_raw^2)
+  if (!base::is.finite(vector_length_sq) || vector_length_sq <= 0) {
+    base::stop('interval centroid vector has zero length.')
+  }
+
+  coords_mat <- base::as.matrix(score_df[, pc_cols, drop = FALSE])
+  centered_coords <- coords_mat - base::matrix(
+    start_centroid,
+    nrow = base::nrow(coords_mat),
+    ncol = base::length(pc_cols),
+    byrow = TRUE
+  )
+  unit_interval_score <- base::as.numeric(centered_coords %*% vector_raw) / vector_length_sq
+  score_df$maturation_score <- score_start +
+    unit_interval_score * (score_end - score_start)
+
+  projected_coords <- base::matrix(
+    start_centroid,
+    nrow = base::nrow(coords_mat),
+    ncol = base::length(pc_cols),
+    byrow = TRUE
+  ) + unit_interval_score %o% vector_raw
+  for (pc_idx in base::seq_along(pc_cols)) {
+    score_df[[base::paste0('vector_', pc_cols[[pc_idx]])]] <- projected_coords[, pc_idx]
+  }
+
+  score_df$interval <- interval_row$interval[[1]]
+  score_df$interval <- base::factor(
+    score_df$interval,
+    levels = base::levels(interval_specs$interval)
+  )
+  score_df$interval_start_timepoint <- start_timepoint
+  score_df$interval_end_timepoint <- end_timepoint
+  score_df$score_start <- score_start
+  score_df$score_end <- score_end
+  score_df$requested_gene_count <- requested_gene_count
+  score_df$effective_gene_count <- gene_table$effective_gene_count[[1]]
+
+  base::list(
+    score_table = score_df,
+    gene_table = gene_table,
+    pca_fit = pca_fit,
+    pc_columns = pc_cols,
+    start_centroid = start_centroid,
+    end_centroid = end_centroid
+  )
+}
+```
+
+# Run the Primary 1000-Gene Interval Score
+
+```{r run-primary-score}
+primary_results <- base::lapply(
+  base::seq_len(base::nrow(interval_specs)),
+  function(i) {
+    score_interval(
+      vst_matrix = vst_matrix,
+      sample_metadata = metadata,
+      interval_row = interval_specs[i, , drop = FALSE],
+      requested_gene_count = 1000L
+    )
+  }
+)
+base::names(primary_results) <- interval_specs$interval
+
+primary_scores <- base::do.call(
+  base::rbind,
+  base::lapply(primary_results, function(x) x$score_table)
+)
+base::rownames(primary_scores) <- NULL
+
+primary_scores[
+  ,
+  base::c(
+    'interval',
+    'sample_id',
+    'genotype',
+    'timepoint_label',
+    'rep',
+    'PC1',
+    'PC2',
+    'PC3',
+    'maturation_score'
+  ),
+  drop = FALSE
+]
+```
+
+# Identify Top Interval-Variable Genes
+
+Genes are ranked separately for each interval using D21 samples only. For each
+gene, the D21 mean VST value at the start timepoint is subtracted from the D21
+mean VST value at the end timepoint. Genes with the largest absolute mean
+difference define that interval's PCA input list.
+
+```{r interval-variable-genes}
+primary_gene_summary <- base::do.call(
+  base::rbind,
+  base::lapply(base::names(primary_results), function(interval_name) {
+    gene_table <- primary_results[[interval_name]]$gene_table
+    base::data.frame(
+      interval = interval_name,
+      requested_gene_count = gene_table$requested_gene_count[[1]],
+      effective_gene_count = gene_table$effective_gene_count[[1]],
+      largest_abs_mean_delta = base::max(gene_table$abs_mean_delta),
+      stringsAsFactors = FALSE
+    )
+  })
+)
+
+primary_gene_summary
+```
+
+# Primary PCA and Score Views
+
+```{r primary-pca-plot, fig.width=9, fig.height=4.4}
+centroid_rows <- base::do.call(
+  base::rbind,
+  base::lapply(primary_results, function(interval_result) {
+    score_df <- interval_result$score_table
+    start_row <- base::data.frame(
+      interval = score_df$interval[[1]],
+      timepoint_numeric = score_df$interval_start_timepoint[[1]],
+      PC1 = interval_result$start_centroid[['PC1']],
+      PC2 = interval_result$start_centroid[['PC2']],
+      stringsAsFactors = FALSE
+    )
+    end_row <- base::data.frame(
+      interval = score_df$interval[[1]],
+      timepoint_numeric = score_df$interval_end_timepoint[[1]],
+      PC1 = interval_result$end_centroid[['PC1']],
+      PC2 = interval_result$end_centroid[['PC2']],
+      stringsAsFactors = FALSE
+    )
+    base::rbind(start_row, end_row)
+  })
+)
+
+ggplot2::ggplot(
+  primary_scores,
+  ggplot2::aes(PC1, PC2, color = timepoint_label, shape = genotype)
+) +
+  ggplot2::geom_path(
+    data = centroid_rows,
+    ggplot2::aes(PC1, PC2, group = interval),
+    inherit.aes = FALSE,
+    color = 'black',
+    linewidth = 0.55,
+    arrow = grid::arrow(length = grid::unit(0.15, 'cm'), type = 'closed')
+  ) +
+  ggplot2::geom_point(size = 2.5, stroke = 0.8) +
+  ggplot2::facet_wrap(~interval, scales = 'free') +
+  ggplot2::scale_color_manual(values = base::c(D6 = '#059669', D10 = '#7C3AED', D17 = '#EA580C')) +
+  ggplot2::scale_shape_manual(values = base::c(D21 = 16, T21 = 17)) +
+  ggplot2::labs(
+    x = 'PC1',
+    y = 'PC2',
+    title = 'Independent D21-trained interval PCA spaces'
+  ) +
+  theme_ab01(base_size = 10)
+```
+
+```{r primary-score-plot, fig.width=8.4, fig.height=4.4}
+score_plot_df <- primary_scores[
+  primary_scores$timepoint_numeric == primary_scores$interval_start_timepoint,
+  ,
+  drop = FALSE
+]
+
+score_mean <- stats::aggregate(
+  maturation_score ~ interval + genotype + timepoint_label,
+  data = score_plot_df,
+  FUN = base::mean
+)
+score_mean$interval <- base::factor(
+  score_mean$interval,
+  levels = base::levels(interval_specs$interval)
+)
+
+ggplot2::ggplot(
+  score_mean,
+  ggplot2::aes(genotype, maturation_score, fill = genotype)
+) +
+  ggplot2::geom_hline(
+    yintercept = base::c(0, 1, 2),
+    linetype = 'dashed',
+    color = 'black',
+    linewidth = 0.25
+  ) +
+  ggplot2::geom_col(
+    width = 0.62,
+    color = 'black',
+    linewidth = 0.25,
+    alpha = 0.9
+  ) +
+  ggplot2::geom_point(
+    data = score_plot_df,
+    ggplot2::aes(genotype, maturation_score, fill = genotype),
+    inherit.aes = FALSE,
+    size = 1.9,
+    shape = 21,
+    color = 'black',
+    stroke = 0.25,
+    position = ggplot2::position_jitter(width = 0.06, height = 0, seed = 42)
+  ) +
+  ggplot2::facet_grid(. ~ interval) +
+  ggplot2::scale_fill_manual(values = base::c(D21 = '#2563EB', T21 = '#DC2626')) +
+  ggplot2::labs(
+    x = NULL,
+    y = 'Interval maturation score',
+    title = 'Start-timepoint scores from each D21-trained interval'
+  ) +
+  theme_ab01(base_size = 10)
+```
+
+# Sensitivity Test
+
+The sensitivity test repeats the same interval workflow every 100 genes from
+100 genes to the maximum available AB01 gene count. X-axis tick labels are shown
+every 500 genes.
+
+```{r run-sensitivity}
+sensitivity_results <- base::list()
+result_idx <- 1L
+
+for (interval_idx in base::seq_len(base::nrow(interval_specs))) {
+  for (gene_count in sensitivity_gene_counts) {
+    sensitivity_results[[result_idx]] <- score_interval(
+      vst_matrix = vst_matrix,
+      sample_metadata = metadata,
+      interval_row = interval_specs[interval_idx, , drop = FALSE],
+      requested_gene_count = gene_count
+    )
+    result_idx <- result_idx + 1L
+  }
+}
+
+sensitivity_scores <- base::do.call(
+  base::rbind,
+  base::lapply(sensitivity_results, function(x) x$score_table)
+)
+base::rownames(sensitivity_scores) <- NULL
+
+sensitivity_summary <- stats::aggregate(
+  maturation_score ~ interval + requested_gene_count + effective_gene_count +
+    genotype + timepoint_numeric + timepoint_label,
+  data = sensitivity_scores,
+  FUN = base::mean
+)
+
+sensitivity_summary <- sensitivity_summary[
+  base::order(
+    sensitivity_summary$interval,
+    sensitivity_summary$requested_gene_count,
+    sensitivity_summary$genotype,
+    sensitivity_summary$timepoint_numeric
+  ),
+  ,
+  drop = FALSE
+]
+
+utils::head(sensitivity_summary, 12)
+```
+
+## Sensitivity Plot 1: Mean Score Across Gene Counts
+
+```{r sensitivity-mean-score, fig.width=9.5, fig.height=5.2}
+ggplot2::ggplot(
+  sensitivity_summary,
+  ggplot2::aes(
+    effective_gene_count,
+    maturation_score,
+    color = genotype,
+    linetype = timepoint_label,
+    group = base::interaction(genotype, timepoint_label)
+  )
+) +
+  ggplot2::geom_hline(
+    yintercept = base::c(0, 1, 2),
+    linetype = 'dashed',
+    color = 'grey45',
+    linewidth = 0.25
+  ) +
+  ggplot2::geom_line(linewidth = 0.62) +
+  ggplot2::geom_point(size = 0.9) +
+  ggplot2::facet_wrap(~interval, scales = 'free_y') +
+  ggplot2::scale_x_continuous(
+    breaks = sensitivity_x_breaks
+  ) +
+  ggplot2::scale_color_manual(values = base::c(D21 = '#2563EB', T21 = '#DC2626')) +
+  ggplot2::labs(
+    x = 'Effective number of input genes',
+    y = 'Mean interval maturation score',
+    title = 'Sensitivity of genotype-timepoint mean scores to gene-list size'
+  ) +
+  theme_ab01(base_size = 10) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+```
+
+## Sensitivity Plot 2: T21 Offset From Matched D21 Anchor
+
+```{r sensitivity-t21-offset, fig.width=9, fig.height=4.8}
+d21_reference <- sensitivity_summary[
+  sensitivity_summary$genotype == 'D21',
+  base::c(
+    'interval',
+    'requested_gene_count',
+    'effective_gene_count',
+    'timepoint_numeric',
+    'maturation_score'
+  ),
+  drop = FALSE
+]
+base::names(d21_reference)[base::names(d21_reference) == 'maturation_score'] <- 'd21_mean_score'
+
+t21_offset <- base::merge(
+  sensitivity_summary[sensitivity_summary$genotype == 'T21', , drop = FALSE],
+  d21_reference,
+  by = base::c(
+    'interval',
+    'requested_gene_count',
+    'effective_gene_count',
+    'timepoint_numeric'
+  ),
+  sort = FALSE
+)
+t21_offset$t21_minus_d21 <- t21_offset$maturation_score - t21_offset$d21_mean_score
+t21_offset$timepoint_label <- base::factor(
+  t21_offset$timepoint_label,
+  levels = timepoint_levels
+)
+
+ggplot2::ggplot(
+  t21_offset,
+  ggplot2::aes(
+    effective_gene_count,
+    t21_minus_d21,
+    color = timepoint_label,
+    group = timepoint_label
+  )
+) +
+  ggplot2::geom_hline(yintercept = 0, linetype = 'dashed', linewidth = 0.3) +
+  ggplot2::geom_line(linewidth = 0.65) +
+  ggplot2::geom_point(size = 0.9) +
+  ggplot2::facet_wrap(~interval, scales = 'free_y') +
+  ggplot2::scale_x_continuous(
+    breaks = sensitivity_x_breaks
+  ) +
+  ggplot2::scale_color_manual(values = base::c(D6 = '#059669', D10 = '#7C3AED', D17 = '#EA580C')) +
+  ggplot2::labs(
+    x = 'Effective number of input genes',
+    y = 'T21 mean score minus matched D21 mean score',
+    title = 'Sensitivity of T21 displacement from the D21 interval anchors'
+  ) +
+  theme_ab01(base_size = 10) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+```
+
+## Sensitivity Plot 3: Convergence Toward the Maximum-Gene Score
+
+```{r sensitivity-score-convergence, fig.width=9.5, fig.height=5.0}
+max_gene_count <- base::max(sensitivity_summary$effective_gene_count)
+max_gene_reference <- sensitivity_summary[
+  sensitivity_summary$effective_gene_count == max_gene_count,
+  base::c(
+    'interval',
+    'genotype',
+    'timepoint_numeric',
+    'maturation_score'
+  ),
+  drop = FALSE
+]
+base::names(max_gene_reference)[
+  base::names(max_gene_reference) == 'maturation_score'
+] <- 'max_gene_maturation_score'
+
+score_convergence <- base::merge(
+  sensitivity_summary,
+  max_gene_reference,
+  by = base::c('interval', 'genotype', 'timepoint_numeric'),
+  sort = FALSE
+)
+score_convergence$absolute_difference_from_max_gene_score <- base::abs(
+  score_convergence$maturation_score -
+    score_convergence$max_gene_maturation_score
+)
+score_convergence$label_group <- base::factor(
+  base::paste(score_convergence$genotype, score_convergence$timepoint_label),
+  levels = base::c(
+    'D21 D6',
+    'T21 D6',
+    'D21 D10',
+    'T21 D10',
+    'D21 D17',
+    'T21 D17'
+  )
+)
+
+ggplot2::ggplot(
+  score_convergence,
+  ggplot2::aes(
+    effective_gene_count,
+    absolute_difference_from_max_gene_score,
+    color = genotype,
+    linetype = timepoint_label,
+    group = label_group
+  )
+) +
+  ggplot2::geom_hline(yintercept = 0, linetype = 'dashed', linewidth = 0.3) +
+  ggplot2::geom_line(linewidth = 0.62) +
+  ggplot2::geom_point(size = 0.9) +
+  ggplot2::facet_wrap(~interval, scales = 'free_y') +
+  ggplot2::scale_x_continuous(
+    breaks = sensitivity_x_breaks
+  ) +
+  ggplot2::scale_color_manual(values = base::c(D21 = '#2563EB', T21 = '#DC2626')) +
+  ggplot2::labs(
+    x = 'Effective number of input genes',
+    y = 'Absolute difference from maximum-gene mean score',
+    title = 'Convergence of interval scores as more genes enter the PCA'
+  ) +
+  theme_ab01(base_size = 10) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+```
+
+# Summary
+
+```{r final-summary}
+primary_mean_summary <- stats::aggregate(
+  maturation_score ~ interval + genotype + timepoint_label,
+  data = primary_scores,
+  FUN = base::mean
+)
+
+primary_mean_summary <- primary_mean_summary[
+  base::order(
+    primary_mean_summary$interval,
+    primary_mean_summary$genotype,
+    primary_mean_summary$timepoint_label
+  ),
+  ,
+  drop = FALSE
+]
+
+primary_mean_summary
+```

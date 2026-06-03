@@ -1,0 +1,68 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const blocks = document.querySelectorAll("div.sourceCode, pre.sourceCode");
+
+    blocks.forEach(function (block) {
+      if (block.closest("details.code-fold")) return;
+
+      const details = document.createElement("details");
+      details.className = "code-fold";
+      details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.textContent = "Code";
+
+      block.parentNode.insertBefore(details, block);
+      details.appendChild(summary);
+      details.appendChild(block);
+    });
+
+    const summaryLinks = Array.from(
+      document.querySelectorAll(
+        ".book-summary ul.summary li.chapter > a[href^='#']",
+      ),
+    );
+    const linkById = new Map(
+      summaryLinks.map(function (link) {
+        return [decodeURIComponent(link.getAttribute("href").slice(1)), link];
+      }),
+    );
+    const headings = Array.from(
+      document.querySelectorAll(
+        "section.normal h1[id], section.normal h2[id], section.normal h3[id]",
+      ),
+    ).filter(function (heading) {
+      return linkById.has(heading.id);
+    });
+
+    function setActiveSidebarLink(activeId) {
+      summaryLinks.forEach(function (link) {
+        const isActive =
+          decodeURIComponent(link.getAttribute("href").slice(1)) === activeId;
+        link.classList.toggle("current-section", isActive);
+        link.parentElement.classList.toggle("current-section-parent", isActive);
+      });
+    }
+
+    function updateActiveSection() {
+      let activeId = headings.length > 0 ? headings[0].id : null;
+      const offset = 120;
+
+      headings.forEach(function (heading) {
+        if (heading.getBoundingClientRect().top <= offset) {
+          activeId = heading.id;
+        }
+      });
+
+      if (activeId) setActiveSidebarLink(activeId);
+    }
+
+    if (headings.length > 0) {
+      updateActiveSection();
+      document.addEventListener("scroll", updateActiveSection, {
+        passive: true,
+      });
+      window.addEventListener("resize", updateActiveSection);
+    }
+  });
+</script>

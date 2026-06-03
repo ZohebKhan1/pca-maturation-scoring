@@ -1,0 +1,176 @@
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+.book.font-family-1,
+.book.font-family-1 .book-body {
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.book .book-body .page-wrapper .page-inner {
+  max-width: 1040px;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal {
+  color: #111111;
+  font-size: 17.5px;
+  line-height: 1.65;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal #header h1.title {
+  border-bottom: none;
+  color: #1260a4;
+  font-size: 2.15em;
+  line-height: 1.15;
+  margin-bottom: 1.1em;
+  padding-bottom: 0;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h1,
+.book .book-body .page-wrapper .page-inner section.normal h2 {
+  color: #1260a4;
+  font-weight: 700;
+  font-size: 1.52em;
+  line-height: 1.22;
+  border-bottom: 1px solid #111111;
+  padding-bottom: 0.08em;
+  margin-top: 1.35em;
+  margin-bottom: 0.72em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h3 {
+  color: #1260a4;
+  font-weight: 700;
+  font-size: 1.14em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .figure {
+  width: 82%;
+  max-width: 860px;
+  margin: 0.65rem auto 2.2rem;
+  text-align: center;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .figcaption,
+.book .book-body .page-wrapper .page-inner section.normal p.caption {
+  font-family: "Inter", Arial, sans-serif;
+  font-style: italic;
+  color: #333333;
+  font-size: 0.96em;
+  line-height: 1.35;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal img {
+  display: block;
+  width: 100%;
+  max-width: 860px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.book .book-summary ul.summary li a {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.book .book-summary ul.summary li.chapter > a.current-section {
+  background: #eaf3fb;
+  border-left: 4px solid #1260a4;
+  color: #0b4f88;
+  font-weight: 700;
+  padding-left: calc(15px - 4px);
+}
+
+.book .book-summary ul.summary li.chapter.current-section-parent {
+  background: transparent;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .anchor-section {
+  display: none !important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal details.code-fold {
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  background: #fbfbfb;
+  margin: 0.85rem 0 1.2rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  summary {
+  color: #333333;
+  cursor: pointer;
+  font-weight: 700;
+  list-style: disclosure-closed;
+  padding: 0.55rem 0.75rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold[open]
+  summary {
+  border-bottom: 1px solid #e5e5e5;
+  list-style: disclosure-open;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  .sourceCode,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  pre {
+  border: 0;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .book .book-body .page-wrapper .page-inner {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .book .book-body .page-wrapper .page-inner section.normal .figure {
+    width: 100%;
+  }
+}

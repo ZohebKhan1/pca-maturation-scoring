@@ -1,0 +1,8 @@
+book_filename: "index"
+output_dir: "../docs"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: ""
+rmd_files:
+  - "cardiomyocyte_maturation_score.Rmd"
