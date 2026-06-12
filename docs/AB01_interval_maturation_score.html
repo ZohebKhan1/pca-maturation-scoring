@@ -1,0 +1,1380 @@
+<!doctype html>
+<html lang="" xml:lang="" >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>AB01 Interval Maturation Scoring</title>
+    <meta
+      name="description"
+      content="PCA views and D21-anchored interval maturation scores for AB01."
+    />
+    <meta
+      name="generator"
+      content="bookdown #bookdown:version# and GitBook 2.6.7"
+    />
+
+    <meta property="og:title" content="AB01 Interval Maturation Scoring" />
+    <meta property="og:type" content="book" />
+         <meta property="og:description" content="PCA views and D21-anchored interval maturation scores for AB01." />
+     
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="AB01 Interval Maturation Scoring" />
+         <meta name="twitter:description" content="PCA views and D21-anchored interval maturation scores for AB01." />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+         <!--bookdown:link_prev-->
+    <!--bookdown:link_next-->
+      <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>       <style type="text/css">
+      html { -webkit-text-size-adjust: 100%; }
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+    
+    <style type="text/css">
+      
+        margin-left: 1.5em;
+        text-indent: -1.5em;
+      }
+    </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
+
+  <body>
+    <!--bookdown:title:start-->
+        <div id="header">
+      <h1 class="title">AB01 Interval Maturation Scoring</h1>
+             </div>
+        <!--bookdown:title:end-->
+
+    <!--bookdown:toc:start-->
+    <div
+      class="book without-animation with-summary font-size-2 font-family-1"
+      data-basepath="."
+    >
+      <div class="book-summary">
+        <nav role="navigation">
+          <!--bookdown:toc2:start-->
+           <ul>
+<li><a href="#overview" id="toc-overview"><span class="toc-section-number">1</span> Overview</a></li>
+<li><a href="#load-ab01-data" id="toc-load-ab01-data"><span class="toc-section-number">2</span> Load AB01 Data</a></li>
+<li><a href="#preprocess-counts-and-compute-vst-once" id="toc-preprocess-counts-and-compute-vst-once"><span class="toc-section-number">3</span> Preprocess Counts and Compute VST Once</a></li>
+<li><a href="#define-pca-and-scoring-helpers" id="toc-define-pca-and-scoring-helpers"><span class="toc-section-number">4</span> Define PCA and Scoring Helpers</a></li>
+<li><a href="#d21-pca-across-d6-d10-and-d17" id="toc-d21-pca-across-d6-d10-and-d17"><span class="toc-section-number">5</span> D21 PCA Across D6, D10, and D17</a></li>
+<li><a href="#d21-pca-using-union-of-adjacent-interval-genes" id="toc-d21-pca-using-union-of-adjacent-interval-genes"><span class="toc-section-number">6</span> D21 PCA Using Union of Adjacent-Interval Genes</a></li>
+<li><a href="#d21-anchored-interval-scores" id="toc-d21-anchored-interval-scores"><span class="toc-section-number">7</span> D21-Anchored Interval Scores</a>
+<ul>
+<li><a href="#interval-pca-views" id="toc-interval-pca-views"><span class="toc-section-number">7.1</span> Interval PCA Views</a></li>
+<li><a href="#individual-day-score-plots" id="toc-individual-day-score-plots"><span class="toc-section-number">7.2</span> Individual-Day Score Plots</a></li>
+</ul></li>
+<li><a href="#sensitivity-of-scores-to-gene-list-size" id="toc-sensitivity-of-scores-to-gene-list-size"><span class="toc-section-number">8</span> Sensitivity of Scores to Gene-List Size</a>
+<ul>
+<li><a href="#mean-score-across-gene-counts" id="toc-mean-score-across-gene-counts"><span class="toc-section-number">8.1</span> Mean Score Across Gene Counts</a></li>
+<li><a href="#tri21-displacement-from-matched-di21" id="toc-tri21-displacement-from-matched-di21"><span class="toc-section-number">8.2</span> Tri21 Displacement From Matched Di21</a></li>
+<li><a href="#convergence-toward-the-maximum-gene-score" id="toc-convergence-toward-the-maximum-gene-score"><span class="toc-section-number">8.3</span> Convergence Toward the Maximum-Gene Score</a></li>
+</ul></li>
+<li><a href="#summary" id="toc-summary"><span class="toc-section-number">9</span> Summary</a></li>
+<li><a href="#zrn01-mesenchyme-pca-checks" id="toc-zrn01-mesenchyme-pca-checks"><span class="toc-section-number">10</span> ZRN01 Mesenchyme PCA Checks</a>
+<ul>
+<li><a href="#zrn01-respiratory-mesenchyme" id="toc-zrn01-respiratory-mesenchyme"><span class="toc-section-number">10.1</span> ZRN01 Respiratory Mesenchyme</a></li>
+<li><a href="#zrn01-esophageal-mesenchyme" id="toc-zrn01-esophageal-mesenchyme"><span class="toc-section-number">10.2</span> ZRN01 Esophageal Mesenchyme</a></li>
+</ul></li>
+</ul> 
+          <!--bookdown:toc2:end-->
+        </nav>
+      </div>
+
+      <div class="book-body">
+        <div class="body-inner">
+          <div class="book-header" role="navigation">
+            <h1>
+              <i class="fa fa-circle-o-notch fa-spin"></i
+              ><a href="./"
+                >AB01 Interval Maturation Scoring</a
+              >
+            </h1>
+          </div>
+
+          <div class="page-wrapper" tabindex="-1" role="main">
+            <div class="page-inner">
+              <section class="normal" id="section-">
+                
+                <!--bookdown:toc:end-->
+                <!--bookdown:body:start-->
+                <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Created:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># 2026-06-03</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Inputs:</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># - data/AB01/metadata/WC24_metadata_clean.rds: AB01 sample metadata</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># - data/AB01/raw counts/WC24_filt_raw_counts.rds: AB01 raw count matrix</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># - data_DSHC1/ZRN01/metadata/ZRN01_metadata.rds: ZRN01 sample metadata</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># - data_DSHC1/ZRN01/counts/ZRN01_vst.rds: ZRN01 VST matrix</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Outputs:</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># - docs/AB01_interval_maturation_score.html: rendered standalone HTML report</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Purpose:</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co"># Test D21-anchored PCA maturation scoring in AB01 and show complementary PCA</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co"># views using D21 samples at D6, D10, and D17.</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co"># Notes:</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co"># VST is computed exactly once with DESeq2::vst(blind = FALSE) using the</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># genotype_timepoint condition after CPM-based expression filtering. The source</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co"># metadata uses D21 and T21 labels; figures display those groups as Di21 and</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co"># Tri21 for readability.</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  <span class="at">fig.align =</span> <span class="st">&#39;center&#39;</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">600</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>project_root <span class="ot">&lt;-</span> <span class="cf">if</span> (base<span class="sc">::</span><span class="fu">basename</span>(base<span class="sc">::</span><span class="fu">getwd</span>()) <span class="sc">==</span> <span class="st">&#39;scripts&#39;</span>) {</span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">normalizePath</span>(<span class="st">&#39;..&#39;</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">getwd</span>()</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>}</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>knitr<span class="sc">::</span>opts_knit<span class="sc">$</span><span class="fu">set</span>(<span class="at">root.dir =</span> project_root)</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>required_packages <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>  <span class="st">&#39;DESeq2&#39;</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>  <span class="st">&#39;SummarizedExperiment&#39;</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a>  <span class="st">&#39;ggplot2&#39;</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>  <span class="st">&#39;grid&#39;</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>missing_packages <span class="ot">&lt;-</span> required_packages[</span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a>  <span class="sc">!</span>base<span class="sc">::</span><span class="fu">vapply</span>(</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a>    required_packages,</span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a>    base<span class="sc">::</span>requireNamespace,</span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">logical</span>(<span class="dv">1</span>),</span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a>    <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a>]</span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="cf">if</span> (base<span class="sc">::</span><span class="fu">length</span>(missing_packages) <span class="sc">&gt;</span> <span class="dv">0</span><span class="dt">L</span>) {</span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">stop</span>(</span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a>    <span class="st">&#39;missing required packages: &#39;</span>,</span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">paste</span>(missing_packages, <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>))</span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a>}</span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a>plot_font_family <span class="ot">&lt;-</span> <span class="st">&#39;Arial&#39;</span></span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a>theme_ab01 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">base_size =</span> <span class="dv">10</span>) {</span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_classic</span>(</span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a>    <span class="at">base_size =</span> base_size,</span>
+<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a>    <span class="at">base_family =</span> plot_font_family) <span class="sc">+</span></span>
+<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">theme</span>(</span>
+<span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a>      <span class="at">text =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">family =</span> plot_font_family),</span>
+<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a>      <span class="at">axis.text =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">family =</span> plot_font_family),</span>
+<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a>      <span class="at">axis.title =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">family =</span> plot_font_family),</span>
+<span id="cb1-65"><a href="#cb1-65" tabindex="-1"></a>      <span class="at">axis.line =</span> ggplot2<span class="sc">::</span><span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>),</span>
+<span id="cb1-66"><a href="#cb1-66" tabindex="-1"></a>      <span class="at">axis.ticks =</span> ggplot2<span class="sc">::</span><span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>),</span>
+<span id="cb1-67"><a href="#cb1-67" tabindex="-1"></a>      <span class="at">panel.grid.major.y =</span> ggplot2<span class="sc">::</span><span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&#39;grey92&#39;</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>),</span>
+<span id="cb1-68"><a href="#cb1-68" tabindex="-1"></a>      <span class="at">panel.grid.major.x =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-69"><a href="#cb1-69" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a>      <span class="at">strip.background =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a>      <span class="at">strip.text =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(</span>
+<span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">&#39;black&#39;</span>,</span>
+<span id="cb1-73"><a href="#cb1-73" tabindex="-1"></a>        <span class="at">face =</span> <span class="st">&#39;bold&#39;</span>,</span>
+<span id="cb1-74"><a href="#cb1-74" tabindex="-1"></a>        <span class="at">family =</span> plot_font_family),</span>
+<span id="cb1-75"><a href="#cb1-75" tabindex="-1"></a>      <span class="at">legend.title =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-76"><a href="#cb1-76" tabindex="-1"></a>      <span class="at">legend.text =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">family =</span> plot_font_family))</span>
+<span id="cb1-77"><a href="#cb1-77" tabindex="-1"></a>}</span></code></pre></div>
+                <div id="overview" class="section level1 hasAnchor" number="1">
+                <h1 class="hasAnchor"><span class="header-section-number">1</span> Overview<a href="#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>This report evaluates AB01 maturation using D21 samples as the reference
+                trajectory. It adds two D21-only PCA views before scoring:</p>
+                <ul>
+                <li>one PCA trained on the top 1000 most variable genes across D21 D6, D10, and D17
+                samples together;</li>
+                <li>one PCA trained on the union of the top 1000 D21-variable genes from the D6-D10
+                and D10-D17 adjacent intervals.</li>
+                </ul>
+                <p>The score plots use the first three PCs from each interval-specific PCA. For
+                D6-D10, the D21 D6 centroid is anchored at 0 and the D21 D10 centroid is anchored
+                at 1. For D10-D17, the D21 D10 centroid is anchored at 1 and the D21 D17 centroid
+                is anchored at 2. T21 samples are projected into the same fixed D21-trained PCA
+                space and scored relative to those D21 anchors.</p>
+                </div>
+                <div id="load-ab01-data" class="section level1 hasAnchor" number="2">
+                <h1 class="hasAnchor"><span class="header-section-number">2</span> Load AB01 Data<a href="#load-ab01-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The metadata and count matrix are loaded directly from the declared AB01 inputs.
+                The stored count columns are reordered to metadata order before any expression
+                filtering or VST calculation.</p>
+                <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">readRDS</span>(<span class="st">&#39;data/AB01/metadata/WC24_metadata_clean.rds&#39;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>counts <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">readRDS</span>(<span class="st">&#39;data/AB01/raw counts/WC24_filt_raw_counts.rds&#39;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">stopifnot</span>(<span class="sc">!</span>base<span class="sc">::</span><span class="fu">anyDuplicated</span>(metadata<span class="sc">$</span>sample_id))</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">stopifnot</span>(base<span class="sc">::</span><span class="fu">all</span>(metadata<span class="sc">$</span>sample_id <span class="sc">%in%</span> base<span class="sc">::</span><span class="fu">colnames</span>(counts)))</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>counts <span class="ot">&lt;-</span> counts[, metadata<span class="sc">$</span>sample_id, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">stopifnot</span>(base<span class="sc">::</span><span class="fu">identical</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">as.character</span>(metadata<span class="sc">$</span>sample_id),</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">colnames</span>(counts)))</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>metadata<span class="sc">$</span>timepoint_numeric <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">as.numeric</span>(base<span class="sc">::</span><span class="fu">as.character</span>(metadata<span class="sc">$</span>timepoint))</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>timepoint_levels <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">paste0</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="st">&#39;D&#39;</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(metadata<span class="sc">$</span>timepoint_numeric)))</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>metadata<span class="sc">$</span>timepoint_label <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">paste0</span>(<span class="st">&#39;D&#39;</span>, metadata<span class="sc">$</span>timepoint_numeric),</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  <span class="at">levels =</span> timepoint_levels)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>metadata<span class="sc">$</span>genotype <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(metadata<span class="sc">$</span>genotype, <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;D21&#39;</span>, <span class="st">&#39;T21&#39;</span>))</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>metadata<span class="sc">$</span>genotype_display <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">as.character</span>(metadata<span class="sc">$</span>genotype),</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;D21&#39;</span>, <span class="st">&#39;T21&#39;</span>),</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  <span class="at">labels =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;Di21&#39;</span>, <span class="st">&#39;Tri21&#39;</span>))</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>metadata<span class="sc">$</span>genotype_timepoint <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  metadata<span class="sc">$</span>genotype_timepoint,</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">unique</span>(metadata<span class="sc">$</span>genotype_timepoint[</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">order</span>(metadata<span class="sc">$</span>timepoint_numeric, metadata<span class="sc">$</span>genotype)</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  ]))</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">rownames</span>(metadata) <span class="ot">&lt;-</span> metadata<span class="sc">$</span>sample_id</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>input_summary <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  <span class="at">samples =</span> base<span class="sc">::</span><span class="fu">nrow</span>(metadata),</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  <span class="at">genotypes =</span> base<span class="sc">::</span><span class="fu">paste</span>(base<span class="sc">::</span><span class="fu">levels</span>(metadata<span class="sc">$</span>genotype_display), <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>),</span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>  <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">paste</span>(</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(metadata<span class="sc">$</span>timepoint_numeric)),</span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>    <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>),</span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>input_summary</span></code></pre></div>
+                <pre><code>##   samples   genotypes timepoints
+## 1      18 Di21, Tri21  6, 10, 17</code></pre>
+                </div>
+                <div id="preprocess-counts-and-compute-vst-once" class="section level1 hasAnchor" number="3">
+                <h1 class="hasAnchor"><span class="header-section-number">3</span> Preprocess Counts and Compute VST Once<a href="#preprocess-counts-and-compute-vst-once" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The CPM filter removes genes with minimal evidence of expression before VST.
+                This is intentionally done once so every PCA and score uses the same transformed
+                expression matrix.</p>
+                <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Critical expression filter: retain genes with CPM &gt;= 1 in at least 3 samples.</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>library_sizes <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">colSums</span>(counts)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>cpm_matrix <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">sweep</span>(counts, <span class="dv">2</span>, library_sizes, <span class="at">FUN =</span> <span class="st">&#39;/&#39;</span>) <span class="sc">*</span> <span class="fl">1e6</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>keep_genes <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">rowSums</span>(cpm_matrix <span class="sc">&gt;=</span> <span class="dv">1</span>) <span class="sc">&gt;=</span> <span class="dv">3</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>filtered_counts <span class="ot">&lt;-</span> counts[keep_genes, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>preprocessing_summary <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="at">retained_genes_after_cpm_filter =</span> base<span class="sc">::</span><span class="fu">nrow</span>(filtered_counts),</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="at">cpm_cutoff =</span> <span class="dv">1</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  <span class="at">minimum_samples =</span> <span class="dv">3</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>preprocessing_summary</span></code></pre></div>
+                <pre><code>##   retained_genes_after_cpm_filter cpm_cutoff minimum_samples
+## 1                           13826          1               3</code></pre>
+                <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>dds <span class="ot">&lt;-</span> DESeq2<span class="sc">::</span><span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">countData =</span> filtered_counts,</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">colData =</span> metadata,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">design =</span> <span class="sc">~</span>genotype_timepoint)</span></code></pre></div>
+                <pre><code>## converting counts to integer mode</code></pre>
+                <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>vst_matrix <span class="ot">&lt;-</span> SummarizedExperiment<span class="sc">::</span><span class="fu">assay</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  DESeq2<span class="sc">::</span><span class="fu">vst</span>(dds, <span class="at">blind =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">stopifnot</span>(base<span class="sc">::</span><span class="fu">identical</span>(base<span class="sc">::</span><span class="fu">colnames</span>(vst_matrix), metadata<span class="sc">$</span>sample_id))</span></code></pre></div>
+                </div>
+                <div id="define-pca-and-scoring-helpers" class="section level1 hasAnchor" number="4">
+                <h1 class="hasAnchor"><span class="header-section-number">4</span> Define PCA and Scoring Helpers<a href="#define-pca-and-scoring-helpers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>These helpers keep gene selection, PCA projection, variance labeling, and
+                interval scoring explicit. PCA is centered but not scaled, so genes with larger
+                VST variation contribute more strongly after the D21-only feature-selection step.</p>
+                <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Critical PCA parameter: all requested PCA gene sets use the top 1000 genes.</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>pca_gene_count <span class="ot">=</span> <span class="dv">1000</span><span class="dt">L</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># Critical scoring parameter: maturation scores use PC1, PC2, and PC3.</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>n_scoring_pcs <span class="ot">=</span> <span class="dv">3</span><span class="dt">L</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co"># Sensitivity parameter: repeat scoring every 100 genes through the full filtered VST gene set.</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>sensitivity_gene_counts <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">unique</span>(base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">seq</span>(<span class="dv">100</span><span class="dt">L</span>, base<span class="sc">::</span><span class="fu">nrow</span>(vst_matrix), <span class="at">by =</span> <span class="dv">100</span><span class="dt">L</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">nrow</span>(vst_matrix)))</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>sensitivity_x_breaks <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">seq</span>(<span class="dv">500</span><span class="dt">L</span>, base<span class="sc">::</span><span class="fu">max</span>(sensitivity_gene_counts), <span class="at">by =</span> <span class="dv">500</span><span class="dt">L</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>interval_specs <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  <span class="at">interval =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;D6-D10&#39;</span>, <span class="st">&#39;D10-D17&#39;</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>  <span class="at">start_timepoint =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">10</span>),</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>  <span class="at">end_timepoint =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">17</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>  <span class="at">score_start =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>  <span class="at">score_end =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>interval_specs<span class="sc">$</span>interval <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a>  interval_specs<span class="sc">$</span>interval,</span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;D6-D10&#39;</span>, <span class="st">&#39;D10-D17&#39;</span>))</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>genotype_colors <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="at">Di21 =</span> <span class="st">&#39;#2563EB&#39;</span>, <span class="at">Tri21 =</span> <span class="st">&#39;#DC2626&#39;</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>timepoint_colors <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>  <span class="at">D4 =</span> <span class="st">&#39;#64748B&#39;</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>  <span class="at">D6 =</span> <span class="st">&#39;#059669&#39;</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>  <span class="at">D7 =</span> <span class="st">&#39;#0D9488&#39;</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a>  <span class="at">D10 =</span> <span class="st">&#39;#7C3AED&#39;</span>,</span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>  <span class="at">D15 =</span> <span class="st">&#39;#F59E0B&#39;</span>,</span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>  <span class="at">D17 =</span> <span class="st">&#39;#EA580C&#39;</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>get_sample_ids <span class="ot">&lt;-</span> <span class="cf">function</span>(sample_metadata, timepoints, <span class="at">genotype =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> sample_metadata<span class="sc">$</span>timepoint_numeric <span class="sc">%in%</span> timepoints</span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>base<span class="sc">::</span><span class="fu">is.null</span>(genotype)) {</span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a>    keep <span class="ot">&lt;-</span> keep <span class="sc">&amp;</span> sample_metadata<span class="sc">$</span>genotype <span class="sc">==</span> genotype</span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a>  }</span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">as.character</span>(sample_metadata<span class="sc">$</span>sample_id[keep])</span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a>}</span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a>select_top_variable_genes <span class="ot">&lt;-</span> <span class="cf">function</span>(vst_matrix, sample_metadata, timepoints,</span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a>                                      <span class="at">genotype =</span> <span class="st">&#39;D21&#39;</span>,</span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a>                                      <span class="at">requested_gene_count =</span> pca_gene_count) {</span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a>  sample_ids <span class="ot">&lt;-</span> <span class="fu">get_sample_ids</span>(</span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a>    <span class="at">sample_metadata =</span> sample_metadata,</span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a>    <span class="at">timepoints =</span> timepoints,</span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a>    <span class="at">genotype =</span> genotype)</span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a>  gene_variance <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">apply</span>(vst_matrix[, sample_ids, <span class="at">drop =</span> <span class="cn">FALSE</span>], <span class="dv">1</span>, stats<span class="sc">::</span>var)</span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a>  ranked_genes <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">names</span>(base<span class="sc">::</span><span class="fu">sort</span>(gene_variance, <span class="at">decreasing =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a>  effective_gene_count <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">min</span>(requested_gene_count, base<span class="sc">::</span><span class="fu">length</span>(ranked_genes))</span>
+<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a></span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a>    <span class="at">gene_id =</span> ranked_genes[base<span class="sc">::</span><span class="fu">seq_len</span>(effective_gene_count)],</span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a>    <span class="at">variance =</span> gene_variance[ranked_genes[base<span class="sc">::</span><span class="fu">seq_len</span>(effective_gene_count)]],</span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a>    <span class="at">requested_gene_count =</span> requested_gene_count,</span>
+<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a>    <span class="at">effective_gene_count =</span> effective_gene_count,</span>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a>}</span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a>project_samples_into_pca <span class="ot">&lt;-</span> <span class="cf">function</span>(vst_subset, pca_fit) {</span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>base<span class="sc">::</span><span class="fu">identical</span>(base<span class="sc">::</span><span class="fu">rownames</span>(vst_subset), base<span class="sc">::</span><span class="fu">rownames</span>(pca_fit<span class="sc">$</span>rotation))) {</span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">stop</span>(<span class="st">&#39;vst_subset rows must match pca_fit rotation rows exactly.&#39;</span>)</span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a>  }</span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a>  projected <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">scale</span>(</span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">t</span>(vst_subset),</span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a>    <span class="at">center =</span> pca_fit<span class="sc">$</span>center,</span>
+<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a>    <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a>  coord <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">as.data.frame</span>(projected <span class="sc">%*%</span> pca_fit<span class="sc">$</span>rotation)</span>
+<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a>  coord<span class="sc">$</span>sample_id <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">rownames</span>(coord)</span>
+<span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a>  coord</span>
+<span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a>}</span>
+<span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a></span>
+<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a>calculate_variance_explained <span class="ot">&lt;-</span> <span class="cf">function</span>(pca_fit) {</span>
+<span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a>  variance_explained <span class="ot">&lt;-</span> (pca_fit<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> base<span class="sc">::</span><span class="fu">sum</span>(pca_fit<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb9-76"><a href="#cb9-76" tabindex="-1"></a>  stats<span class="sc">::</span><span class="fu">setNames</span>(variance_explained, base<span class="sc">::</span><span class="fu">paste0</span>(<span class="st">&#39;PC&#39;</span>, base<span class="sc">::</span><span class="fu">seq_along</span>(variance_explained)))</span>
+<span id="cb9-77"><a href="#cb9-77" tabindex="-1"></a>}</span>
+<span id="cb9-78"><a href="#cb9-78" tabindex="-1"></a></span>
+<span id="cb9-79"><a href="#cb9-79" tabindex="-1"></a>format_pc_axis_label <span class="ot">&lt;-</span> <span class="cf">function</span>(pc_name, variance_explained) {</span>
+<span id="cb9-80"><a href="#cb9-80" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">paste0</span>(pc_name, <span class="st">&#39; (&#39;</span>, base<span class="sc">::</span><span class="fu">round</span>(variance_explained[[pc_name]], <span class="dv">1</span>), <span class="st">&#39;% variance)&#39;</span>)</span>
+<span id="cb9-81"><a href="#cb9-81" tabindex="-1"></a>}</span>
+<span id="cb9-82"><a href="#cb9-82" tabindex="-1"></a></span>
+<span id="cb9-83"><a href="#cb9-83" tabindex="-1"></a>build_d21_pca <span class="ot">&lt;-</span> <span class="cf">function</span>(vst_matrix, sample_metadata, gene_ids, training_timepoints) {</span>
+<span id="cb9-84"><a href="#cb9-84" tabindex="-1"></a>  training_ids <span class="ot">&lt;-</span> <span class="fu">get_sample_ids</span>(</span>
+<span id="cb9-85"><a href="#cb9-85" tabindex="-1"></a>    <span class="at">sample_metadata =</span> sample_metadata,</span>
+<span id="cb9-86"><a href="#cb9-86" tabindex="-1"></a>    <span class="at">timepoints =</span> training_timepoints,</span>
+<span id="cb9-87"><a href="#cb9-87" tabindex="-1"></a>    <span class="at">genotype =</span> <span class="st">&#39;D21&#39;</span>)</span>
+<span id="cb9-88"><a href="#cb9-88" tabindex="-1"></a>  pca_fit <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(</span>
+<span id="cb9-89"><a href="#cb9-89" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">t</span>(vst_matrix[gene_ids, training_ids, <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb9-90"><a href="#cb9-90" tabindex="-1"></a>    <span class="at">center =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-91"><a href="#cb9-91" tabindex="-1"></a>    <span class="at">scale. =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-92"><a href="#cb9-92" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> <span class="fu">project_samples_into_pca</span>(</span>
+<span id="cb9-93"><a href="#cb9-93" tabindex="-1"></a>    <span class="at">vst_subset =</span> vst_matrix[gene_ids, training_ids, <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb9-94"><a href="#cb9-94" tabindex="-1"></a>    <span class="at">pca_fit =</span> pca_fit)</span>
+<span id="cb9-95"><a href="#cb9-95" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">merge</span>(</span>
+<span id="cb9-96"><a href="#cb9-96" tabindex="-1"></a>    sample_metadata,</span>
+<span id="cb9-97"><a href="#cb9-97" tabindex="-1"></a>    coords,</span>
+<span id="cb9-98"><a href="#cb9-98" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">&#39;sample_id&#39;</span>,</span>
+<span id="cb9-99"><a href="#cb9-99" tabindex="-1"></a>    <span class="at">sort =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-100"><a href="#cb9-100" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> coords[base<span class="sc">::</span><span class="fu">match</span>(training_ids, coords<span class="sc">$</span>sample_id), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb9-101"><a href="#cb9-101" tabindex="-1"></a></span>
+<span id="cb9-102"><a href="#cb9-102" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">list</span>(</span>
+<span id="cb9-103"><a href="#cb9-103" tabindex="-1"></a>    <span class="at">pca_fit =</span> pca_fit,</span>
+<span id="cb9-104"><a href="#cb9-104" tabindex="-1"></a>    <span class="at">coords =</span> coords,</span>
+<span id="cb9-105"><a href="#cb9-105" tabindex="-1"></a>    <span class="at">variance_explained =</span> <span class="fu">calculate_variance_explained</span>(pca_fit))</span>
+<span id="cb9-106"><a href="#cb9-106" tabindex="-1"></a>}</span>
+<span id="cb9-107"><a href="#cb9-107" tabindex="-1"></a></span>
+<span id="cb9-108"><a href="#cb9-108" tabindex="-1"></a>plot_d21_pca <span class="ot">&lt;-</span> <span class="cf">function</span>(pca_result, plot_title) {</span>
+<span id="cb9-109"><a href="#cb9-109" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb9-110"><a href="#cb9-110" tabindex="-1"></a>    pca_result<span class="sc">$</span>coords,</span>
+<span id="cb9-111"><a href="#cb9-111" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(PC1, PC2, <span class="at">color =</span> timepoint_label)) <span class="sc">+</span></span>
+<span id="cb9-112"><a href="#cb9-112" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">stroke =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb9-113"><a href="#cb9-113" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(<span class="at">values =</span> timepoint_colors) <span class="sc">+</span></span>
+<span id="cb9-114"><a href="#cb9-114" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb9-115"><a href="#cb9-115" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">format_pc_axis_label</span>(<span class="st">&#39;PC1&#39;</span>, pca_result<span class="sc">$</span>variance_explained),</span>
+<span id="cb9-116"><a href="#cb9-116" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">format_pc_axis_label</span>(<span class="st">&#39;PC2&#39;</span>, pca_result<span class="sc">$</span>variance_explained),</span>
+<span id="cb9-117"><a href="#cb9-117" tabindex="-1"></a>      <span class="at">title =</span> plot_title) <span class="sc">+</span></span>
+<span id="cb9-118"><a href="#cb9-118" tabindex="-1"></a>    <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb9-119"><a href="#cb9-119" tabindex="-1"></a>}</span>
+<span id="cb9-120"><a href="#cb9-120" tabindex="-1"></a></span>
+<span id="cb9-121"><a href="#cb9-121" tabindex="-1"></a>plot_scree <span class="ot">&lt;-</span> <span class="cf">function</span>(pca_result, plot_title, <span class="at">n_pcs =</span> <span class="dv">15</span><span class="dt">L</span>) {</span>
+<span id="cb9-122"><a href="#cb9-122" tabindex="-1"></a>  n_available_pcs <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">min</span>(n_pcs, base<span class="sc">::</span><span class="fu">length</span>(pca_result<span class="sc">$</span>variance_explained))</span>
+<span id="cb9-123"><a href="#cb9-123" tabindex="-1"></a>  scree_df <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb9-124"><a href="#cb9-124" tabindex="-1"></a>    <span class="at">pc =</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb9-125"><a href="#cb9-125" tabindex="-1"></a>      base<span class="sc">::</span><span class="fu">paste0</span>(<span class="st">&#39;PC&#39;</span>, base<span class="sc">::</span><span class="fu">seq_len</span>(n_available_pcs)),</span>
+<span id="cb9-126"><a href="#cb9-126" tabindex="-1"></a>      <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">paste0</span>(<span class="st">&#39;PC&#39;</span>, base<span class="sc">::</span><span class="fu">seq_len</span>(n_available_pcs))),</span>
+<span id="cb9-127"><a href="#cb9-127" tabindex="-1"></a>    <span class="at">variance_explained =</span> pca_result<span class="sc">$</span>variance_explained[base<span class="sc">::</span><span class="fu">seq_len</span>(n_available_pcs)],</span>
+<span id="cb9-128"><a href="#cb9-128" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-129"><a href="#cb9-129" tabindex="-1"></a></span>
+<span id="cb9-130"><a href="#cb9-130" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb9-131"><a href="#cb9-131" tabindex="-1"></a>    scree_df,</span>
+<span id="cb9-132"><a href="#cb9-132" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(pc, variance_explained)) <span class="sc">+</span></span>
+<span id="cb9-133"><a href="#cb9-133" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.72</span>, <span class="at">fill =</span> <span class="st">&#39;#4B5563&#39;</span>, <span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb9-134"><a href="#cb9-134" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb9-135"><a href="#cb9-135" tabindex="-1"></a>      <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb9-136"><a href="#cb9-136" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">&#39;% variance explained&#39;</span>,</span>
+<span id="cb9-137"><a href="#cb9-137" tabindex="-1"></a>      <span class="at">title =</span> plot_title) <span class="sc">+</span></span>
+<span id="cb9-138"><a href="#cb9-138" tabindex="-1"></a>    <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb9-139"><a href="#cb9-139" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">axis.text.x =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb9-140"><a href="#cb9-140" tabindex="-1"></a>}</span>
+<span id="cb9-141"><a href="#cb9-141" tabindex="-1"></a></span>
+<span id="cb9-142"><a href="#cb9-142" tabindex="-1"></a>score_interval <span class="ot">&lt;-</span> <span class="cf">function</span>(vst_matrix, sample_metadata, interval_row,</span>
+<span id="cb9-143"><a href="#cb9-143" tabindex="-1"></a>                           <span class="at">requested_gene_count =</span> pca_gene_count,</span>
+<span id="cb9-144"><a href="#cb9-144" tabindex="-1"></a>                           <span class="at">n_score_pcs =</span> n_scoring_pcs) {</span>
+<span id="cb9-145"><a href="#cb9-145" tabindex="-1"></a>  start_timepoint <span class="ot">&lt;-</span> interval_row<span class="sc">$</span>start_timepoint[[<span class="dv">1</span>]]</span>
+<span id="cb9-146"><a href="#cb9-146" tabindex="-1"></a>  end_timepoint <span class="ot">&lt;-</span> interval_row<span class="sc">$</span>end_timepoint[[<span class="dv">1</span>]]</span>
+<span id="cb9-147"><a href="#cb9-147" tabindex="-1"></a>  score_start <span class="ot">&lt;-</span> interval_row<span class="sc">$</span>score_start[[<span class="dv">1</span>]]</span>
+<span id="cb9-148"><a href="#cb9-148" tabindex="-1"></a>  score_end <span class="ot">&lt;-</span> interval_row<span class="sc">$</span>score_end[[<span class="dv">1</span>]]</span>
+<span id="cb9-149"><a href="#cb9-149" tabindex="-1"></a></span>
+<span id="cb9-150"><a href="#cb9-150" tabindex="-1"></a>  gene_table <span class="ot">&lt;-</span> <span class="fu">select_top_variable_genes</span>(</span>
+<span id="cb9-151"><a href="#cb9-151" tabindex="-1"></a>    <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb9-152"><a href="#cb9-152" tabindex="-1"></a>    <span class="at">sample_metadata =</span> sample_metadata,</span>
+<span id="cb9-153"><a href="#cb9-153" tabindex="-1"></a>    <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(start_timepoint, end_timepoint),</span>
+<span id="cb9-154"><a href="#cb9-154" tabindex="-1"></a>    <span class="at">genotype =</span> <span class="st">&#39;D21&#39;</span>,</span>
+<span id="cb9-155"><a href="#cb9-155" tabindex="-1"></a>    <span class="at">requested_gene_count =</span> requested_gene_count)</span>
+<span id="cb9-156"><a href="#cb9-156" tabindex="-1"></a>  gene_ids <span class="ot">&lt;-</span> gene_table<span class="sc">$</span>gene_id</span>
+<span id="cb9-157"><a href="#cb9-157" tabindex="-1"></a></span>
+<span id="cb9-158"><a href="#cb9-158" tabindex="-1"></a>  training_ids <span class="ot">&lt;-</span> <span class="fu">get_sample_ids</span>(</span>
+<span id="cb9-159"><a href="#cb9-159" tabindex="-1"></a>    <span class="at">sample_metadata =</span> sample_metadata,</span>
+<span id="cb9-160"><a href="#cb9-160" tabindex="-1"></a>    <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(start_timepoint, end_timepoint),</span>
+<span id="cb9-161"><a href="#cb9-161" tabindex="-1"></a>    <span class="at">genotype =</span> <span class="st">&#39;D21&#39;</span>)</span>
+<span id="cb9-162"><a href="#cb9-162" tabindex="-1"></a>  projection_ids <span class="ot">&lt;-</span> <span class="fu">get_sample_ids</span>(</span>
+<span id="cb9-163"><a href="#cb9-163" tabindex="-1"></a>    <span class="at">sample_metadata =</span> sample_metadata,</span>
+<span id="cb9-164"><a href="#cb9-164" tabindex="-1"></a>    <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(start_timepoint, end_timepoint))</span>
+<span id="cb9-165"><a href="#cb9-165" tabindex="-1"></a></span>
+<span id="cb9-166"><a href="#cb9-166" tabindex="-1"></a>  pca_fit <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(</span>
+<span id="cb9-167"><a href="#cb9-167" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">t</span>(vst_matrix[gene_ids, training_ids, <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb9-168"><a href="#cb9-168" tabindex="-1"></a>    <span class="at">center =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-169"><a href="#cb9-169" tabindex="-1"></a>    <span class="at">scale. =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-170"><a href="#cb9-170" tabindex="-1"></a>  pc_cols <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">paste0</span>(</span>
+<span id="cb9-171"><a href="#cb9-171" tabindex="-1"></a>    <span class="st">&#39;PC&#39;</span>,</span>
+<span id="cb9-172"><a href="#cb9-172" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">seq_len</span>(base<span class="sc">::</span><span class="fu">min</span>(n_score_pcs, base<span class="sc">::</span><span class="fu">ncol</span>(pca_fit<span class="sc">$</span>x))))</span>
+<span id="cb9-173"><a href="#cb9-173" tabindex="-1"></a></span>
+<span id="cb9-174"><a href="#cb9-174" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> <span class="fu">project_samples_into_pca</span>(</span>
+<span id="cb9-175"><a href="#cb9-175" tabindex="-1"></a>    <span class="at">vst_subset =</span> vst_matrix[gene_ids, projection_ids, <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb9-176"><a href="#cb9-176" tabindex="-1"></a>    <span class="at">pca_fit =</span> pca_fit)</span>
+<span id="cb9-177"><a href="#cb9-177" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> coords[, base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;sample_id&#39;</span>, pc_cols), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb9-178"><a href="#cb9-178" tabindex="-1"></a>  score_df <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">merge</span>(</span>
+<span id="cb9-179"><a href="#cb9-179" tabindex="-1"></a>    sample_metadata,</span>
+<span id="cb9-180"><a href="#cb9-180" tabindex="-1"></a>    coords,</span>
+<span id="cb9-181"><a href="#cb9-181" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">&#39;sample_id&#39;</span>,</span>
+<span id="cb9-182"><a href="#cb9-182" tabindex="-1"></a>    <span class="at">sort =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-183"><a href="#cb9-183" tabindex="-1"></a>  score_df <span class="ot">&lt;-</span> score_df[base<span class="sc">::</span><span class="fu">match</span>(projection_ids, score_df<span class="sc">$</span>sample_id), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb9-184"><a href="#cb9-184" tabindex="-1"></a></span>
+<span id="cb9-185"><a href="#cb9-185" tabindex="-1"></a>  start_centroid <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">colMeans</span>(score_df[</span>
+<span id="cb9-186"><a href="#cb9-186" tabindex="-1"></a>    score_df<span class="sc">$</span>genotype <span class="sc">==</span> <span class="st">&#39;D21&#39;</span> <span class="sc">&amp;</span> score_df<span class="sc">$</span>timepoint_numeric <span class="sc">==</span> start_timepoint,</span>
+<span id="cb9-187"><a href="#cb9-187" tabindex="-1"></a>    pc_cols,</span>
+<span id="cb9-188"><a href="#cb9-188" tabindex="-1"></a>    <span class="at">drop =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-189"><a href="#cb9-189" tabindex="-1"></a>  ])</span>
+<span id="cb9-190"><a href="#cb9-190" tabindex="-1"></a>  end_centroid <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">colMeans</span>(score_df[</span>
+<span id="cb9-191"><a href="#cb9-191" tabindex="-1"></a>    score_df<span class="sc">$</span>genotype <span class="sc">==</span> <span class="st">&#39;D21&#39;</span> <span class="sc">&amp;</span> score_df<span class="sc">$</span>timepoint_numeric <span class="sc">==</span> end_timepoint,</span>
+<span id="cb9-192"><a href="#cb9-192" tabindex="-1"></a>    pc_cols,</span>
+<span id="cb9-193"><a href="#cb9-193" tabindex="-1"></a>    <span class="at">drop =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-194"><a href="#cb9-194" tabindex="-1"></a>  ])</span>
+<span id="cb9-195"><a href="#cb9-195" tabindex="-1"></a>  vector_raw <span class="ot">&lt;-</span> end_centroid <span class="sc">-</span> start_centroid</span>
+<span id="cb9-196"><a href="#cb9-196" tabindex="-1"></a>  vector_length_sq <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">sum</span>(vector_raw<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb9-197"><a href="#cb9-197" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>base<span class="sc">::</span><span class="fu">is.finite</span>(vector_length_sq) <span class="sc">||</span> vector_length_sq <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
+<span id="cb9-198"><a href="#cb9-198" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">stop</span>(<span class="st">&#39;interval centroid vector has zero length.&#39;</span>)</span>
+<span id="cb9-199"><a href="#cb9-199" tabindex="-1"></a>  }</span>
+<span id="cb9-200"><a href="#cb9-200" tabindex="-1"></a></span>
+<span id="cb9-201"><a href="#cb9-201" tabindex="-1"></a>  coords_mat <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">as.matrix</span>(score_df[, pc_cols, <span class="at">drop =</span> <span class="cn">FALSE</span>])</span>
+<span id="cb9-202"><a href="#cb9-202" tabindex="-1"></a>  centered_coords <span class="ot">&lt;-</span> coords_mat <span class="sc">-</span> base<span class="sc">::</span><span class="fu">matrix</span>(</span>
+<span id="cb9-203"><a href="#cb9-203" tabindex="-1"></a>    start_centroid,</span>
+<span id="cb9-204"><a href="#cb9-204" tabindex="-1"></a>    <span class="at">nrow =</span> base<span class="sc">::</span><span class="fu">nrow</span>(coords_mat),</span>
+<span id="cb9-205"><a href="#cb9-205" tabindex="-1"></a>    <span class="at">ncol =</span> base<span class="sc">::</span><span class="fu">length</span>(pc_cols),</span>
+<span id="cb9-206"><a href="#cb9-206" tabindex="-1"></a>    <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-207"><a href="#cb9-207" tabindex="-1"></a>  unit_interval_score <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">as.numeric</span>(centered_coords <span class="sc">%*%</span> vector_raw) <span class="sc">/</span> vector_length_sq</span>
+<span id="cb9-208"><a href="#cb9-208" tabindex="-1"></a>  score_df<span class="sc">$</span>maturation_score <span class="ot">&lt;-</span> score_start <span class="sc">+</span> unit_interval_score <span class="sc">*</span> (score_end <span class="sc">-</span> score_start)</span>
+<span id="cb9-209"><a href="#cb9-209" tabindex="-1"></a></span>
+<span id="cb9-210"><a href="#cb9-210" tabindex="-1"></a>  score_df<span class="sc">$</span>interval <span class="ot">&lt;-</span> interval_row<span class="sc">$</span>interval[[<span class="dv">1</span>]]</span>
+<span id="cb9-211"><a href="#cb9-211" tabindex="-1"></a>  score_df<span class="sc">$</span>interval <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb9-212"><a href="#cb9-212" tabindex="-1"></a>    score_df<span class="sc">$</span>interval,</span>
+<span id="cb9-213"><a href="#cb9-213" tabindex="-1"></a>    <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">levels</span>(interval_specs<span class="sc">$</span>interval))</span>
+<span id="cb9-214"><a href="#cb9-214" tabindex="-1"></a>  score_df<span class="sc">$</span>interval_start_timepoint <span class="ot">&lt;-</span> start_timepoint</span>
+<span id="cb9-215"><a href="#cb9-215" tabindex="-1"></a>  score_df<span class="sc">$</span>interval_end_timepoint <span class="ot">&lt;-</span> end_timepoint</span>
+<span id="cb9-216"><a href="#cb9-216" tabindex="-1"></a>  score_df<span class="sc">$</span>score_start <span class="ot">&lt;-</span> score_start</span>
+<span id="cb9-217"><a href="#cb9-217" tabindex="-1"></a>  score_df<span class="sc">$</span>score_end <span class="ot">&lt;-</span> score_end</span>
+<span id="cb9-218"><a href="#cb9-218" tabindex="-1"></a>  score_df<span class="sc">$</span>requested_gene_count <span class="ot">&lt;-</span> requested_gene_count</span>
+<span id="cb9-219"><a href="#cb9-219" tabindex="-1"></a>  score_df<span class="sc">$</span>effective_gene_count <span class="ot">&lt;-</span> gene_table<span class="sc">$</span>effective_gene_count[[<span class="dv">1</span>]]</span>
+<span id="cb9-220"><a href="#cb9-220" tabindex="-1"></a></span>
+<span id="cb9-221"><a href="#cb9-221" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">list</span>(</span>
+<span id="cb9-222"><a href="#cb9-222" tabindex="-1"></a>    <span class="at">score_table =</span> score_df,</span>
+<span id="cb9-223"><a href="#cb9-223" tabindex="-1"></a>    <span class="at">gene_table =</span> gene_table,</span>
+<span id="cb9-224"><a href="#cb9-224" tabindex="-1"></a>    <span class="at">pca_fit =</span> pca_fit,</span>
+<span id="cb9-225"><a href="#cb9-225" tabindex="-1"></a>    <span class="at">pc_columns =</span> pc_cols,</span>
+<span id="cb9-226"><a href="#cb9-226" tabindex="-1"></a>    <span class="at">start_centroid =</span> start_centroid,</span>
+<span id="cb9-227"><a href="#cb9-227" tabindex="-1"></a>    <span class="at">end_centroid =</span> end_centroid,</span>
+<span id="cb9-228"><a href="#cb9-228" tabindex="-1"></a>    <span class="at">variance_explained =</span> <span class="fu">calculate_variance_explained</span>(pca_fit))</span>
+<span id="cb9-229"><a href="#cb9-229" tabindex="-1"></a>}</span></code></pre></div>
+                </div>
+                <div id="d21-pca-across-d6-d10-and-d17" class="section level1 hasAnchor" number="5">
+                <h1 class="hasAnchor"><span class="header-section-number">5</span> D21 PCA Across D6, D10, and D17<a href="#d21-pca-across-d6-d10-and-d17" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>This PCA asks whether D21 samples separate by developmental day when the feature
+                set is selected from all three D21 timepoints together. Genes are ranked by VST
+                variance across D21 D6, D10, and D17 samples, and the top 1000 genes are used for
+                PCA.</p>
+                <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>all_timepoint_gene_table <span class="ot">&lt;-</span> <span class="fu">select_top_variable_genes</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="at">sample_metadata =</span> metadata,</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">17</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="at">genotype =</span> <span class="st">&#39;D21&#39;</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="at">requested_gene_count =</span> pca_gene_count)</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>all_timepoint_pca <span class="ot">&lt;-</span> <span class="fu">build_d21_pca</span>(</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>  <span class="at">sample_metadata =</span> metadata,</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>  <span class="at">gene_ids =</span> all_timepoint_gene_table<span class="sc">$</span>gene_id,</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>  <span class="at">training_timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">17</span>))</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  <span class="at">requested_gene_count =</span> all_timepoint_gene_table<span class="sc">$</span>requested_gene_count[[<span class="dv">1</span>]],</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  <span class="at">effective_gene_count =</span> all_timepoint_gene_table<span class="sc">$</span>effective_gene_count[[<span class="dv">1</span>]],</span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  <span class="at">largest_gene_variance =</span> base<span class="sc">::</span><span class="fu">max</span>(all_timepoint_gene_table<span class="sc">$</span>variance),</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+                <pre><code>##   requested_gene_count effective_gene_count largest_gene_variance
+## 1                 1000                 1000               7.23323</code></pre>
+                <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">plot_d21_pca</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="at">pca_result =</span> all_timepoint_pca,</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;D21 PCA using top variable genes across D6, D10, and D17&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/all-timepoint-d21-pca-plot-1.png" alt="" width="3120" style="display: block; margin: auto;" /></p>
+                <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">plot_scree</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="at">pca_result =</span> all_timepoint_pca,</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;D21 all-timepoint PCA scree plot&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/all-timepoint-d21-scree-plot-1.png" alt="" width="3720" style="display: block; margin: auto;" /></p>
+                </div>
+                <div id="d21-pca-using-union-of-adjacent-interval-genes" class="section level1 hasAnchor" number="6">
+                <h1 class="hasAnchor"><span class="header-section-number">6</span> D21 PCA Using Union of Adjacent-Interval Genes<a href="#d21-pca-using-union-of-adjacent-interval-genes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>This PCA uses a union feature set from two adjacent D21 comparisons. The first
+                set is the top 1000 most variable genes across D21 D6 and D10 samples. The
+                second set is the top 1000 most variable genes across D21 D10 and D17 samples.
+                The union is then used to train one D21 PCA across D6, D10, and D17.</p>
+                <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>d6_d10_gene_table <span class="ot">&lt;-</span> <span class="fu">select_top_variable_genes</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="at">sample_metadata =</span> metadata,</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">10</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="at">genotype =</span> <span class="st">&#39;D21&#39;</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>  <span class="at">requested_gene_count =</span> pca_gene_count)</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>d10_d17_gene_table <span class="ot">&lt;-</span> <span class="fu">select_top_variable_genes</span>(</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>  <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="at">sample_metadata =</span> metadata,</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">17</span>),</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="at">genotype =</span> <span class="st">&#39;D21&#39;</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>  <span class="at">requested_gene_count =</span> pca_gene_count)</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>union_interval_genes <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">union</span>(</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>  d6_d10_gene_table<span class="sc">$</span>gene_id,</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>  d10_d17_gene_table<span class="sc">$</span>gene_id)</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>union_interval_pca <span class="ot">&lt;-</span> <span class="fu">build_d21_pca</span>(</span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>  <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>  <span class="at">sample_metadata =</span> metadata,</span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>  <span class="at">gene_ids =</span> union_interval_genes,</span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>  <span class="at">training_timepoints =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">17</span>))</span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a>  <span class="at">d6_d10_genes =</span> base<span class="sc">::</span><span class="fu">length</span>(d6_d10_gene_table<span class="sc">$</span>gene_id),</span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a>  <span class="at">d10_d17_genes =</span> base<span class="sc">::</span><span class="fu">length</span>(d10_d17_gene_table<span class="sc">$</span>gene_id),</span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a>  <span class="at">union_genes =</span> base<span class="sc">::</span><span class="fu">length</span>(union_interval_genes),</span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a>  <span class="at">overlap_genes =</span> base<span class="sc">::</span><span class="fu">length</span>(base<span class="sc">::</span><span class="fu">intersect</span>(d6_d10_gene_table<span class="sc">$</span>gene_id, d10_d17_gene_table<span class="sc">$</span>gene_id)),</span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+                <pre><code>##   d6_d10_genes d10_d17_genes union_genes overlap_genes
+## 1         1000          1000        1708           292</code></pre>
+                <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">plot_d21_pca</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="at">pca_result =</span> union_interval_pca,</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;D21 PCA using union of adjacent-interval variable genes&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/union-interval-d21-pca-plot-1.png" alt="" width="3120" style="display: block; margin: auto;" /></p>
+                <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">plot_scree</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="at">pca_result =</span> union_interval_pca,</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;D21 union-gene PCA scree plot&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/union-interval-d21-scree-plot-1.png" alt="" width="3720" style="display: block; margin: auto;" /></p>
+                </div>
+                <div id="d21-anchored-interval-scores" class="section level1 hasAnchor" number="7">
+                <h1 class="hasAnchor"><span class="header-section-number">7</span> D21-Anchored Interval Scores<a href="#d21-anchored-interval-scores" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>Each interval score is computed in its own D21-trained PCA space. The feature
+                set is selected from the D21 samples in that interval only, the PCA is trained on
+                those D21 samples, and both D21 and T21 samples from the same two timepoints are
+                projected into that fixed PCA. The maturation coordinate is the projection of
+                each sample onto the D21 start-to-end centroid vector using PC1, PC2, and PC3.</p>
+                <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>primary_results <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">lapply</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">seq_len</span>(base<span class="sc">::</span><span class="fu">nrow</span>(interval_specs)),</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="cf">function</span>(i) {</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>    <span class="fu">score_interval</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>      <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>      <span class="at">sample_metadata =</span> metadata,</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>      <span class="at">interval_row =</span> interval_specs[i, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>      <span class="at">requested_gene_count =</span> pca_gene_count,</span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>      <span class="at">n_score_pcs =</span> n_scoring_pcs)</span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>  })</span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">names</span>(primary_results) <span class="ot">&lt;-</span> interval_specs<span class="sc">$</span>interval</span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>primary_scores <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">do.call</span>(</span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a>  base<span class="sc">::</span>rbind,</span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">lapply</span>(primary_results, <span class="cf">function</span>(x) x<span class="sc">$</span>score_table))</span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">rownames</span>(primary_scores) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a>primary_scores[</span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>  ,</span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a>    <span class="st">&#39;interval&#39;</span>,</span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>    <span class="st">&#39;sample_id&#39;</span>,</span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a>    <span class="st">&#39;genotype_display&#39;</span>,</span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a>    <span class="st">&#39;timepoint_label&#39;</span>,</span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a>    <span class="st">&#39;rep&#39;</span>,</span>
+<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a>    <span class="st">&#39;PC1&#39;</span>,</span>
+<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a>    <span class="st">&#39;PC2&#39;</span>,</span>
+<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a>    <span class="st">&#39;PC3&#39;</span>,</span>
+<span id="cb18-29"><a href="#cb18-29" tabindex="-1"></a>    <span class="st">&#39;maturation_score&#39;</span>),</span>
+<span id="cb18-30"><a href="#cb18-30" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb18-31"><a href="#cb18-31" tabindex="-1"></a>]</span></code></pre></div>
+                <pre><code>##    interval  sample_id genotype_display timepoint_label rep        PC1
+## 1    D6-D10   BA1D6_S1             Di21              D6   1 -19.395447
+## 2    D6-D10   BA2D6_S2             Di21              D6   2 -22.660954
+## 3    D6-D10   BA3D6_S3             Di21              D6   3 -16.210953
+## 4    D6-D10  BA1D10_S4             Di21             D10   1  19.512259
+## 5    D6-D10  BA2D10_S5             Di21             D10   2  16.529418
+## 6    D6-D10  BA3D10_S6             Di21             D10   3  22.225677
+## 7    D6-D10  MA1D6_S10            Tri21              D6   1  -6.699528
+## 8    D6-D10  MA2D6_S11            Tri21              D6   2  -4.643625
+## 9    D6-D10  MA3D6_S12            Tri21              D6   3  -6.513005
+## 10   D6-D10 MA1D10_S13            Tri21             D10   1  17.832154
+## 11   D6-D10 MA2D10_S14            Tri21             D10   2  19.804395
+## 12   D6-D10 MA3D10_S15            Tri21             D10   3  19.859517
+## 13  D10-D17  BA1D10_S4             Di21             D10   1 -25.943260
+## 14  D10-D17  BA2D10_S5             Di21             D10   2 -26.623408
+## 15  D10-D17  BA3D10_S6             Di21             D10   3 -23.608635
+## 16  D10-D17  BA1D17_S7             Di21             D17   1  26.184340
+## 17  D10-D17  BA2D17_S8             Di21             D17   2  24.335315
+## 18  D10-D17  BA3D17_S9             Di21             D17   3  25.655647
+## 19  D10-D17 MA1D10_S13            Tri21             D10   1 -16.794360
+## 20  D10-D17 MA2D10_S14            Tri21             D10   2 -13.821975
+## 21  D10-D17 MA3D10_S15            Tri21             D10   3 -15.482908
+## 22  D10-D17 MA1D17_S16            Tri21             D17   1  21.400076
+## 23  D10-D17 MA2D17_S17            Tri21             D17   2  21.470212
+## 24  D10-D17 MA3D17_S18            Tri21             D17   3  24.424636
+##             PC2        PC3 maturation_score
+## 1   0.007746756  1.1736406       0.00047786
+## 2  -0.810736669 -4.4415162      -0.08202921
+## 3   0.072403653  3.9920903       0.08155135
+## 4  -1.003376784  1.0033008       1.00151075
+## 5   6.321418427 -0.9916006       0.92774788
+## 6  -4.587455383 -0.7359150       1.07074138
+## 7  -0.295523718  3.7043751       0.32630482
+## 8  -1.497882370  2.6869371       0.37915172
+## 9  -1.004209534  3.9075999       0.33081135
+## 10 -3.601856991 -2.0450170       0.95840918
+## 11 -1.885196046 -0.5841049       1.00925219
+## 12 -6.306283745 -0.8025899       1.00931405
+## 13  0.134300588  0.8770819       0.98907248
+## 14  0.681934653 -4.4152013       0.97609208
+## 15 -0.576614233  3.8642945       1.03483544
+## 16  3.032980496  5.2715228       2.01496000
+## 17 -9.520831112 -1.5288526       1.97990205
+## 18  6.248229607 -4.0688453       2.00513795
+## 19  3.067602957  4.2619198       1.16875516
+## 20  4.343613667 -1.6838655       1.22770627
+## 21  3.574712183  5.4883656       1.19444397
+## 22  5.528874974  5.5625945       1.92057455
+## 23  4.583706289  3.0576373       1.92222534
+## 24  7.247148168  3.2669624       1.98021788</code></pre>
+                <div id="interval-pca-views" class="section level2 hasAnchor" number="7.1">
+                <h2 class="hasAnchor"><span class="header-section-number">7.1</span> Interval PCA Views<a href="#interval-pca-views" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>These PCA plots show the fixed PCA spaces used for scoring. Axis labels include
+                the variance explained by PC1 and PC2 for each interval-specific PCA.</p>
+                <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>plot_interval_pca <span class="ot">&lt;-</span> <span class="cf">function</span>(interval_name) {</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  interval_scores <span class="ot">&lt;-</span> primary_scores[primary_scores<span class="sc">$</span>interval <span class="sc">==</span> interval_name, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  variance_explained <span class="ot">&lt;-</span> primary_results[[interval_name]]<span class="sc">$</span>variance_explained</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>    interval_scores,</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(PC1, PC2, <span class="at">color =</span> timepoint_label, <span class="at">shape =</span> genotype_display)) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.6</span>, <span class="at">stroke =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(<span class="at">values =</span> timepoint_colors) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_shape_manual</span>(<span class="at">values =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="at">Di21 =</span> <span class="dv">16</span>, <span class="at">Tri21 =</span> <span class="dv">17</span>)) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">format_pc_axis_label</span>(<span class="st">&#39;PC1&#39;</span>, variance_explained),</span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">format_pc_axis_label</span>(<span class="st">&#39;PC2&#39;</span>, variance_explained),</span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a>      <span class="at">title =</span> base<span class="sc">::</span><span class="fu">paste0</span>(interval_name, <span class="st">&#39; D21-trained PCA space&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>    <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>}</span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>interval_pca_scores <span class="ot">&lt;-</span> primary_scores</span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>interval_pca_scores<span class="sc">$</span>interval <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>  interval_pca_scores<span class="sc">$</span>interval,</span>
+<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">levels</span>(interval_specs<span class="sc">$</span>interval))</span></code></pre></div>
+                <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">plot_interval_pca</span>(<span class="st">&#39;D6-D10&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/d6-d10-interval-pca-plot-1.png" alt="" width="3240" style="display: block; margin: auto;" /></p>
+                <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">plot_interval_pca</span>(<span class="st">&#39;D10-D17&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/d10-d17-interval-pca-plot-1.png" alt="" width="3240" style="display: block; margin: auto;" /></p>
+                </div>
+                <div id="individual-day-score-plots" class="section level2 hasAnchor" number="7.2">
+                <h2 class="hasAnchor"><span class="header-section-number">7.2</span> Individual-Day Score Plots<a href="#individual-day-score-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>The bars show mean maturation score for each genotype at each interval timepoint,
+                with individual replicates overlaid. Within a timepoint, Di21 and Tri21 bars are
+                paired directly beside each other; gaps separate the two days in the interval.</p>
+                <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>score_mean <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">aggregate</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  maturation_score <span class="sc">~</span> interval <span class="sc">+</span> genotype_display <span class="sc">+</span> timepoint_label <span class="sc">+</span> timepoint_numeric,</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="at">data =</span> primary_scores,</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>  <span class="at">FUN =</span> base<span class="sc">::</span>mean)</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>score_points <span class="ot">&lt;-</span> primary_scores</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>score_mean<span class="sc">$</span>timepoint_index <span class="ot">&lt;-</span> <span class="cn">NA_integer_</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>score_points<span class="sc">$</span>timepoint_index <span class="ot">&lt;-</span> <span class="cn">NA_integer_</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="cf">for</span> (interval_name <span class="cf">in</span> base<span class="sc">::</span><span class="fu">levels</span>(interval_specs<span class="sc">$</span>interval)) {</span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>  interval_timepoints <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(score_mean<span class="sc">$</span>timepoint_numeric[score_mean<span class="sc">$</span>interval <span class="sc">==</span> interval_name]))</span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>  score_mean<span class="sc">$</span>timepoint_index[score_mean<span class="sc">$</span>interval <span class="sc">==</span> interval_name] <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">match</span>(</span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a>    score_mean<span class="sc">$</span>timepoint_numeric[score_mean<span class="sc">$</span>interval <span class="sc">==</span> interval_name],</span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a>    interval_timepoints)</span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a>  score_points<span class="sc">$</span>timepoint_index[score_points<span class="sc">$</span>interval <span class="sc">==</span> interval_name] <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">match</span>(</span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a>    score_points<span class="sc">$</span>timepoint_numeric[score_points<span class="sc">$</span>interval <span class="sc">==</span> interval_name],</span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a>    interval_timepoints)</span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a>}</span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a>score_mean<span class="sc">$</span>plot_x <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">ifelse</span>(</span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a>  score_mean<span class="sc">$</span>genotype_display <span class="sc">==</span> <span class="st">&#39;Di21&#39;</span>,</span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a>  score_mean<span class="sc">$</span>timepoint_index <span class="sc">-</span> <span class="fl">0.18</span>,</span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a>  score_mean<span class="sc">$</span>timepoint_index <span class="sc">+</span> <span class="fl">0.18</span>)</span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a>score_points<span class="sc">$</span>plot_x <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">ifelse</span>(</span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a>  score_points<span class="sc">$</span>genotype_display <span class="sc">==</span> <span class="st">&#39;Di21&#39;</span>,</span>
+<span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a>  score_points<span class="sc">$</span>timepoint_index <span class="sc">-</span> <span class="fl">0.18</span>,</span>
+<span id="cb23-27"><a href="#cb23-27" tabindex="-1"></a>  score_points<span class="sc">$</span>timepoint_index <span class="sc">+</span> <span class="fl">0.18</span>)</span>
+<span id="cb23-28"><a href="#cb23-28" tabindex="-1"></a></span>
+<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a>score_mean[</span>
+<span id="cb23-30"><a href="#cb23-30" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">order</span>(score_mean<span class="sc">$</span>interval, score_mean<span class="sc">$</span>timepoint_numeric, score_mean<span class="sc">$</span>genotype_display),</span>
+<span id="cb23-31"><a href="#cb23-31" tabindex="-1"></a>  ,</span>
+<span id="cb23-32"><a href="#cb23-32" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb23-33"><a href="#cb23-33" tabindex="-1"></a>]</span></code></pre></div>
+                <pre><code>##   interval genotype_display timepoint_label timepoint_numeric maturation_score
+## 1   D6-D10             Di21              D6                 6    -5.730460e-18
+## 2   D6-D10            Tri21              D6                 6     3.454226e-01
+## 3   D6-D10             Di21             D10                10     1.000000e+00
+## 5   D6-D10            Tri21             D10                10     9.923251e-01
+## 4  D10-D17             Di21             D10                10     1.000000e+00
+## 6  D10-D17            Tri21             D10                10     1.196968e+00
+## 7  D10-D17             Di21             D17                17     2.000000e+00
+## 8  D10-D17            Tri21             D17                17     1.941006e+00
+##   timepoint_index plot_x
+## 1               1   0.82
+## 2               1   1.18
+## 3               2   1.82
+## 5               2   2.18
+## 4               1   0.82
+## 6               1   1.18
+## 7               2   1.82
+## 8               2   2.18</code></pre>
+                <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>d6_d10_score_mean <span class="ot">&lt;-</span> score_mean[score_mean<span class="sc">$</span>interval <span class="sc">==</span> <span class="st">&#39;D6-D10&#39;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>d6_d10_score_points <span class="ot">&lt;-</span> score_points[score_points<span class="sc">$</span>interval <span class="sc">==</span> <span class="st">&#39;D6-D10&#39;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>  d6_d10_score_mean,</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">aes</span>(plot_x, maturation_score, <span class="at">fill =</span> genotype_display)) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_hline</span>(</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>    <span class="at">yintercept =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>,</span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;grey45&#39;</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_col</span>(</span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.36</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;black&#39;</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.25</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(</span>
+<span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a>    <span class="at">data =</span> d6_d10_score_points,</span>
+<span id="cb25-19"><a href="#cb25-19" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(plot_x, maturation_score, <span class="at">fill =</span> genotype_display),</span>
+<span id="cb25-20"><a href="#cb25-20" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb25-21"><a href="#cb25-21" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">1.9</span>,</span>
+<span id="cb25-22"><a href="#cb25-22" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb25-23"><a href="#cb25-23" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;black&#39;</span>,</span>
+<span id="cb25-24"><a href="#cb25-24" tabindex="-1"></a>    <span class="at">stroke =</span> <span class="fl">0.25</span>,</span>
+<span id="cb25-25"><a href="#cb25-25" tabindex="-1"></a>    <span class="at">position =</span> ggplot2<span class="sc">::</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.04</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">seed =</span> <span class="dv">42</span>)) <span class="sc">+</span></span>
+<span id="cb25-26"><a href="#cb25-26" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(</span>
+<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a>    <span class="at">breaks =</span> base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(d6_d10_score_mean<span class="sc">$</span>timepoint_index)),</span>
+<span id="cb25-28"><a href="#cb25-28" tabindex="-1"></a>    <span class="at">labels =</span> base<span class="sc">::</span><span class="fu">paste0</span>(<span class="st">&#39;D&#39;</span>, base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(d6_d10_score_mean<span class="sc">$</span>timepoint_numeric))),</span>
+<span id="cb25-29"><a href="#cb25-29" tabindex="-1"></a>    <span class="at">expand =</span> ggplot2<span class="sc">::</span><span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.12</span>, <span class="fl">0.12</span>))) <span class="sc">+</span></span>
+<span id="cb25-30"><a href="#cb25-30" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_fill_manual</span>(<span class="at">values =</span> genotype_colors) <span class="sc">+</span></span>
+<span id="cb25-31"><a href="#cb25-31" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb25-32"><a href="#cb25-32" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb25-33"><a href="#cb25-33" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&#39;Maturation score&#39;</span>,</span>
+<span id="cb25-34"><a href="#cb25-34" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&#39;D6-D10 score anchored to Di21 centroids&#39;</span>) <span class="sc">+</span></span>
+<span id="cb25-35"><a href="#cb25-35" tabindex="-1"></a>  <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/d6-d10-score-plot-1.png" alt="" width="3480" style="display: block; margin: auto;" /></p>
+                <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>d10_d17_score_mean <span class="ot">&lt;-</span> score_mean[score_mean<span class="sc">$</span>interval <span class="sc">==</span> <span class="st">&#39;D10-D17&#39;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>d10_d17_score_points <span class="ot">&lt;-</span> score_points[score_points<span class="sc">$</span>interval <span class="sc">==</span> <span class="st">&#39;D10-D17&#39;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>  d10_d17_score_mean,</span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">aes</span>(plot_x, maturation_score, <span class="at">fill =</span> genotype_display)) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_hline</span>(</span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>    <span class="at">yintercept =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;grey45&#39;</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_col</span>(</span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.36</span>,</span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;black&#39;</span>,</span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.25</span>,</span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(</span>
+<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a>    <span class="at">data =</span> d10_d17_score_points,</span>
+<span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(plot_x, maturation_score, <span class="at">fill =</span> genotype_display),</span>
+<span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb26-21"><a href="#cb26-21" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">1.9</span>,</span>
+<span id="cb26-22"><a href="#cb26-22" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb26-23"><a href="#cb26-23" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;black&#39;</span>,</span>
+<span id="cb26-24"><a href="#cb26-24" tabindex="-1"></a>    <span class="at">stroke =</span> <span class="fl">0.25</span>,</span>
+<span id="cb26-25"><a href="#cb26-25" tabindex="-1"></a>    <span class="at">position =</span> ggplot2<span class="sc">::</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.04</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">seed =</span> <span class="dv">42</span>)) <span class="sc">+</span></span>
+<span id="cb26-26"><a href="#cb26-26" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(</span>
+<span id="cb26-27"><a href="#cb26-27" tabindex="-1"></a>    <span class="at">breaks =</span> base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(d10_d17_score_mean<span class="sc">$</span>timepoint_index)),</span>
+<span id="cb26-28"><a href="#cb26-28" tabindex="-1"></a>    <span class="at">labels =</span> base<span class="sc">::</span><span class="fu">paste0</span>(<span class="st">&#39;D&#39;</span>, base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(d10_d17_score_mean<span class="sc">$</span>timepoint_numeric))),</span>
+<span id="cb26-29"><a href="#cb26-29" tabindex="-1"></a>    <span class="at">expand =</span> ggplot2<span class="sc">::</span><span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.12</span>, <span class="fl">0.12</span>))) <span class="sc">+</span></span>
+<span id="cb26-30"><a href="#cb26-30" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_fill_manual</span>(<span class="at">values =</span> genotype_colors) <span class="sc">+</span></span>
+<span id="cb26-31"><a href="#cb26-31" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb26-32"><a href="#cb26-32" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb26-33"><a href="#cb26-33" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&#39;Maturation score&#39;</span>,</span>
+<span id="cb26-34"><a href="#cb26-34" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&#39;D10-D17 score anchored to Di21 centroids&#39;</span>) <span class="sc">+</span></span>
+<span id="cb26-35"><a href="#cb26-35" tabindex="-1"></a>  <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/d10-d17-score-plot-1.png" alt="" width="3480" style="display: block; margin: auto;" /></p>
+                </div>
+                </div>
+                <div id="sensitivity-of-scores-to-gene-list-size" class="section level1 hasAnchor" number="8">
+                <h1 class="hasAnchor"><span class="header-section-number">8</span> Sensitivity of Scores to Gene-List Size<a href="#sensitivity-of-scores-to-gene-list-size" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The sensitivity analysis repeats the same D21-anchored scoring workflow across a
+                range of input gene-list sizes. Each run reselects the most variable D21 genes
+                for the relevant interval, retrains the interval PCA, and recomputes scores from
+                PC1, PC2, and PC3. This checks whether the genotype and timepoint score patterns
+                depend strongly on choosing exactly 1000 genes.</p>
+                <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>sensitivity_results <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">list</span>()</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>result_idx <span class="ot">&lt;-</span> <span class="dv">1</span><span class="dt">L</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="cf">for</span> (interval_idx <span class="cf">in</span> base<span class="sc">::</span><span class="fu">seq_len</span>(base<span class="sc">::</span><span class="fu">nrow</span>(interval_specs))) {</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>  <span class="cf">for</span> (gene_count <span class="cf">in</span> sensitivity_gene_counts) {</span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>    sensitivity_results[[result_idx]] <span class="ot">&lt;-</span> <span class="fu">score_interval</span>(</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>      <span class="at">vst_matrix =</span> vst_matrix,</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a>      <span class="at">sample_metadata =</span> metadata,</span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>      <span class="at">interval_row =</span> interval_specs[interval_idx, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a>      <span class="at">requested_gene_count =</span> gene_count,</span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a>      <span class="at">n_score_pcs =</span> n_scoring_pcs)</span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a>    result_idx <span class="ot">&lt;-</span> result_idx <span class="sc">+</span> <span class="dv">1</span><span class="dt">L</span></span>
+<span id="cb27-13"><a href="#cb27-13" tabindex="-1"></a>  }</span>
+<span id="cb27-14"><a href="#cb27-14" tabindex="-1"></a>}</span>
+<span id="cb27-15"><a href="#cb27-15" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="#cb27-16" tabindex="-1"></a>sensitivity_scores <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">do.call</span>(</span>
+<span id="cb27-17"><a href="#cb27-17" tabindex="-1"></a>  base<span class="sc">::</span>rbind,</span>
+<span id="cb27-18"><a href="#cb27-18" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">lapply</span>(sensitivity_results, <span class="cf">function</span>(x) x<span class="sc">$</span>score_table))</span>
+<span id="cb27-19"><a href="#cb27-19" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">rownames</span>(sensitivity_scores) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb27-20"><a href="#cb27-20" tabindex="-1"></a></span>
+<span id="cb27-21"><a href="#cb27-21" tabindex="-1"></a>sensitivity_summary <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">aggregate</span>(</span>
+<span id="cb27-22"><a href="#cb27-22" tabindex="-1"></a>  maturation_score <span class="sc">~</span> interval <span class="sc">+</span> requested_gene_count <span class="sc">+</span> effective_gene_count <span class="sc">+</span></span>
+<span id="cb27-23"><a href="#cb27-23" tabindex="-1"></a>    genotype_display <span class="sc">+</span> timepoint_numeric <span class="sc">+</span> timepoint_label,</span>
+<span id="cb27-24"><a href="#cb27-24" tabindex="-1"></a>  <span class="at">data =</span> sensitivity_scores,</span>
+<span id="cb27-25"><a href="#cb27-25" tabindex="-1"></a>  <span class="at">FUN =</span> base<span class="sc">::</span>mean)</span>
+<span id="cb27-26"><a href="#cb27-26" tabindex="-1"></a></span>
+<span id="cb27-27"><a href="#cb27-27" tabindex="-1"></a>sensitivity_summary <span class="ot">&lt;-</span> sensitivity_summary[</span>
+<span id="cb27-28"><a href="#cb27-28" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">order</span>(</span>
+<span id="cb27-29"><a href="#cb27-29" tabindex="-1"></a>    sensitivity_summary<span class="sc">$</span>interval,</span>
+<span id="cb27-30"><a href="#cb27-30" tabindex="-1"></a>    sensitivity_summary<span class="sc">$</span>requested_gene_count,</span>
+<span id="cb27-31"><a href="#cb27-31" tabindex="-1"></a>    sensitivity_summary<span class="sc">$</span>timepoint_numeric,</span>
+<span id="cb27-32"><a href="#cb27-32" tabindex="-1"></a>    sensitivity_summary<span class="sc">$</span>genotype_display),</span>
+<span id="cb27-33"><a href="#cb27-33" tabindex="-1"></a>  ,</span>
+<span id="cb27-34"><a href="#cb27-34" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb27-35"><a href="#cb27-35" tabindex="-1"></a></span>
+<span id="cb27-36"><a href="#cb27-36" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">head</span>(sensitivity_summary, <span class="dv">12</span>)</span></code></pre></div>
+                <pre><code>##     interval requested_gene_count effective_gene_count genotype_display
+## 1     D6-D10                  100                  100             Di21
+## 140   D6-D10                  100                  100            Tri21
+## 279   D6-D10                  100                  100             Di21
+## 557   D6-D10                  100                  100            Tri21
+## 2     D6-D10                  200                  200             Di21
+## 141   D6-D10                  200                  200            Tri21
+## 281   D6-D10                  200                  200             Di21
+## 559   D6-D10                  200                  200            Tri21
+## 3     D6-D10                  300                  300             Di21
+## 142   D6-D10                  300                  300            Tri21
+## 283   D6-D10                  300                  300             Di21
+## 561   D6-D10                  300                  300            Tri21
+##     timepoint_numeric timepoint_label maturation_score
+## 1                   6              D6    -1.154224e-18
+## 140                 6              D6     3.053060e-01
+## 279                10             D10     1.000000e+00
+## 557                10             D10     9.656967e-01
+## 2                   6              D6     4.049947e-18
+## 141                 6              D6     3.279195e-01
+## 281                10             D10     1.000000e+00
+## 559                10             D10     9.692237e-01
+## 3                   6              D6     2.313191e-17
+## 142                 6              D6     3.297181e-01
+## 283                10             D10     1.000000e+00
+## 561                10             D10     9.700006e-01</code></pre>
+                <div id="mean-score-across-gene-counts" class="section level2 hasAnchor" number="8.1">
+                <h2 class="hasAnchor"><span class="header-section-number">8.1</span> Mean Score Across Gene Counts<a href="#mean-score-across-gene-counts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>This plot shows the mean score for each genotype and timepoint as the number of
+                selected D21-variable genes increases. Stable lines indicate that the score is
+                not highly sensitive to one exact gene-count cutoff.</p>
+                <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>sensitivity_summary<span class="sc">$</span>label_group <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">paste</span>(sensitivity_summary<span class="sc">$</span>genotype_display, sensitivity_summary<span class="sc">$</span>timepoint_label),</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>    <span class="st">&#39;Di21 D6&#39;</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>    <span class="st">&#39;Tri21 D6&#39;</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>    <span class="st">&#39;Di21 D10&#39;</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>    <span class="st">&#39;Tri21 D10&#39;</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>    <span class="st">&#39;Di21 D17&#39;</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>    <span class="st">&#39;Tri21 D17&#39;</span>))</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>  sensitivity_summary,</span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">aes</span>(</span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a>    effective_gene_count,</span>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a>    maturation_score,</span>
+<span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a>    <span class="at">color =</span> genotype_display,</span>
+<span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a>    <span class="at">linetype =</span> timepoint_label,</span>
+<span id="cb29-18"><a href="#cb29-18" tabindex="-1"></a>    <span class="at">group =</span> label_group)) <span class="sc">+</span></span>
+<span id="cb29-19"><a href="#cb29-19" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_hline</span>(</span>
+<span id="cb29-20"><a href="#cb29-20" tabindex="-1"></a>    <span class="at">yintercept =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb29-21"><a href="#cb29-21" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>,</span>
+<span id="cb29-22"><a href="#cb29-22" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&#39;grey45&#39;</span>,</span>
+<span id="cb29-23"><a href="#cb29-23" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb29-24"><a href="#cb29-24" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.62</span>) <span class="sc">+</span></span>
+<span id="cb29-25"><a href="#cb29-25" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb29-26"><a href="#cb29-26" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>interval, <span class="at">scales =</span> <span class="st">&#39;free_y&#39;</span>) <span class="sc">+</span></span>
+<span id="cb29-27"><a href="#cb29-27" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> sensitivity_x_breaks) <span class="sc">+</span></span>
+<span id="cb29-28"><a href="#cb29-28" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(<span class="at">values =</span> genotype_colors) <span class="sc">+</span></span>
+<span id="cb29-29"><a href="#cb29-29" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb29-30"><a href="#cb29-30" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&#39;Effective number of input genes&#39;</span>,</span>
+<span id="cb29-31"><a href="#cb29-31" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&#39;Mean maturation score&#39;</span>,</span>
+<span id="cb29-32"><a href="#cb29-32" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&#39;Sensitivity of genotype-timepoint mean scores to gene-list size&#39;</span>) <span class="sc">+</span></span>
+<span id="cb29-33"><a href="#cb29-33" tabindex="-1"></a>  <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb29-34"><a href="#cb29-34" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">axis.text.x =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/sensitivity-mean-score-1.png" alt="" width="5700" style="display: block; margin: auto;" /></p>
+                </div>
+                <div id="tri21-displacement-from-matched-di21" class="section level2 hasAnchor" number="8.2">
+                <h2 class="hasAnchor"><span class="header-section-number">8.2</span> Tri21 Displacement From Matched Di21<a href="#tri21-displacement-from-matched-di21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>This plot subtracts the matched Di21 mean score from the Tri21 mean score at the
+                same interval, gene count, and timepoint. It is a compact way to inspect whether
+                Tri21 samples score earlier or later than their Di21 timepoint anchor.</p>
+                <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>d21_reference <span class="ot">&lt;-</span> sensitivity_summary[</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  sensitivity_summary<span class="sc">$</span>genotype_display <span class="sc">==</span> <span class="st">&#39;Di21&#39;</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>    <span class="st">&#39;interval&#39;</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>    <span class="st">&#39;requested_gene_count&#39;</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>    <span class="st">&#39;effective_gene_count&#39;</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>    <span class="st">&#39;timepoint_numeric&#39;</span>,</span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>    <span class="st">&#39;maturation_score&#39;</span>),</span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">names</span>(d21_reference)[base<span class="sc">::</span><span class="fu">names</span>(d21_reference) <span class="sc">==</span> <span class="st">&#39;maturation_score&#39;</span>] <span class="ot">&lt;-</span> <span class="st">&#39;d21_mean_score&#39;</span></span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a>tri21_displacement <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">merge</span>(</span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a>  sensitivity_summary[sensitivity_summary<span class="sc">$</span>genotype_display <span class="sc">==</span> <span class="st">&#39;Tri21&#39;</span>, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb30-14"><a href="#cb30-14" tabindex="-1"></a>  d21_reference,</span>
+<span id="cb30-15"><a href="#cb30-15" tabindex="-1"></a>  <span class="at">by =</span> base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb30-16"><a href="#cb30-16" tabindex="-1"></a>    <span class="st">&#39;interval&#39;</span>,</span>
+<span id="cb30-17"><a href="#cb30-17" tabindex="-1"></a>    <span class="st">&#39;requested_gene_count&#39;</span>,</span>
+<span id="cb30-18"><a href="#cb30-18" tabindex="-1"></a>    <span class="st">&#39;effective_gene_count&#39;</span>,</span>
+<span id="cb30-19"><a href="#cb30-19" tabindex="-1"></a>    <span class="st">&#39;timepoint_numeric&#39;</span>),</span>
+<span id="cb30-20"><a href="#cb30-20" tabindex="-1"></a>  <span class="at">sort =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-21"><a href="#cb30-21" tabindex="-1"></a>tri21_displacement<span class="sc">$</span>tri21_minus_di21 <span class="ot">&lt;-</span> tri21_displacement<span class="sc">$</span>maturation_score <span class="sc">-</span></span>
+<span id="cb30-22"><a href="#cb30-22" tabindex="-1"></a>  tri21_displacement<span class="sc">$</span>d21_mean_score</span>
+<span id="cb30-23"><a href="#cb30-23" tabindex="-1"></a>tri21_displacement<span class="sc">$</span>timepoint_label <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb30-24"><a href="#cb30-24" tabindex="-1"></a>  tri21_displacement<span class="sc">$</span>timepoint_label,</span>
+<span id="cb30-25"><a href="#cb30-25" tabindex="-1"></a>  <span class="at">levels =</span> timepoint_levels)</span>
+<span id="cb30-26"><a href="#cb30-26" tabindex="-1"></a></span>
+<span id="cb30-27"><a href="#cb30-27" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb30-28"><a href="#cb30-28" tabindex="-1"></a>  tri21_displacement,</span>
+<span id="cb30-29"><a href="#cb30-29" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">aes</span>(</span>
+<span id="cb30-30"><a href="#cb30-30" tabindex="-1"></a>    effective_gene_count,</span>
+<span id="cb30-31"><a href="#cb30-31" tabindex="-1"></a>    tri21_minus_di21,</span>
+<span id="cb30-32"><a href="#cb30-32" tabindex="-1"></a>    <span class="at">color =</span> timepoint_label,</span>
+<span id="cb30-33"><a href="#cb30-33" tabindex="-1"></a>    <span class="at">group =</span> timepoint_label)) <span class="sc">+</span></span>
+<span id="cb30-34"><a href="#cb30-34" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb30-35"><a href="#cb30-35" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
+<span id="cb30-36"><a href="#cb30-36" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb30-37"><a href="#cb30-37" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>interval, <span class="at">scales =</span> <span class="st">&#39;free_y&#39;</span>) <span class="sc">+</span></span>
+<span id="cb30-38"><a href="#cb30-38" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> sensitivity_x_breaks) <span class="sc">+</span></span>
+<span id="cb30-39"><a href="#cb30-39" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(<span class="at">values =</span> timepoint_colors) <span class="sc">+</span></span>
+<span id="cb30-40"><a href="#cb30-40" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb30-41"><a href="#cb30-41" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&#39;Effective number of input genes&#39;</span>,</span>
+<span id="cb30-42"><a href="#cb30-42" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&#39;Tri21 mean score minus matched Di21 mean score&#39;</span>,</span>
+<span id="cb30-43"><a href="#cb30-43" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&#39;Sensitivity of Tri21 displacement from matched Di21&#39;</span>) <span class="sc">+</span></span>
+<span id="cb30-44"><a href="#cb30-44" tabindex="-1"></a>  <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb30-45"><a href="#cb30-45" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">axis.text.x =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/sensitivity-tri21-displacement-1.png" alt="" width="5400" style="display: block; margin: auto;" /></p>
+                </div>
+                <div id="convergence-toward-the-maximum-gene-score" class="section level2 hasAnchor" number="8.3">
+                <h2 class="hasAnchor"><span class="header-section-number">8.3</span> Convergence Toward the Maximum-Gene Score<a href="#convergence-toward-the-maximum-gene-score" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>This plot compares each gene-count score with the score obtained when all
+                filtered VST genes are allowed into the interval-specific feature ranking. Lower
+                values indicate closer agreement with the maximum-gene score for the same
+                interval, genotype, and timepoint.</p>
+                <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>max_gene_count <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">max</span>(sensitivity_summary<span class="sc">$</span>effective_gene_count)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>max_gene_reference <span class="ot">&lt;-</span> sensitivity_summary[</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  sensitivity_summary<span class="sc">$</span>effective_gene_count <span class="sc">==</span> max_gene_count,</span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>    <span class="st">&#39;interval&#39;</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>    <span class="st">&#39;genotype_display&#39;</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>    <span class="st">&#39;timepoint_numeric&#39;</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>    <span class="st">&#39;maturation_score&#39;</span>),</span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">names</span>(max_gene_reference)[</span>
+<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">names</span>(max_gene_reference) <span class="sc">==</span> <span class="st">&#39;maturation_score&#39;</span></span>
+<span id="cb31-12"><a href="#cb31-12" tabindex="-1"></a>] <span class="ot">&lt;-</span> <span class="st">&#39;max_gene_maturation_score&#39;</span></span>
+<span id="cb31-13"><a href="#cb31-13" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" tabindex="-1"></a>score_convergence <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">merge</span>(</span>
+<span id="cb31-15"><a href="#cb31-15" tabindex="-1"></a>  sensitivity_summary,</span>
+<span id="cb31-16"><a href="#cb31-16" tabindex="-1"></a>  max_gene_reference,</span>
+<span id="cb31-17"><a href="#cb31-17" tabindex="-1"></a>  <span class="at">by =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;interval&#39;</span>, <span class="st">&#39;genotype_display&#39;</span>, <span class="st">&#39;timepoint_numeric&#39;</span>),</span>
+<span id="cb31-18"><a href="#cb31-18" tabindex="-1"></a>  <span class="at">sort =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" tabindex="-1"></a>score_convergence<span class="sc">$</span>absolute_difference_from_max_gene_score <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">abs</span>(</span>
+<span id="cb31-20"><a href="#cb31-20" tabindex="-1"></a>  score_convergence<span class="sc">$</span>maturation_score <span class="sc">-</span></span>
+<span id="cb31-21"><a href="#cb31-21" tabindex="-1"></a>    score_convergence<span class="sc">$</span>max_gene_maturation_score)</span>
+<span id="cb31-22"><a href="#cb31-22" tabindex="-1"></a>score_convergence<span class="sc">$</span>label_group <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb31-23"><a href="#cb31-23" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">paste</span>(score_convergence<span class="sc">$</span>genotype_display, score_convergence<span class="sc">$</span>timepoint_label),</span>
+<span id="cb31-24"><a href="#cb31-24" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">c</span>(</span>
+<span id="cb31-25"><a href="#cb31-25" tabindex="-1"></a>    <span class="st">&#39;Di21 D6&#39;</span>,</span>
+<span id="cb31-26"><a href="#cb31-26" tabindex="-1"></a>    <span class="st">&#39;Tri21 D6&#39;</span>,</span>
+<span id="cb31-27"><a href="#cb31-27" tabindex="-1"></a>    <span class="st">&#39;Di21 D10&#39;</span>,</span>
+<span id="cb31-28"><a href="#cb31-28" tabindex="-1"></a>    <span class="st">&#39;Tri21 D10&#39;</span>,</span>
+<span id="cb31-29"><a href="#cb31-29" tabindex="-1"></a>    <span class="st">&#39;Di21 D17&#39;</span>,</span>
+<span id="cb31-30"><a href="#cb31-30" tabindex="-1"></a>    <span class="st">&#39;Tri21 D17&#39;</span>))</span>
+<span id="cb31-31"><a href="#cb31-31" tabindex="-1"></a></span>
+<span id="cb31-32"><a href="#cb31-32" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb31-33"><a href="#cb31-33" tabindex="-1"></a>  score_convergence,</span>
+<span id="cb31-34"><a href="#cb31-34" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">aes</span>(</span>
+<span id="cb31-35"><a href="#cb31-35" tabindex="-1"></a>    effective_gene_count,</span>
+<span id="cb31-36"><a href="#cb31-36" tabindex="-1"></a>    absolute_difference_from_max_gene_score,</span>
+<span id="cb31-37"><a href="#cb31-37" tabindex="-1"></a>    <span class="at">color =</span> genotype_display,</span>
+<span id="cb31-38"><a href="#cb31-38" tabindex="-1"></a>    <span class="at">linetype =</span> timepoint_label,</span>
+<span id="cb31-39"><a href="#cb31-39" tabindex="-1"></a>    <span class="at">group =</span> label_group)) <span class="sc">+</span></span>
+<span id="cb31-40"><a href="#cb31-40" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb31-41"><a href="#cb31-41" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.62</span>) <span class="sc">+</span></span>
+<span id="cb31-42"><a href="#cb31-42" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb31-43"><a href="#cb31-43" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>interval, <span class="at">scales =</span> <span class="st">&#39;free_y&#39;</span>) <span class="sc">+</span></span>
+<span id="cb31-44"><a href="#cb31-44" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> sensitivity_x_breaks) <span class="sc">+</span></span>
+<span id="cb31-45"><a href="#cb31-45" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(<span class="at">values =</span> genotype_colors) <span class="sc">+</span></span>
+<span id="cb31-46"><a href="#cb31-46" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb31-47"><a href="#cb31-47" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&#39;Effective number of input genes&#39;</span>,</span>
+<span id="cb31-48"><a href="#cb31-48" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&#39;Absolute difference from maximum-gene mean score&#39;</span>,</span>
+<span id="cb31-49"><a href="#cb31-49" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&#39;Convergence of interval scores as more genes enter the PCA&#39;</span>) <span class="sc">+</span></span>
+<span id="cb31-50"><a href="#cb31-50" tabindex="-1"></a>  <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb31-51"><a href="#cb31-51" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">axis.text.x =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/sensitivity-score-convergence-1.png" alt="" width="5700" style="display: block; margin: auto;" /></p>
+                </div>
+                </div>
+                <div id="summary" class="section level1 hasAnchor" number="9">
+                <h1 class="hasAnchor"><span class="header-section-number">9</span> Summary<a href="#summary" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The summary table reports mean scores by interval, genotype, and timepoint. D21
+                means define the anchors by construction; the T21 values show where Tri21 samples
+                fall in the same D21-trained PCA coordinate system.</p>
+                <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>primary_mean_summary <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">aggregate</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>  maturation_score <span class="sc">~</span> interval <span class="sc">+</span> genotype_display <span class="sc">+</span> timepoint_label,</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  <span class="at">data =</span> primary_scores,</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>  <span class="at">FUN =</span> base<span class="sc">::</span>mean)</span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>primary_mean_summary <span class="ot">&lt;-</span> primary_mean_summary[</span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">order</span>(</span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a>    primary_mean_summary<span class="sc">$</span>interval,</span>
+<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a>    primary_mean_summary<span class="sc">$</span>timepoint_label,</span>
+<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a>    primary_mean_summary<span class="sc">$</span>genotype_display),</span>
+<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a>  ,</span>
+<span id="cb32-12"><a href="#cb32-12" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb32-13"><a href="#cb32-13" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" tabindex="-1"></a>primary_mean_summary</span></code></pre></div>
+                <pre><code>##   interval genotype_display timepoint_label maturation_score
+## 1   D6-D10             Di21              D6    -5.730460e-18
+## 2   D6-D10            Tri21              D6     3.454226e-01
+## 3   D6-D10             Di21             D10     1.000000e+00
+## 5   D6-D10            Tri21             D10     9.923251e-01
+## 4  D10-D17             Di21             D10     1.000000e+00
+## 6  D10-D17            Tri21             D10     1.196968e+00
+## 7  D10-D17             Di21             D17     2.000000e+00
+## 8  D10-D17            Tri21             D17     1.941006e+00</code></pre>
+                </div>
+                <div id="zrn01-mesenchyme-pca-checks" class="section level1 hasAnchor" number="10">
+                <h1 class="hasAnchor"><span class="header-section-number">10</span> ZRN01 Mesenchyme PCA Checks<a href="#zrn01-mesenchyme-pca-checks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>These final PCA checks use the copied ZRN01 objects stored under <code>data_DSHC1/</code>.
+                Respiratory mesenchyme and esophageal mesenchyme are analyzed separately. For
+                each lineage, genes are ranked by VST variance across that lineage’s samples
+                only, the top 1000 genes are used for PCA, and the scree plot reports PC1-PC15.</p>
+                <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>ZRN01_metadata <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">readRDS</span>(<span class="st">&#39;data_DSHC1/ZRN01/metadata/ZRN01_metadata.rds&#39;</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>ZRN01_vst <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">readRDS</span>(<span class="st">&#39;data_DSHC1/ZRN01/counts/ZRN01_vst.rds&#39;</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">stopifnot</span>(<span class="sc">!</span>base<span class="sc">::</span><span class="fu">anyDuplicated</span>(ZRN01_metadata<span class="sc">$</span>sampleid))</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">stopifnot</span>(base<span class="sc">::</span><span class="fu">all</span>(ZRN01_metadata<span class="sc">$</span>sampleid <span class="sc">%in%</span> base<span class="sc">::</span><span class="fu">colnames</span>(ZRN01_vst)))</span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>ZRN01_metadata <span class="ot">&lt;-</span> ZRN01_metadata[</span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">match</span>(base<span class="sc">::</span><span class="fu">colnames</span>(ZRN01_vst), ZRN01_metadata<span class="sc">$</span>sampleid),</span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a>  ,</span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb34-11"><a href="#cb34-11" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">stopifnot</span>(base<span class="sc">::</span><span class="fu">identical</span>(</span>
+<span id="cb34-12"><a href="#cb34-12" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">as.character</span>(ZRN01_metadata<span class="sc">$</span>sampleid),</span>
+<span id="cb34-13"><a href="#cb34-13" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">colnames</span>(ZRN01_vst)))</span>
+<span id="cb34-14"><a href="#cb34-14" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" tabindex="-1"></a>ZRN01_metadata<span class="sc">$</span>timepoint_label <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb34-16"><a href="#cb34-16" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">as.character</span>(ZRN01_metadata<span class="sc">$</span>timepoint),</span>
+<span id="cb34-17"><a href="#cb34-17" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">paste0</span>(<span class="st">&#39;D&#39;</span>, base<span class="sc">::</span><span class="fu">sort</span>(base<span class="sc">::</span><span class="fu">unique</span>(ZRN01_metadata<span class="sc">$</span>timepoint_numeric))))</span>
+<span id="cb34-18"><a href="#cb34-18" tabindex="-1"></a>ZRN01_metadata<span class="sc">$</span>genotype_display <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">factor</span>(</span>
+<span id="cb34-19"><a href="#cb34-19" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">as.character</span>(ZRN01_metadata<span class="sc">$</span>genotype),</span>
+<span id="cb34-20"><a href="#cb34-20" tabindex="-1"></a>  <span class="at">levels =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="st">&#39;Di21&#39;</span>, <span class="st">&#39;Tri21&#39;</span>))</span>
+<span id="cb34-21"><a href="#cb34-21" tabindex="-1"></a></span>
+<span id="cb34-22"><a href="#cb34-22" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb34-23"><a href="#cb34-23" tabindex="-1"></a>  <span class="at">samples =</span> base<span class="sc">::</span><span class="fu">nrow</span>(ZRN01_metadata),</span>
+<span id="cb34-24"><a href="#cb34-24" tabindex="-1"></a>  <span class="at">lineages =</span> base<span class="sc">::</span><span class="fu">paste</span>(base<span class="sc">::</span><span class="fu">levels</span>(ZRN01_metadata<span class="sc">$</span>lineage), <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>),</span>
+<span id="cb34-25"><a href="#cb34-25" tabindex="-1"></a>  <span class="at">genotypes =</span> base<span class="sc">::</span><span class="fu">paste</span>(base<span class="sc">::</span><span class="fu">levels</span>(ZRN01_metadata<span class="sc">$</span>genotype), <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>),</span>
+<span id="cb34-26"><a href="#cb34-26" tabindex="-1"></a>  <span class="at">timepoints =</span> base<span class="sc">::</span><span class="fu">paste</span>(base<span class="sc">::</span><span class="fu">levels</span>(ZRN01_metadata<span class="sc">$</span>timepoint_label), <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>),</span>
+<span id="cb34-27"><a href="#cb34-27" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+                <pre><code>##   samples   lineages   genotypes       timepoints
+## 1      41 SM, EM, RM Di21, Tri21 D4, D7, D10, D15</code></pre>
+                <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>build_zrn01_lineage_pca <span class="ot">&lt;-</span> <span class="cf">function</span>(vst_matrix, sample_metadata, lineage_name,</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>                                    <span class="at">requested_gene_count =</span> pca_gene_count) {</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>  lineage_ids <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">as.character</span>(sample_metadata<span class="sc">$</span>sampleid[sample_metadata<span class="sc">$</span>lineage <span class="sc">==</span> lineage_name])</span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>  gene_variance <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">apply</span>(vst_matrix[, lineage_ids, <span class="at">drop =</span> <span class="cn">FALSE</span>], <span class="dv">1</span>, stats<span class="sc">::</span>var)</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>  ranked_genes <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">names</span>(base<span class="sc">::</span><span class="fu">sort</span>(gene_variance, <span class="at">decreasing =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>  effective_gene_count <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">min</span>(requested_gene_count, base<span class="sc">::</span><span class="fu">length</span>(ranked_genes))</span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a>  gene_ids <span class="ot">&lt;-</span> ranked_genes[base<span class="sc">::</span><span class="fu">seq_len</span>(effective_gene_count)]</span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a>  pca_fit <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(</span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a>    base<span class="sc">::</span><span class="fu">t</span>(vst_matrix[gene_ids, lineage_ids, <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a>    <span class="at">center =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a>    <span class="at">scale. =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">as.data.frame</span>(pca_fit<span class="sc">$</span>x)</span>
+<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a>  coords<span class="sc">$</span>sampleid <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">rownames</span>(coords)</span>
+<span id="cb36-15"><a href="#cb36-15" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">merge</span>(</span>
+<span id="cb36-16"><a href="#cb36-16" tabindex="-1"></a>    sample_metadata,</span>
+<span id="cb36-17"><a href="#cb36-17" tabindex="-1"></a>    coords,</span>
+<span id="cb36-18"><a href="#cb36-18" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">&#39;sampleid&#39;</span>,</span>
+<span id="cb36-19"><a href="#cb36-19" tabindex="-1"></a>    <span class="at">sort =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-20"><a href="#cb36-20" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> coords[base<span class="sc">::</span><span class="fu">match</span>(lineage_ids, coords<span class="sc">$</span>sampleid), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb36-21"><a href="#cb36-21" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">list</span>(</span>
+<span id="cb36-23"><a href="#cb36-23" tabindex="-1"></a>    <span class="at">pca_fit =</span> pca_fit,</span>
+<span id="cb36-24"><a href="#cb36-24" tabindex="-1"></a>    <span class="at">coords =</span> coords,</span>
+<span id="cb36-25"><a href="#cb36-25" tabindex="-1"></a>    <span class="at">gene_count =</span> effective_gene_count,</span>
+<span id="cb36-26"><a href="#cb36-26" tabindex="-1"></a>    <span class="at">variance_explained =</span> <span class="fu">calculate_variance_explained</span>(pca_fit))</span>
+<span id="cb36-27"><a href="#cb36-27" tabindex="-1"></a>}</span>
+<span id="cb36-28"><a href="#cb36-28" tabindex="-1"></a></span>
+<span id="cb36-29"><a href="#cb36-29" tabindex="-1"></a>plot_zrn01_pca <span class="ot">&lt;-</span> <span class="cf">function</span>(pca_result, plot_title) {</span>
+<span id="cb36-30"><a href="#cb36-30" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb36-31"><a href="#cb36-31" tabindex="-1"></a>    pca_result<span class="sc">$</span>coords,</span>
+<span id="cb36-32"><a href="#cb36-32" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(PC1, PC2, <span class="at">color =</span> timepoint_label, <span class="at">shape =</span> genotype_display)) <span class="sc">+</span></span>
+<span id="cb36-33"><a href="#cb36-33" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.7</span>, <span class="at">stroke =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb36-34"><a href="#cb36-34" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(<span class="at">values =</span> timepoint_colors) <span class="sc">+</span></span>
+<span id="cb36-35"><a href="#cb36-35" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_shape_manual</span>(<span class="at">values =</span> base<span class="sc">::</span><span class="fu">c</span>(<span class="at">Di21 =</span> <span class="dv">16</span>, <span class="at">Tri21 =</span> <span class="dv">17</span>)) <span class="sc">+</span></span>
+<span id="cb36-36"><a href="#cb36-36" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">labs</span>(</span>
+<span id="cb36-37"><a href="#cb36-37" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">format_pc_axis_label</span>(<span class="st">&#39;PC1&#39;</span>, pca_result<span class="sc">$</span>variance_explained),</span>
+<span id="cb36-38"><a href="#cb36-38" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">format_pc_axis_label</span>(<span class="st">&#39;PC2&#39;</span>, pca_result<span class="sc">$</span>variance_explained),</span>
+<span id="cb36-39"><a href="#cb36-39" tabindex="-1"></a>      <span class="at">title =</span> plot_title) <span class="sc">+</span></span>
+<span id="cb36-40"><a href="#cb36-40" tabindex="-1"></a>    <span class="fu">theme_ab01</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb36-41"><a href="#cb36-41" tabindex="-1"></a>}</span></code></pre></div>
+                <div id="zrn01-respiratory-mesenchyme" class="section level2 hasAnchor" number="10.1">
+                <h2 class="hasAnchor"><span class="header-section-number">10.1</span> ZRN01 Respiratory Mesenchyme<a href="#zrn01-respiratory-mesenchyme" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>zrn01_rm_pca <span class="ot">&lt;-</span> <span class="fu">build_zrn01_lineage_pca</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>  <span class="at">vst_matrix =</span> ZRN01_vst,</span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>  <span class="at">sample_metadata =</span> ZRN01_metadata,</span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>  <span class="at">lineage_name =</span> <span class="st">&#39;RM&#39;</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>  <span class="at">requested_gene_count =</span> pca_gene_count)</span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a>  <span class="at">lineage =</span> <span class="st">&#39;RM&#39;</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a>  <span class="at">effective_gene_count =</span> zrn01_rm_pca<span class="sc">$</span>gene_count,</span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a>  <span class="at">samples =</span> base<span class="sc">::</span><span class="fu">nrow</span>(zrn01_rm_pca<span class="sc">$</span>coords),</span>
+<span id="cb37-11"><a href="#cb37-11" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+                <pre><code>##   lineage effective_gene_count samples
+## 1      RM                 1000      18</code></pre>
+                <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">plot_zrn01_pca</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="at">pca_result =</span> zrn01_rm_pca,</span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;ZRN01 respiratory mesenchyme PCA&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/zrn01-rm-pca-plot-1.png" alt="" width="3360" style="display: block; margin: auto;" /></p>
+                <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">plot_scree</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  <span class="at">pca_result =</span> zrn01_rm_pca,</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;ZRN01 respiratory mesenchyme scree plot&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/zrn01-rm-scree-plot-1.png" alt="" width="3720" style="display: block; margin: auto;" /></p>
+                </div>
+                <div id="zrn01-esophageal-mesenchyme" class="section level2 hasAnchor" number="10.2">
+                <h2 class="hasAnchor"><span class="header-section-number">10.2</span> ZRN01 Esophageal Mesenchyme<a href="#zrn01-esophageal-mesenchyme" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>zrn01_em_pca <span class="ot">&lt;-</span> <span class="fu">build_zrn01_lineage_pca</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  <span class="at">vst_matrix =</span> ZRN01_vst,</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>  <span class="at">sample_metadata =</span> ZRN01_metadata,</span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>  <span class="at">lineage_name =</span> <span class="st">&#39;EM&#39;</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>  <span class="at">requested_gene_count =</span> pca_gene_count)</span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">data.frame</span>(</span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>  <span class="at">lineage =</span> <span class="st">&#39;EM&#39;</span>,</span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a>  <span class="at">effective_gene_count =</span> zrn01_em_pca<span class="sc">$</span>gene_count,</span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a>  <span class="at">samples =</span> base<span class="sc">::</span><span class="fu">nrow</span>(zrn01_em_pca<span class="sc">$</span>coords),</span>
+<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+                <pre><code>##   lineage effective_gene_count samples
+## 1      EM                 1000      18</code></pre>
+                <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">plot_zrn01_pca</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="at">pca_result =</span> zrn01_em_pca,</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;ZRN01 esophageal mesenchyme PCA&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/zrn01-em-pca-plot-1.png" alt="" width="3360" style="display: block; margin: auto;" /></p>
+                <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">plot_scree</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>  <span class="at">pca_result =</span> zrn01_em_pca,</span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>  <span class="at">plot_title =</span> <span class="st">&#39;ZRN01 esophageal mesenchyme scree plot&#39;</span>)</span></code></pre></div>
+                <p><img src="AB01_interval_maturation_score_files/figure-html/zrn01-em-scree-plot-1.png" alt="" width="3720" style="display: block; margin: auto;" /></p>
+                </div>
+                </div>
+                <!--bookdown:body:end-->
+                 <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const blocks = document.querySelectorAll("div.sourceCode, pre.sourceCode");
+
+    blocks.forEach(function (block) {
+      if (block.closest("details.code-fold")) return;
+
+      const details = document.createElement("details");
+      details.className = "code-fold";
+      details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.textContent = "Code";
+
+      block.parentNode.insertBefore(details, block);
+      details.appendChild(summary);
+      details.appendChild(block);
+    });
+
+    const summaryLinks = Array.from(
+      document.querySelectorAll(
+        ".book-summary ul.summary li.chapter > a[href^='#']",
+      ),
+    );
+    const linkById = new Map(
+      summaryLinks.map(function (link) {
+        return [decodeURIComponent(link.getAttribute("href").slice(1)), link];
+      }),
+    );
+    const headings = Array.from(
+      document.querySelectorAll(
+        "section.normal h1[id], section.normal h2[id], section.normal h3[id]",
+      ),
+    ).filter(function (heading) {
+      return linkById.has(heading.id);
+    });
+
+    function setActiveSidebarLink(activeId) {
+      summaryLinks.forEach(function (link) {
+        const isActive =
+          decodeURIComponent(link.getAttribute("href").slice(1)) === activeId;
+        link.classList.toggle("current-section", isActive);
+        link.parentElement.classList.toggle("current-section-parent", isActive);
+      });
+    }
+
+    function updateActiveSection() {
+      let activeId = headings.length > 0 ? headings[0].id : null;
+      const offset = 120;
+
+      headings.forEach(function (heading) {
+        if (heading.getBoundingClientRect().top <= offset) {
+          activeId = heading.id;
+        }
+      });
+
+      if (activeId) setActiveSidebarLink(activeId);
+    }
+
+    if (headings.length > 0) {
+      updateActiveSection();
+      document.addEventListener("scroll", updateActiveSection, {
+        passive: true,
+      });
+      window.addEventListener("resize", updateActiveSection);
+    }
+  });
+</script> 
+              </section>
+            </div>
+          </div>
+        </div>
+        <!--bookdown:link_prev-->
+        <!--bookdown:link_next-->
+      </div>
+    </div>
+    <!--bookdown:config-->
+
+      </body>
+</html>
