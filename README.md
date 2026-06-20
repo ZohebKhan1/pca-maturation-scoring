@@ -38,3 +38,13 @@ tools/r_codex_utils render scripts \
 ```
 
 Rendered site output is written to `docs/`.
+
+## Contact
+
+**Author:** Zoheb Khan
+
+**Affiliation:** Bioinformatician @ Moskowitz Lab at the University of Chicago Department of Pathology, Pediatrics, and Human Genetics
+
+**Email:** zohebkhan600@gmail.com
+
+**Website:** https://zohebkhan1.github.io/
