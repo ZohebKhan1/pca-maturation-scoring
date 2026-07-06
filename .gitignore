@@ -1,25 +1,43 @@
-/.quarto/
-**/*.quarto_ipynb
-*_cache/
-/index_files/
-/tutorial_workflow_files/
-/assets/figures/
-/scripts/assets/figures/*.png
-/scripts/_site/
-/scripts/_book/
-.Rhistory
-.RData
-.Ruserdata
+# Local editor, agent, and tool metadata
 .Rproj.user/
-.DS_Store
-*Zone.Identifier
-
-# Local project/runtime files
+.ruff_cache/
+/AGENTS.md
+/CLAUDE.md
+/.codex/
+/.cursor/
+/.continue/
 /coding_guidelines.md
 /differentiation_score.Rproj
 /tools/
 
-# Local analysis outputs and scratch files
+# Local environment files
+/.quarto/
+**/*.quarto_ipynb
+.Rhistory
+.RData
+.Ruserdata
+.Renviron
+.env
+.DS_Store
+*Zone.Identifier
+
+# R/bookdown generated intermediates
+*_cache/
+*_files/
+/.nojekyll
+/index.html
+/index_files/
+/tutorial_workflow_files/
+/scripts/_site/
+/scripts/_book/
+/scripts/index.html
+/assets/figures/
+/scripts/assets/
+*.Rout
+*.log
+*.tmp
+
+# Local analysis outputs, caches, and scratch files
 /plots/
 /results/
 /reports/
@@ -27,8 +45,6 @@
 /scratch/
 /maturation_scores.csv
 /pca_trajectory_plot.png
-/docs/tutorial_workflow.html
-/docs/tutorial_workflow_files/
 
 # Raw/source datasets and preprocessing scratch outputs are excluded.
 /raw/

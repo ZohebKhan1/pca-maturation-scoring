@@ -1,0 +1,198 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toc = document.querySelector(".book-summary nav > ul");
+    if (toc && !toc.classList.contains("summary")) {
+      toc.classList.add("summary");
+    }
+    if (toc && !toc.querySelector(".toc-title")) {
+      const titleItem = document.createElement("li");
+      titleItem.className = "toc-title";
+      const titleLink = document.createElement("a");
+      titleLink.href = "./";
+      titleLink.textContent = "Differentiation timing score";
+      titleItem.appendChild(titleLink);
+
+      const dividerItem = document.createElement("li");
+      dividerItem.className = "divider";
+
+      toc.insertBefore(dividerItem, toc.firstChild);
+      toc.insertBefore(titleItem, dividerItem);
+    }
+    if (toc) {
+      toc.querySelectorAll("li").forEach(function (item) {
+        if (
+          !item.classList.contains("toc-title") &&
+          !item.classList.contains("divider")
+        ) {
+          item.classList.add("chapter");
+        }
+      });
+      toc.querySelectorAll("li.chapter > a").forEach(function (link) {
+        if (!link.querySelector("i.fa-check")) {
+          const icon = document.createElement("i");
+          icon.className = "fa fa-check";
+          icon.setAttribute("aria-hidden", "true");
+          link.insertBefore(icon, link.firstChild);
+        }
+      });
+    }
+
+    if (!document.getElementById("code-block-theme")) {
+      const style = document.createElement("style");
+      style.id = "code-block-theme";
+      style.textContent = `
+        .book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid),
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode,
+        .book .book-body .page-wrapper .page-inner section.normal pre.sourceCode,
+        .book .book-body .page-wrapper .page-inner section.normal code.sourceCode,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode pre,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code,
+        .book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid) code,
+        .book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid) code span {
+          background-color: #242424 !important;
+          color: #e6edf3 !important;
+          font-family: var(--tutorial-code-font) !important;
+          font-weight: 400;
+          font-variant-ligatures: none;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span {
+          background-color: transparent !important;
+          font-family: var(--tutorial-code-font) !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.al,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.er {
+          color: #ff7b72 !important;
+          font-weight: 700;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.an,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.co,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.cv,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.do,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.in,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.wa {
+          color: #8b949e !important;
+          font-style: italic;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.at,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.dt,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.va {
+          color: #ffa657 !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.bn,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.cn,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.dv,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.fl {
+          color: #79c0ff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.bu,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.cf,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.im,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.kw,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.pp {
+          color: #ff7b72 !important;
+          font-weight: 700;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.ch,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.sc,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.ss,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.st,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.vs {
+          color: #a5d6ff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.fu {
+          color: #d2a8ff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.op,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.ot {
+          color: #ffab70 !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold {
+          background-color: #242424 !important;
+          border-color: #2f2f2f !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold summary {
+          color: #ffffff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold summary,
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold summary * {
+          color: #ffffff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal #session-info pre,
+        .book .book-body .page-wrapper .page-inner section.normal #session-info pre code,
+        .book .book-body .page-wrapper .page-inner section.normal #session-info pre code span {
+          color: #a5d6ff !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const blocks = document.querySelectorAll("div.sourceCode, pre.sourceCode");
+
+    document
+      .querySelectorAll('.page-inner a[href^="http"]')
+      .forEach(function (link) {
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
+      });
+
+    blocks.forEach(function (block) {
+      if (block.closest("details.code-fold")) return;
+
+      const details = document.createElement("details");
+      details.className = "code-fold";
+      details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.textContent = "Code";
+      summary.style.color = "#ffffff";
+
+      block.parentNode.insertBefore(details, block);
+      details.appendChild(summary);
+      details.appendChild(block);
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!window.mermaid) return;
+
+    document.querySelectorAll("pre.mermaid > code").forEach(function (code) {
+      const diagram = document.createElement("div");
+      diagram.className = "mermaid";
+      diagram.textContent = code.textContent;
+      code.parentNode.replaceWith(diagram);
+    });
+
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: "loose",
+      htmlLabels: true,
+      theme: "base",
+      themeVariables: {
+        fontFamily: '"Inter", "Latin Modern Sans", Arial, sans-serif',
+        fontSize: "16px",
+        primaryTextColor: "#111111",
+        lineColor: "#555555",
+      },
+      flowchart: {
+        curve: "basis",
+        htmlLabels: true,
+        useMaxWidth: true,
+      },
+    });
+  });
+</script>
