@@ -177,8 +177,8 @@ Panel b shows residuals, calculated as predicted day minus actual day.
 
 ### Figure 10. Leave-one-line-out prediction error by day
 
-Bars show the mean absolute difference between predicted and actual
-differentiation day among held-out samples at each timepoint. Smaller values
+Boxplots show the absolute difference between predicted and actual
+differentiation day among held-out samples at each timepoint. Lower values
 indicate closer predictions.
 
 ![Figure 10](report/assets/figures/GSE122380_loo_timepoint_accuracy.png)

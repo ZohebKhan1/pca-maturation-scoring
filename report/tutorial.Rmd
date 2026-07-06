@@ -330,7 +330,7 @@ knitr::kable(
 
 The heatmap shows the top 1,500 genes from the final temporal set to keep the visualization readable. PCA fitting, scoring, and validation use the full final temporal set.
 
-```{r temporal-heatmap, echo=FALSE, results='asis', out.width='74%', fig.align='center'}
+```{r temporal-heatmap, echo=FALSE, results='asis', out.width='62%', fig.align='center'}
 cat('<div id="fig-temporal-heatmap" class="figure-anchor"></div>\n')
 knitr::include_graphics("assets/figures/GSE122380_temporal_heatmap.png")
 ```
@@ -468,7 +468,7 @@ if (has_loo_validation) {
 }
 ```
 
-<div class="tutorial-figure-caption"><strong>Figure 10.</strong> Leave-one-line-out prediction error by differentiation day. Bars show the mean absolute difference between predicted and actual differentiation day among held-out samples at each timepoint; smaller values indicate closer predictions.</div>
+<div class="tutorial-figure-caption"><strong>Figure 10.</strong> Leave-one-line-out prediction error by differentiation day. Boxplots show the absolute difference between predicted and actual differentiation day among held-out samples at each timepoint; lower values indicate closer predictions.</div>
 
 # References
 

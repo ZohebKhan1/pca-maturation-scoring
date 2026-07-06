@@ -1203,13 +1203,13 @@ cluster_block_annotation <- ComplexHeatmap::rowAnnotation(
       col = 'white',
       fontface = 'bold',
       fontfamily = figure_family,
-      fontsize = fs(7.2)
+      fontsize = fs(12)
     ),
     labels_rot = 270,
-    width = grid::unit(7.2, 'mm'),
+    width = grid::unit(12, 'mm'),
     show_name = FALSE
   ),
-  width = grid::unit(7.2, 'mm'),
+  width = grid::unit(12, 'mm'),
   show_annotation_name = FALSE
 )
 
@@ -1229,14 +1229,14 @@ p_lrt_heatmap <- ComplexHeatmap::Heatmap(
     fontfamily = figure_family,
     col = cluster_colors
   ),
-  row_gap = grid::unit(1.2, 'mm'),
+  row_gap = grid::unit(1.8, 'mm'),
   show_row_names = FALSE,
   show_column_names = FALSE,
   column_split = hm_meta$day_factor,
   column_gap = grid::unit(0, 'mm'),
   column_title = base::paste0('D', base::levels(hm_meta$day_factor)),
   column_title_gp = grid::gpar(
-    fontsize = fs(11),
+    fontsize = fs(15),
     fontface = 'bold',
     fontfamily = figure_family
   ),
@@ -1245,9 +1245,11 @@ p_lrt_heatmap <- ComplexHeatmap::Heatmap(
     labels = base::c('-2', '0', '2'),
     tick_length = grid::unit(0, 'mm'),
     border = 'black',
+    legend_height = grid::unit(28, 'mm'),
+    grid_width = grid::unit(4.8, 'mm'),
     legend_gp = grid::gpar(col = 'black', lwd = 0.5),
-    title_gp = grid::gpar(fontface = 'bold', fontfamily = figure_family, fontsize = fs(6)),
-    labels_gp = grid::gpar(fontfamily = figure_family, fontsize = fs(5.5))
+    title_gp = grid::gpar(fontface = 'bold', fontfamily = figure_family, fontsize = fs(10)),
+    labels_gp = grid::gpar(fontfamily = figure_family, fontsize = fs(9))
   ),
   border = FALSE,
   rect_gp = grid::gpar(col = NA),
@@ -2262,32 +2264,36 @@ if (has_loo_validation) {
       )
     )
 
-  loo_day_accuracy <- stats::aggregate(
-    loo_abs_error ~ actual_day,
-    data = loo_polyline_all,
-    FUN = function(x) base::c(
-      mean_abs_error = base::mean(x, na.rm = TRUE),
-      n = base::length(x)
-    )
-  )
-  loo_day_accuracy <- base::data.frame(
-    actual_day = loo_day_accuracy$actual_day,
-    mean_abs_error = loo_day_accuracy$loo_abs_error[, 'mean_abs_error'],
-    n = loo_day_accuracy$loo_abs_error[, 'n'],
-    stringsAsFactors = FALSE
+  loo_timepoint_error <- loo_polyline_all
+  loo_timepoint_error$absolute_error <- base::abs(loo_timepoint_error$residual)
+  loo_timepoint_error$actual_day_factor <- base::factor(
+    loo_timepoint_error$actual_day,
+    levels = days
   )
 
   p_loo_timepoint_accuracy <- ggplot2::ggplot(
-    loo_day_accuracy,
-    ggplot2::aes(actual_day, mean_abs_error, fill = actual_day)
+    loo_timepoint_error,
+    ggplot2::aes(actual_day_factor, absolute_error)
   ) +
-    ggplot2::geom_col(width = 0.46, color = NA, linewidth = 0, alpha = 0.86) +
-    ggplot2::scale_x_continuous(breaks = days) +
+    ggplot2::geom_hline(
+      yintercept = 0,
+      color = 'black',
+      linewidth = gs(0.22),
+      linetype = 'dashed'
+    ) +
+    ggplot2::geom_boxplot(
+      width = 0.38,
+      outlier.shape = NA,
+      linewidth = gs(0.30),
+      alpha = 0.70,
+      staplewidth = 0.3,
+      fill = '#BDBDBD',
+      color = 'black'
+    ) +
     ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = base::c(0, 0.08))) +
-    ggplot2::scale_fill_viridis_c(option = 'D', guide = 'none') +
     ggplot2::labs(
       x = 'Actual differentiation day',
-      y = 'Mean absolute prediction error (days)'
+      y = 'Absolute prediction error (days)'
     ) +
     ggplot2::theme_classic(base_size = fs(7), base_family = figure_family) +
     ggplot2::theme(
@@ -2323,9 +2329,9 @@ save_drawn_report_figure(
       annotation_legend_side = 'bottom'
     )
   },
-  width = 6.25,
-  height = 3.62,
-  png_scale = 3
+  width = 5.45,
+  height = 3.35,
+  png_scale = 2
 )
 save_report_figure(
   path_stub = base::file.path(report_figure_dir, 'GSE122380_temporal_clusters'),
