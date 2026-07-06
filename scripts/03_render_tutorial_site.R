@@ -11,9 +11,11 @@
 #
 # Outputs:
 # - report/index.html: rendered tutorial site entry point
+# - docs/index.html: GitHub Pages copy of the rendered tutorial site
 #
 # Purpose:
-# Render the active GSE122380 bookdown tutorial in report/.
+# Render the active GSE122380 bookdown tutorial in report/ and copy the static
+# site to docs/ for GitHub Pages.
 
 # 1.0 validate render dependencies -----------------
 
@@ -27,3 +29,18 @@ bookdown::render_book(
   clean = TRUE)
 
 base::stopifnot(base::file.exists('report/index.html'))
+
+# 3.0 refresh GitHub Pages copy -----------------
+
+if (base::dir.exists('docs')) {
+  base::unlink('docs', recursive = TRUE)
+}
+base::dir.create('docs', recursive = TRUE, showWarnings = FALSE)
+base::file.copy(
+  from = base::list.files('report', all.files = TRUE, no.. = TRUE, full.names = TRUE),
+  to = 'docs',
+  recursive = TRUE,
+  copy.date = TRUE
+)
+base::file.create(base::file.path('docs', '.nojekyll'))
+base::stopifnot(base::file.exists('docs/index.html'))

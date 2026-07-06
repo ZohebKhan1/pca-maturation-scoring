@@ -5,7 +5,7 @@ time-course trajectory. The tutorial uses the QC-processed GSE122380
 iPSC-to-cardiomyocyte differentiation dataset and a polyline-based PCA scoring
 method.
 
-Rendered tutorial: `https://zohebkhan1.github.io/pca-maturation-scoring/report/`
+Rendered tutorial: `https://zohebkhan1.github.io/pca-maturation-scoring/`
 
 ## Use The Scoring Function
 

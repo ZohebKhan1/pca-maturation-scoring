@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="" xml:lang="" >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Differentiation timing score</title>
+    <meta
+      name="description"
+      content="PCA-based scoring of differentiation timing from bulk RNA-seq time-course data."
+    />
+    <meta
+      name="generator"
+      content="bookdown #bookdown:version# and GitBook 2.6.7"
+    />
+
+    <meta property="og:title" content="Differentiation timing score" />
+    <meta property="og:type" content="book" />
+         <meta property="og:description" content="PCA-based scoring of differentiation timing from bulk RNA-seq time-course data." />
+     
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Differentiation timing score" />
+         <meta name="twitter:description" content="PCA-based scoring of differentiation timing from bulk RNA-seq time-course data." />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+         <!--bookdown:link_prev-->
+    <!--bookdown:link_next-->
+      <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>       <style type="text/css">
+      html { -webkit-text-size-adjust: 100%; }
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+    
+    <style type="text/css">
+      
+        margin-left: 1.5em;
+        text-indent: -1.5em;
+      }
+    </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
+
+  <body>
+    <!--bookdown:title:start-->
+        <div id="header">
+      <h1 class="title">Differentiation timing score</h1>
+             </div>
+        <!--bookdown:title:end-->
+
+    <!--bookdown:toc:start-->
+    <div
+      class="book without-animation with-summary font-size-2 font-family-1"
+      data-basepath="."
+    >
+      <div class="book-summary">
+        <nav role="navigation">
+          <!--bookdown:toc2:start-->
+           <ul>
+<li><a href="#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#download-the-scoring-function" id="toc-download-the-scoring-function"><span class="toc-section-number">2</span> Download the scoring function</a></li>
+<li><a href="#gse122380-bulk-rna-seq-time-course-dataset" id="toc-gse122380-bulk-rna-seq-time-course-dataset"><span class="toc-section-number">3</span> GSE122380 bulk RNA-seq time-course dataset</a></li>
+<li><a href="#method" id="toc-method"><span class="toc-section-number">4</span> Method</a></li>
+<li><a href="#computing-the-differentiation-timing-score" id="toc-computing-the-differentiation-timing-score"><span class="toc-section-number">5</span> Computing the differentiation timing score</a>
+<ul>
+<li><a href="#identify-time-variant-genes" id="toc-identify-time-variant-genes"><span class="toc-section-number">5.1</span> Identify time-variant genes</a></li>
+<li><a href="#train-pca-space-on-the-reference-time-course" id="toc-train-pca-space-on-the-reference-time-course"><span class="toc-section-number">5.2</span> Train PCA space on the reference time course</a></li>
+<li><a href="#fit-the-differentiation-timing-polyline" id="toc-fit-the-differentiation-timing-polyline"><span class="toc-section-number">5.3</span> Fit the differentiation timing polyline</a></li>
+<li><a href="#score-samples-along-the-fixed-polyline" id="toc-score-samples-along-the-fixed-polyline"><span class="toc-section-number">5.4</span> Score samples along the fixed polyline</a></li>
+</ul></li>
+<li><a href="#leave-one-line-out-validation" id="toc-leave-one-line-out-validation"><span class="toc-section-number">6</span> Leave-one-line-out validation</a></li>
+<li><a href="#references" id="toc-references"><span class="toc-section-number">7</span> References</a></li>
+<li><a href="#session-info" id="toc-session-info"><span class="toc-section-number">8</span> Session Info</a></li>
+</ul> 
+          <!--bookdown:toc2:end-->
+        </nav>
+      </div>
+
+      <div class="book-body">
+        <div class="body-inner">
+          <div class="book-header" role="navigation">
+            <h1>
+              <i class="fa fa-circle-o-notch fa-spin"></i
+              ><a href="./"
+                >Differentiation timing score</a
+              >
+            </h1>
+          </div>
+
+          <div class="page-wrapper" tabindex="-1" role="main">
+            <div class="page-inner">
+              <section class="normal" id="section-">
+                
+                <!--bookdown:toc:end-->
+                <!--bookdown:body:start-->
+                <div class="tutorial-title-block">
+                <h1 class="title">
+                Differentiation timing score
+                </h1>
+                <div class="tutorial-subtitle">
+                PCA-based scoring of differentiation timing from bulk RNA-seq time-course data
+                </div>
+                <div class="tutorial-meta-block">
+                <div>
+                <span>Authors:</span> Zoheb Khan [aut, cre]
+                </div>
+                <div>
+                <span>Version:</span> 0.0.0.9000
+                </div>
+                <div>
+                <span>Modified:</span> 2026-07-06
+                </div>
+                <div>
+                <span>Compiled:</span> 2026-07-06
+                </div>
+                <div>
+                <span>Environment:</span> R version 4.6.0
+                </div>
+                <div>
+                <span>Bioconductor:</span> 3.23
+                </div>
+                <div>
+                <span>Dependencies:</span> DESeq2 1.52.0; ComplexHeatmap 2.28.0; clusterProfiler 4.20.0; ggrepel 0.9.8; ggplot2 4.0.3; org.Hs.eg.db 3.23.1; patchwork 1.3.2; svglite 2.2.2; viridis 0.6.5
+                </div>
+                <div>
+                <span>Source:</span> <a href="https://github.com/ZohebKhan1/pca-maturation-scoring">https://github.com/ZohebKhan1/pca-maturation-scoring</a>
+                </div>
+                </div>
+                </div>
+                <div id="introduction" class="section level1 hasAnchor" number="1">
+                <h1 class="hasAnchor"><span class="header-section-number">1</span> Introduction<a href="#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>This tutorial shows a reference-trajectory workflow for scoring differentiation timing from bulk RNA-seq data. The worked example uses processed GSE122380 iPSC-to-cardiomyocyte differentiation samples. The active input contains 192 samples across 15 daily timepoints, from day 1 through day 15, and 13 independent cell lines. The score is trained from the retained reference time course and then expresses each sample as a continuous coordinate along that fitted differentiation trajectory.</p>
+                <p>The tutorial has four goals:</p>
+                <ol style="list-style-type: decimal">
+                <li>define temporal genes from a reference time course</li>
+                <li>train a PCA space using those genes</li>
+                <li>fit and normalize a differentiation timing polyline</li>
+                <li>validate transferability by holding out cell lines</li>
+                </ol>
+                <p>The complete runnable analysis code is stored separately in <code>scripts/01_build_tutorial_objects.R</code>. The report figures are generated by that script as named PNG and SVG files under <code>report/assets/figures/</code>.</p>
+                </div>
+                <div id="download-the-scoring-function" class="section level1 hasAnchor" number="2">
+                <h1 class="hasAnchor"><span class="header-section-number">2</span> Download the scoring function<a href="#download-the-scoring-function" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The reusable scoring function is available as a standalone R file. It assumes temporal genes have already been selected, then trains the PCA space, fits the ordered day-centroid polyline, projects samples into that fixed space, and returns polyline timing scores. It does not run DESeq2, select genes, make figures, or write files.</p>
+                <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/ZohebKhan1/pca-maturation-scoring/main/functions&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">paste0</span>(base_url, <span class="st">&quot;/score_differentiation_timing.R&quot;</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="st">&quot;score_differentiation_timing.R&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;score_differentiation_timing.R&quot;</span>)</span></code></pre></div>
+                <p>The main parameters are:</p>
+                <ul>
+                <li><code>expression_matrix</code>: a normalized expression matrix, with genes as rows and samples as columns. The example workflow uses VST expression values.</li>
+                <li><code>metadata</code>: sample-level metadata. It must contain one row per sample in <code>expression_matrix</code>.</li>
+                <li><code>temporal_genes</code>: genes used to train the PCA space and reference trajectory. These should be selected before scoring, for example by the temporal-gene filtering workflow shown below.</li>
+                <li><code>sample_id_col</code>: metadata column containing sample IDs that match <code>colnames(expression_matrix)</code>.</li>
+                <li><code>time_col</code>: numeric differentiation time column used to order the reference centroids.</li>
+                <li><code>reference_col</code> and <code>reference_values</code>: optional metadata column and value set used to define the reference samples. If these are omitted, all samples are treated as reference samples.</li>
+                <li><code>n_pcs</code>: number of retained PCs used for the centroid polyline and projection. The tutorial uses the first three PCs.</li>
+                </ul>
+                <p>The function returns a list containing <code>scores</code>, <code>pca_coordinates</code>, the fitted <code>pca_fit</code>, the fitted <code>centroid_polyline</code>, the retained <code>temporal_genes</code>, and the normalized reference time range.</p>
+                </div>
+                <div id="gse122380-bulk-rna-seq-time-course-dataset" class="section level1 hasAnchor" number="3">
+                <h1 class="hasAnchor"><span class="header-section-number">3</span> GSE122380 bulk RNA-seq time-course dataset<a href="#gse122380-bulk-rna-seq-time-course-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The example uses <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380">GSE122380</a>, an iPSC-derived cardiomyocyte differentiation bulk RNA-seq time course generated by Strober, Elorbany, Rhodes et al. The data used here have already been processed into aligned metadata, raw-count, and variance-stabilized expression objects. There are no perturbation samples in the active tutorial dataset; all retained samples are treated as one reference trajectory.</p>
+                <table class="sample-summary-table">
+                <caption>
+                <span id="tab:sample-summary-table">Table 1: </span>Sample overview for the GSE122380 dataset used in this tutorial.
+                </caption>
+                <thead>
+                <tr>
+                <th style="text-align:left;">
+                Metric
+                </th>
+                <th style="text-align:right;">
+                D1
+                </th>
+                <th style="text-align:right;">
+                D2
+                </th>
+                <th style="text-align:right;">
+                D3
+                </th>
+                <th style="text-align:right;">
+                D4
+                </th>
+                <th style="text-align:right;">
+                D5
+                </th>
+                <th style="text-align:right;">
+                D6
+                </th>
+                <th style="text-align:right;">
+                D7
+                </th>
+                <th style="text-align:right;">
+                D8
+                </th>
+                <th style="text-align:right;">
+                D9
+                </th>
+                <th style="text-align:right;">
+                D10
+                </th>
+                <th style="text-align:right;">
+                D11
+                </th>
+                <th style="text-align:right;">
+                D12
+                </th>
+                <th style="text-align:right;">
+                D13
+                </th>
+                <th style="text-align:right;">
+                D14
+                </th>
+                <th style="text-align:right;">
+                D15
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <td style="text-align:left;">
+                Samples
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                12
+                </td>
+                <td style="text-align:right;">
+                12
+                </td>
+                <td style="text-align:right;">
+                12
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Cell lines
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                12
+                </td>
+                <td style="text-align:right;">
+                12
+                </td>
+                <td style="text-align:right;">
+                12
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                <p>The figure below provides a compact overview of the reference time course. Panel a shows the global time-course structure by PCA, and panel b shows the day-collapsed Pearson correlation matrix using the same top-variable-gene set.</p>
+                <div id="fig-reference-overview" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_reference_pca_and_day_correlation.svg" alt="" width="96%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 1.</strong> Experimental structure of the GSE122380 differentiation time course. <strong>a.</strong> PCA of all samples using the top 10% most variable VST genes, colored by differentiation day. <strong>b.</strong> Pearson correlation matrix of replicate-collapsed day profiles using the same variable-gene set as in 1A; row and column annotations encode differentiation day.
+                </div>
+                </div>
+                <div id="method" class="section level1 hasAnchor" number="4">
+                <h1 class="hasAnchor"><span class="header-section-number">4</span> Method<a href="#method" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The differentiation timing score reduces a multi-gene time course to a one-dimensional coordinate. The calculation has four defined steps: select temporal genes, train a PCA space, fit an ordered day-centroid polyline, and score samples by the nearest position along that polyline. The equations below are limited to those operations.</p>
+                <p><strong>Step 1. Select temporal genes.</strong> Genes are retained only if they pass all three temporal-feature filters: day-level expression support, DESeq2 LRT evidence, and day-mean VST dynamic range. This avoids training the trajectory on genes that are statistically non-temporal, too lowly expressed, or numerically flat across the time course. For each gene, DESeq2 compares a full model that includes differentiation day against a reduced model without day:</p>
+                <p><span class="math display">\[
+                \mathrm{full}: y \sim \mathrm{cell\ line} + \mathrm{day},
+                \qquad
+                \mathrm{reduced}: y \sim \mathrm{cell\ line}.
+                \tag{1}
+                \]</span></p>
+                <p>The likelihood-ratio statistic is</p>
+                <p><span class="math display">\[
+                \mathrm{LR} =
+                -2\ln\left(\frac{L_{\mathrm{reduced}}}{L_{\mathrm{full}}}\right)
+                =
+                2\left(\ell_{\mathrm{full}} - \ell_{\mathrm{reduced}}\right),
+                \tag{2}
+                \]</span></p>
+                <p>where <span class="math inline">\(L\)</span> is the maximized likelihood and <span class="math inline">\(\ell\)</span> is the maximized log-likelihood for the corresponding fit. Genes with small adjusted LRT p-values have evidence that expression changes across differentiation day after accounting for cell-line structure.</p>
+                <p><strong>Step 2. Train the PCA coordinate system.</strong> Let <span class="math inline">\(X \in \mathbb{R}^{n \times p}\)</span> be the reference expression matrix for <span class="math inline">\(n\)</span> samples and <span class="math inline">\(p\)</span> selected temporal genes. PCA is trained after centering each gene. If <span class="math inline">\(\mathbf{x}_i\)</span> is the row vector for sample <span class="math inline">\(i\)</span>, <span class="math inline">\(\boldsymbol{\mu}\)</span> is the reference gene-mean vector, and <span class="math inline">\(W_k \in \mathbb{R}^{p \times k}\)</span> contains the retained PCA loading vectors, then the retained PCA coordinate is</p>
+                <p><span class="math display">\[
+                \mathbf{z}_i = (\mathbf{x}_i - \boldsymbol{\mu}) W_k.
+                \tag{3}
+                \]</span></p>
+                <p>Below, PCA coordinates are treated as points in the retained Euclidean PC space. Inner products are written with angle brackets so the projection formulas do not depend on whether a vector is stored as a row or column in software.</p>
+                <p><strong>Step 3. Fit the day-centroid polyline.</strong> For each ordered differentiation day <span class="math inline">\(t_j\)</span>, let <span class="math inline">\(I_j\)</span> be the samples collected at that day. The day centroid is the mean PCA coordinate:</p>
+                <p><span class="math display">\[
+                \mathbf{c}_j =
+                \frac{1}{|I_j|}
+                \sum_{i \in I_j} \mathbf{z}_i,
+                \qquad
+                j = 1,\ldots,m.
+                \tag{4}
+                \]</span></p>
+                <p>The ordered centroids <span class="math inline">\(\mathbf{c}_1,\ldots,\mathbf{c}_m\)</span> define a piecewise-linear trajectory. Segment <span class="math inline">\(j\)</span> starts at <span class="math inline">\(\mathbf{a}_j=\mathbf{c}_j\)</span>, ends at <span class="math inline">\(\mathbf{b}_j=\mathbf{c}_{j+1}\)</span>, and has direction <span class="math inline">\(\mathbf{v}_j=\mathbf{b}_j-\mathbf{a}_j\)</span>.</p>
+                <p>This scoring method assumes consecutive day centroids are distinct; a degenerate segment with <span class="math inline">\(\mathbf{v}_j=\mathbf{0}\)</span> would be dropped before projection. It also assumes the ordered day centroids define a roughly monotonic differentiation trajectory in the retained PC space. If the trajectory folds back on itself, nearest-segment projection can assign a sample to an out-of-order part of the polyline.</p>
+                <p><strong>Step 4. Project and score each sample.</strong> For sample <span class="math inline">\(i\)</span> and segment <span class="math inline">\(j\)</span>, the fractional position along that segment is</p>
+                <p><span class="math display">\[
+                \alpha_{ij}
+                =
+                \operatorname{clip}_{[0,1]}
+                \left(
+                \frac{\langle \mathbf{z}_i-\mathbf{a}_j, \mathbf{v}_j \rangle}
+                {\langle \mathbf{v}_j, \mathbf{v}_j \rangle}
+                \right).
+                \tag{5}
+                \]</span></p>
+                <p>The clipped value <span class="math inline">\(\alpha_{ij}\)</span> keeps the projection on the finite segment rather than on the infinite line through that segment. The projected point on segment <span class="math inline">\(j\)</span> is</p>
+                <p><span class="math display">\[
+                \mathbf{q}_{ij} = \mathbf{a}_j + \alpha_{ij}\mathbf{v}_j.
+                \tag{6}
+                \]</span></p>
+                <p>The selected segment is the one whose projected point is closest to the sample in retained PC space:</p>
+                <p><span class="math display">\[
+                j^\ast
+                =
+                \underset{j}{\operatorname{argmin}}
+                \left\lVert \mathbf{z}_i - \mathbf{q}_{ij} \right\rVert^2.
+                \tag{7}
+                \]</span></p>
+                <p>The segment fraction is then converted to an interpolated differentiation day:</p>
+                <p><span class="math display">\[
+                \widehat{t}_i =
+                t_{j^\ast}
+                +
+                \alpha_{ij^\ast}
+                \left(t_{j^\ast+1} - t_{j^\ast}\right).
+                \tag{8}
+                \]</span></p>
+                <p>Finally, the timing score is normalized to the fitted reference interval:</p>
+                <p><span class="math display">\[
+                s_i =
+                \frac{\widehat{t}_i - t_{\mathrm{start}}}{t_{\mathrm{end}} - t_{\mathrm{start}}}.
+                \tag{9}
+                \]</span></p>
+                <p>In this tutorial <span class="math inline">\(t_{\mathrm{start}}=1\)</span> and <span class="math inline">\(t_{\mathrm{end}}=15\)</span>, so the day 1 centroid anchors score 0 and the day 15 centroid anchors score 1. Scores below 0 or above 1 are allowed for future projection datasets if a sample maps before or after the fitted reference interval.</p>
+                </div>
+                <div id="computing-the-differentiation-timing-score" class="section level1 hasAnchor" number="5">
+                <h1 class="hasAnchor"><span class="header-section-number">5</span> Computing the differentiation timing score<a href="#computing-the-differentiation-timing-score" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <div id="identify-time-variant-genes" class="section level2 hasAnchor" number="5.1">
+                <h2 class="hasAnchor"><span class="header-section-number">5.1</span> Identify time-variant genes<a href="#identify-time-variant-genes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>The LRT compares a full model with cell line and day against a reduced model with cell line only, but the final temporal gene set also requires expression support and VST-scale dynamic range. A gene is retained if its maximum day-level mean TMM CPM is at least 10, its LRT-adjusted p-value is below <code>1e-7</code>, and the difference between its maximum and minimum day-level mean VST values is at least 0.6.</p>
+                <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>day_mean_tmm_cpm <span class="ot">&lt;-</span> <span class="fu">mean_tmm_cpm_by_day</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">count_matrix =</span> counts,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">metadata_df =</span> meta,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">day_values =</span> days</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>max_day_mean_tmm_cpm <span class="ot">&lt;-</span> <span class="fu">apply</span>(day_mean_tmm_cpm, <span class="dv">1</span>, max, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>expression_genes <span class="ot">&lt;-</span> <span class="fu">names</span>(max_day_mean_tmm_cpm)[</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  max_day_mean_tmm_cpm <span class="sc">&gt;=</span> <span class="dv">10</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>]</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>dds <span class="ot">&lt;-</span> DESeq2<span class="sc">::</span><span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="at">countData =</span> counts[expression_genes, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="at">colData =</span> lrt_meta,</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  <span class="at">design =</span> <span class="sc">~</span> cell_line <span class="sc">+</span> day_factor</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>dds <span class="ot">&lt;-</span> DESeq2<span class="sc">::</span><span class="fu">DESeq</span>(dds, <span class="at">test =</span> <span class="st">&quot;LRT&quot;</span>, <span class="at">reduced =</span> <span class="sc">~</span>cell_line, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>lrt_res <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DESeq2<span class="sc">::</span><span class="fu">results</span>(dds, <span class="at">alpha =</span> <span class="fl">1e-7</span>))</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>lrt_genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(lrt_res)[<span class="sc">!</span><span class="fu">is.na</span>(lrt_res<span class="sc">$</span>padj) <span class="sc">&amp;</span> lrt_res<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">1e-7</span>]</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>day_mean_vst <span class="ot">&lt;-</span> <span class="fu">mean_vst_by_day</span>(vst[lrt_genes, , <span class="at">drop =</span> <span class="cn">FALSE</span>], meta, days)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>vst_dynamic_range <span class="ot">&lt;-</span> <span class="fu">apply</span>(day_mean_vst, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>temporal_genes <span class="ot">&lt;-</span> lrt_genes[vst_dynamic_range[lrt_genes] <span class="sc">&gt;=</span> <span class="fl">0.6</span>]</span></code></pre></div>
+                <table class="sample-summary-table">
+                <caption>
+                <span id="tab:lrt-summary-table">Table 2: </span>Sequential temporal gene-filtering summary.
+                </caption>
+                <thead>
+                <tr>
+                <th style="text-align:left;">
+                Metric
+                </th>
+                <th style="text-align:right;">
+                Value
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <td style="text-align:left;">
+                Genes in filtered count/VST input
+                </td>
+                <td style="text-align:right;">
+                13,615
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Genes with max day mean TMM CPM &gt;= 10
+                </td>
+                <td style="text-align:right;">
+                11,411
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Genes tested by DESeq2 LRT
+                </td>
+                <td style="text-align:right;">
+                11,411
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Genes passing LRT padj &lt; 1e-7
+                </td>
+                <td style="text-align:right;">
+                10,863
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Genes passing VST dynamic range &gt;= 0.6
+                </td>
+                <td style="text-align:right;">
+                8,215
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Temporal genes used for PCA/scoring
+                </td>
+                <td style="text-align:right;">
+                8,215
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Temporal clusters shown
+                </td>
+                <td style="text-align:right;">
+                4
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                <p>The heatmap shows the top 1,500 genes from the final temporal set to keep the visualization readable. PCA fitting, scoring, and validation use the full final temporal set.</p>
+                <div id="fig-temporal-heatmap" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_temporal_heatmap.png" alt="" width="62%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 2.</strong> Z-scored VST expression for the top 1,500 temporally variable genes after expression, LRT, and dynamic-range filtering. Rows are split into four temporal clusters, and columns are ordered by differentiation day.
+                </div>
+                <p>The cluster panel uses k=4 only for interpretation. Clusters, trajectory summaries, and GO enrichment are all computed from the same top 1,500 temporally variable genes shown in the heatmap.</p>
+                <div id="fig-temporal-clusters" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_temporal_clusters.svg" alt="" width="96%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 3.</strong> Temporal gene clusters and GO biological process enrichment from the top 1,500 temporally variable genes. Each row shows one k=4 cluster trajectory summary and its top enriched GO terms.
+                </div>
+                </div>
+                <div id="train-pca-space-on-the-reference-time-course" class="section level2 hasAnchor" number="5.2">
+                <h2 class="hasAnchor"><span class="header-section-number">5.2</span> Train PCA space on the reference time course<a href="#train-pca-space-on-the-reference-time-course" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>The PCA space is trained using the final temporal gene set. PC1 is oriented so that it increases with differentiation day. The figure also shows two interpretive subsets from the k=4 heatmap clusters: C1+C2 captures the earlier temporal cluster patterns, and C3+C4 captures the later temporal cluster patterns.</p>
+                <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>pca_input <span class="ot">&lt;-</span> <span class="fu">t</span>(vst[temporal_genes, , <span class="at">drop =</span> <span class="cn">FALSE</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>pca_fit <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(pca_input, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale. =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>pca_fit <span class="ot">&lt;-</span> <span class="fu">orient_pca_fit_by_day</span>(pca_fit, sample_days)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>pca_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="at">sample_id =</span> <span class="fu">rownames</span>(pca_fit<span class="sc">$</span>x),</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="at">PC1 =</span> pca_fit<span class="sc">$</span>x[, <span class="dv">1</span>],</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="at">PC2 =</span> pca_fit<span class="sc">$</span>x[, <span class="dv">2</span>],</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="at">PC3 =</span> pca_fit<span class="sc">$</span>x[, <span class="dv">3</span>],</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  meta[<span class="fu">match</span>(<span class="fu">rownames</span>(pca_fit<span class="sc">$</span>x), meta<span class="sc">$</span>sample_id), ],</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>)</span></code></pre></div>
+                <div id="fig-pca-day" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_pca_day.svg" alt="" width="96%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 4.</strong> Reference PCA and PC1-day relationships for the final temporal gene set, the early C1+C2 temporal clusters, and the late C3+C4 temporal clusters.
+                </div>
+                <p>The loading validation figure shows the top 10 negative and top 10 positive PC1 loading genes and PC2 loading genes as vectors in PC1/PC2 loading space, then summarizes GO biological process enrichment for the top 500 genes in each PC1 direction.</p>
+                <div id="fig-pc1-validation" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_pc1_validation.svg" alt="" width="96%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 5.</strong> PCA loading-gene annotation and GO enrichment. <strong>a.</strong> Top PC1-negative and PC1-positive genes are shown as loading vectors in PC1/PC2 loading space. <strong>b.</strong> Top PC2-negative and PC2-positive genes are shown using the same vector definition. <strong>c-d.</strong> GO biological process enrichment among the top 500 PC1-negative and PC1-positive loading genes.
+                </div>
+                </div>
+                <div id="fit-the-differentiation-timing-polyline" class="section level2 hasAnchor" number="5.3">
+                <h2 class="hasAnchor"><span class="header-section-number">5.3</span> Fit the differentiation timing polyline<a href="#fit-the-differentiation-timing-polyline" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>After the PCA space is defined, day-level centroids are connected into an ordered polyline. This preserves curvature in the reference trajectory instead of forcing the full time course onto one straight D1-to-D15 vector. The same piecewise-linear centroid polyline shown in the figure is used for scoring.</p>
+                <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>centroid_polyline <span class="ot">&lt;-</span> <span class="fu">calculate_centroid_polyline</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">fit_pca_df =</span> pca_df,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">pc_columns =</span> <span class="fu">c</span>(<span class="st">&quot;PC1&quot;</span>, <span class="st">&quot;PC2&quot;</span>, <span class="st">&quot;PC3&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>polyline_projection <span class="ot">&lt;-</span> <span class="fu">project_points_to_polyline</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="at">points_df =</span> pca_df,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="at">polyline_df =</span> centroid_polyline,</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="at">pc_columns =</span> <span class="fu">c</span>(<span class="st">&quot;PC1&quot;</span>, <span class="st">&quot;PC2&quot;</span>, <span class="st">&quot;PC3&quot;</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>)</span></code></pre></div>
+                <div id="fig-timing-polyline" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_timing_polyline.svg" alt="" width="86%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 6.</strong> Differentiation timing polyline in reference PCA space. Small black points mark day-level mean PCA centroids, and the black arrows connect those centroids in differentiation-day order. The day 1 centroid maps to score 0, and the day 15 centroid maps to score 1.
+                </div>
+                </div>
+                <div id="score-samples-along-the-fixed-polyline" class="section level2 hasAnchor" number="5.4">
+                <h2 class="hasAnchor"><span class="header-section-number">5.4</span> Score samples along the fixed polyline<a href="#score-samples-along-the-fixed-polyline" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+                <p>This tutorial projects the retained reference samples back into the trained space to show the expected scoring behavior. In a perturbation or genotype comparison, non-reference samples would be projected into this already-trained PCA space and scored against the same fixed centroid polyline.</p>
+                <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>pca_df<span class="sc">$</span>maturation_score <span class="ot">&lt;-</span> polyline_projection<span class="sc">$</span>maturation_score</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>pca_df<span class="sc">$</span>polyline_day <span class="ot">&lt;-</span> polyline_projection<span class="sc">$</span>polyline_day</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>pca_df<span class="sc">$</span>polyline_segment_start_day <span class="ot">&lt;-</span> polyline_projection<span class="sc">$</span>segment_start_day</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>pca_df<span class="sc">$</span>polyline_segment_end_day <span class="ot">&lt;-</span> polyline_projection<span class="sc">$</span>segment_end_day</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>pca_df<span class="sc">$</span>polyline_segment_fraction <span class="ot">&lt;-</span> polyline_projection<span class="sc">$</span>segment_fraction</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>pca_df<span class="sc">$</span>polyline_squared_distance <span class="ot">&lt;-</span> polyline_projection<span class="sc">$</span>squared_distance</span></code></pre></div>
+                <div id="fig-score-by-day" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_score_by_day.svg" alt="" width="96%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 7.</strong> Polyline differentiation timing scores across differentiation day. The gray band shows the day-level standard deviation around the mean score.
+                </div>
+                </div>
+                </div>
+                <div id="leave-one-line-out-validation" class="section level1 hasAnchor" number="6">
+                <h1 class="hasAnchor"><span class="header-section-number">6</span> Leave-one-line-out validation<a href="#leave-one-line-out-validation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <p>The validation repeats the workflow while holding out one cell line at a time. For each held-out line, temporal genes are reidentified from the remaining reference lines using the same CPM, LRT, and VST dynamic-range filters; PCA and the centroid polyline are trained on those remaining samples; and the held-out samples are projected into that trained space. The panel grid excludes held-out line <code>19190</code> only for display so the validation figure fits a 3-row by 4-column layout.</p>
+                <table class="sample-summary-table">
+                <caption>
+                <span id="tab:loo-summary-table">Table 3: </span>Leave-one-line-out validation summary.
+                </caption>
+                <thead>
+                <tr>
+                <th style="text-align:left;">
+                metric
+                </th>
+                <th style="text-align:right;">
+                value
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <td style="text-align:left;">
+                Held-out cell lines
+                </td>
+                <td style="text-align:right;">
+                13
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Held-out samples
+                </td>
+                <td style="text-align:right;">
+                192
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Correlation between actual and predicted day
+                </td>
+                <td style="text-align:right;">
+                0.971
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                R-squared
+                </td>
+                <td style="text-align:right;">
+                0.942
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Mean absolute error
+                </td>
+                <td style="text-align:right;">
+                0.70 days
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Median absolute error
+                </td>
+                <td style="text-align:right;">
+                0.46 days
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Predictions within 1 day
+                </td>
+                <td style="text-align:right;">
+                79.7%
+                </td>
+                </tr>
+                <tr>
+                <td style="text-align:left;">
+                Predictions within 2 days
+                </td>
+                <td style="text-align:right;">
+                94.8%
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                <div id="fig-loo-line-predictions" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_loo_line_predictions.svg" alt="" width="96%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 8.</strong> Leave-one-line-out predicted differentiation-day trajectories. Each panel is one held-out cell line, with black dots for held-out samples and the panel-specific correlation shown in the upper left.
+                </div>
+                <div id="fig-loo-summary" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_loo_summary.svg" alt="" width="96%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 9.</strong> Leave-one-line-out validation summary. <strong>a.</strong> Predicted versus actual differentiation day for held-out samples. <strong>b.</strong> Residuals, calculated as predicted day minus actual day.
+                </div>
+                <div id="fig-loo-timepoint-accuracy" class="figure-anchor">
+
+                </div>
+                <p><img src="assets/figures/GSE122380_loo_timepoint_accuracy.svg" alt="" width="72%" style="display: block; margin: auto;" /></p>
+                <div class="tutorial-figure-caption">
+                <strong>Figure 10.</strong> Leave-one-line-out prediction error by differentiation day. Boxplots show the absolute difference between predicted and actual differentiation day among held-out samples at each timepoint; lower values indicate closer predictions.
+                </div>
+                </div>
+                <div id="references" class="section level1 hasAnchor" number="7">
+                <h1 class="hasAnchor"><span class="header-section-number">7</span> References<a href="#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <ol class="reference-list">
+                <li id="ref-deseq2">
+                <strong>1.</strong> Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. <em>Genome Biology</em>. 2014;15:550.
+                </li>
+                <li id="ref-strober">
+                <strong>2.</strong> Strober BJ, Elorbany R, Rhodes K, et al. Dynamic genetic regulation of gene expression during cellular differentiation. <em>Science</em>. 2019;364:1287-1290.
+                </li>
+                <li id="ref-bookdown">
+                <strong>3.</strong> Xie Y. <em>bookdown: Authoring Books and Technical Documents with R Markdown</em>. 2016.
+                </li>
+                </ol>
+                </div>
+                <div id="session-info" class="section level1 hasAnchor" number="8">
+                <h1 class="hasAnchor"><span class="header-section-number">8</span> Session Info<a href="#session-info" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+                <pre><code>## R version 4.6.0 (2026-04-24)
+## Platform: x86_64-pc-linux-gnu
+## Running under: Ubuntu 24.04.4 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.12.0 
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.12.0  LAPACK version 3.12.0
+## 
+## locale:
+##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+## 
+## time zone: America/Chicago
+## tzcode source: system (glibc)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##   [1] RColorBrewer_1.1-3          rstudioapi_0.18.0          
+##   [3] jsonlite_2.0.0              shape_1.4.6.1              
+##   [5] tidydr_0.0.6                magrittr_2.0.5             
+##   [7] magick_2.9.1                ggtangle_0.1.2             
+##   [9] farver_2.1.2                rmarkdown_2.31             
+##  [11] ragg_1.5.2                  GlobalOptions_0.1.4        
+##  [13] fs_2.1.0                    vctrs_0.7.3                
+##  [15] Cairo_1.7-0                 memoise_2.0.1              
+##  [17] ggtree_4.2.0                base64enc_0.1-6            
+##  [19] htmltools_0.5.9             S4Arrays_1.12.0            
+##  [21] SparseArray_1.12.2          gridGraphics_0.5-1         
+##  [23] sass_0.4.10                 bslib_0.11.0               
+##  [25] htmlwidgets_1.6.4           plyr_1.8.9                 
+##  [27] httr2_1.2.2                 cachem_1.1.0               
+##  [29] igraph_2.3.2                lifecycle_1.0.5            
+##  [31] iterators_1.0.14            pkgconfig_2.0.3            
+##  [33] gson_0.1.0                  Matrix_1.7-5               
+##  [35] R6_2.6.1                    fastmap_1.2.0              
+##  [37] MatrixGenerics_1.24.0       clue_0.3-68                
+##  [39] digest_0.6.39               aplot_0.2.9                
+##  [41] enrichplot_1.32.0           colorspace_2.1-2           
+##  [43] ggnewscale_0.5.2            patchwork_1.3.2            
+##  [45] AnnotationDbi_1.74.0        S4Vectors_0.50.1           
+##  [47] aisdk_1.4.12                ps_1.9.3                   
+##  [49] DESeq2_1.52.0               textshaping_1.0.5          
+##  [51] GenomicRanges_1.64.0        RSQLite_3.53.1             
+##  [53] org.Hs.eg.db_3.23.1         labeling_0.4.3             
+##  [55] mgcv_1.9-4                  polyclip_1.10-7            
+##  [57] httr_1.4.8                  abind_1.4-8                
+##  [59] compiler_4.6.0              withr_3.0.2                
+##  [61] bit64_4.8.2                 fontquiver_0.2.1           
+##  [63] doParallel_1.0.17           S7_0.2.2                   
+##  [65] BiocParallel_1.46.0         viridis_0.6.5              
+##  [67] DBI_1.3.0                   ggforce_0.5.0              
+##  [69] MASS_7.3-65                 rappdirs_0.3.4             
+##  [71] DelayedArray_0.38.2         rjson_0.2.23               
+##  [73] tools_4.6.0                 otel_0.2.0                 
+##  [75] scatterpie_0.2.6            ape_5.8-1                  
+##  [77] glue_1.8.1                  callr_3.8.0                
+##  [79] nlme_3.1-169                GOSemSim_2.38.0            
+##  [81] grid_4.6.0                  cluster_2.1.8.2            
+##  [83] reshape2_1.4.5              generics_0.1.4             
+##  [85] gtable_0.3.6                tidyr_1.3.2                
+##  [87] XVector_0.52.0              BiocGenerics_0.58.1        
+##  [89] ggrepel_0.9.8               foreach_1.5.2              
+##  [91] pillar_1.11.1               stringr_1.6.0              
+##  [93] limma_3.68.4                yulab.utils_0.2.4          
+##  [95] splines_4.6.0               circlize_0.4.18            
+##  [97] tweenr_2.0.3                dplyr_1.2.1                
+##  [99] treeio_1.36.1               lattice_0.22-9             
+## [101] bit_4.6.0                   tidyselect_1.2.1           
+## [103] fontLiberation_0.1.0        GO.db_3.23.1               
+## [105] ComplexHeatmap_2.28.0       locfit_1.5-9.12            
+## [107] Biostrings_2.80.1           knitr_1.51                 
+## [109] gridExtra_2.3               fontBitstreamVera_0.1.1    
+## [111] bookdown_0.46               IRanges_2.46.0             
+## [113] Seqinfo_1.2.0               edgeR_4.10.1               
+## [115] SummarizedExperiment_1.42.0 svglite_2.2.2              
+## [117] stats4_4.6.0                xfun_0.58                  
+## [119] Biobase_2.72.0              statmod_1.5.2              
+## [121] matrixStats_1.5.0           stringi_1.8.7              
+## [123] lazyeval_0.2.3              ggfun_0.2.0                
+## [125] yaml_2.3.12                 evaluate_1.0.5             
+## [127] codetools_0.2-20            qvalue_2.44.0              
+## [129] gdtools_0.5.1               tibble_3.3.1               
+## [131] BiocManager_1.30.27         ggplotify_0.1.3            
+## [133] cli_3.6.6                   systemfonts_1.3.2          
+## [135] processx_3.9.0              jquerylib_0.1.4            
+## [137] dichromat_2.0-0.1           Rcpp_1.1.1-1.1             
+## [139] png_0.1-9                   parallel_4.6.0             
+## [141] ggplot2_4.0.3               blob_1.3.0                 
+## [143] clusterProfiler_4.20.0      DOSE_4.6.0                 
+## [145] viridisLite_0.4.3           tidytree_0.4.7             
+## [147] ggiraph_0.9.6               enrichit_0.1.4             
+## [149] scales_1.4.0                purrr_1.2.2                
+## [151] crayon_1.5.3                GetoptLong_1.1.1           
+## [153] rlang_1.2.0                 KEGGREST_1.52.0</code></pre>
+                <!--chapter:end:tutorial.Rmd-->
+                </div>
+                <!--bookdown:body:end-->
+                 <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toc = document.querySelector(".book-summary nav > ul");
+    if (toc && !toc.classList.contains("summary")) {
+      toc.classList.add("summary");
+    }
+    if (toc && !toc.querySelector(".toc-title")) {
+      const titleItem = document.createElement("li");
+      titleItem.className = "toc-title";
+      const titleLink = document.createElement("a");
+      titleLink.href = "./";
+      titleLink.textContent = "Differentiation timing score";
+      titleItem.appendChild(titleLink);
+
+      const dividerItem = document.createElement("li");
+      dividerItem.className = "divider";
+
+      toc.insertBefore(dividerItem, toc.firstChild);
+      toc.insertBefore(titleItem, dividerItem);
+    }
+    if (toc) {
+      toc.querySelectorAll("li").forEach(function (item) {
+        if (
+          !item.classList.contains("toc-title") &&
+          !item.classList.contains("divider")
+        ) {
+          item.classList.add("chapter");
+        }
+      });
+      toc.querySelectorAll("li.chapter > a").forEach(function (link) {
+        if (!link.querySelector("i.fa-check")) {
+          const icon = document.createElement("i");
+          icon.className = "fa fa-check";
+          icon.setAttribute("aria-hidden", "true");
+          link.insertBefore(icon, link.firstChild);
+        }
+      });
+    }
+
+    if (!document.getElementById("code-block-theme")) {
+      const style = document.createElement("style");
+      style.id = "code-block-theme";
+      style.textContent = `
+        .book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid),
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode,
+        .book .book-body .page-wrapper .page-inner section.normal pre.sourceCode,
+        .book .book-body .page-wrapper .page-inner section.normal code.sourceCode,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode pre,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code,
+        .book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid) code,
+        .book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid) code span {
+          background-color: #242424 !important;
+          color: #e6edf3 !important;
+          font-family: var(--tutorial-code-font) !important;
+          font-weight: 400;
+          font-variant-ligatures: none;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span {
+          background-color: transparent !important;
+          font-family: var(--tutorial-code-font) !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.al,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.er {
+          color: #ff7b72 !important;
+          font-weight: 700;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.an,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.co,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.cv,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.do,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.in,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.wa {
+          color: #8b949e !important;
+          font-style: italic;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.at,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.dt,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.va {
+          color: #ffa657 !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.bn,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.cn,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.dv,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.fl {
+          color: #79c0ff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.bu,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.cf,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.im,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.kw,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.pp {
+          color: #ff7b72 !important;
+          font-weight: 700;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.ch,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.sc,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.ss,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.st,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.vs {
+          color: #a5d6ff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.fu {
+          color: #d2a8ff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.op,
+        .book .book-body .page-wrapper .page-inner section.normal div.sourceCode code span.ot {
+          color: #ffab70 !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold {
+          background-color: #242424 !important;
+          border-color: #2f2f2f !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold summary {
+          color: #ffffff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold summary,
+        .book .book-body .page-wrapper .page-inner section.normal details.code-fold summary * {
+          color: #ffffff !important;
+        }
+
+        .book .book-body .page-wrapper .page-inner section.normal #session-info pre,
+        .book .book-body .page-wrapper .page-inner section.normal #session-info pre code,
+        .book .book-body .page-wrapper .page-inner section.normal #session-info pre code span {
+          color: #a5d6ff !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const blocks = document.querySelectorAll("div.sourceCode, pre.sourceCode");
+
+    document
+      .querySelectorAll('.page-inner a[href^="http"]')
+      .forEach(function (link) {
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
+      });
+
+    blocks.forEach(function (block) {
+      if (block.closest("details.code-fold")) return;
+
+      const details = document.createElement("details");
+      details.className = "code-fold";
+      details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.textContent = "Code";
+      summary.style.color = "#ffffff";
+
+      block.parentNode.insertBefore(details, block);
+      details.appendChild(summary);
+      details.appendChild(block);
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!window.mermaid) return;
+
+    document.querySelectorAll("pre.mermaid > code").forEach(function (code) {
+      const diagram = document.createElement("div");
+      diagram.className = "mermaid";
+      diagram.textContent = code.textContent;
+      code.parentNode.replaceWith(diagram);
+    });
+
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: "loose",
+      htmlLabels: true,
+      theme: "base",
+      themeVariables: {
+        fontFamily: '"Inter", "Latin Modern Sans", Arial, sans-serif',
+        fontSize: "16px",
+        primaryTextColor: "#111111",
+        lineColor: "#555555",
+      },
+      flowchart: {
+        curve: "basis",
+        htmlLabels: true,
+        useMaxWidth: true,
+      },
+    });
+  });
+</script> 
+              </section>
+            </div>
+          </div>
+        </div>
+        <!--bookdown:link_prev-->
+        <!--bookdown:link_next-->
+      </div>
+    </div>
+    <!--bookdown:config-->
+
+        <!-- dynamically load mathjax for compatibility with self-contained -->
+    <script>
+      (function () {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        var src = "true";
+        if (src === "" || src === "true")
+          src =
+            "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+        if (location.protocol !== "file:")
+          if (/^https?:/.test(src)) src = src.replace(/^https?:/, "");
+        script.src = src;
+        document.getElementsByTagName("head")[0].appendChild(script);
+      })();
+    </script>
+      </body>
+</html>

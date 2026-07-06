@@ -1,0 +1,1384 @@
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/LatinModernSans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/LatinModernSans-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/LatinModernSans-Oblique.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/LatinModernSans-BoldOblique.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --tutorial-text-width: 770px;
+  --tutorial-heading-width: 770px;
+  --tutorial-code-width: 770px;
+  --tutorial-figure-width: 770px;
+  --tutorial-mermaid-width: 770px;
+  --tutorial-sidebar-width: 300px;
+  --tutorial-code-font:
+    Consolas, "Liberation Mono", "DejaVu Sans Mono", Menlo, Monaco,
+    "Courier New", monospace;
+}
+
+.book,
+.book .book-summary,
+.book .book-body,
+.book .book-body .page-wrapper .page-inner section.normal,
+.book .book-body .page-wrapper .page-inner section.normal table {
+  font-family:
+    "Latin Modern Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.book.font-family-1,
+.book.font-family-1 .book-body {
+  font-family:
+    "Latin Modern Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body > #header {
+  display: none;
+}
+
+.book .book-summary {
+  background: #fafafa;
+  border-right: 1px solid #e5e5e5;
+  width: var(--tutorial-sidebar-width);
+}
+
+.book.with-summary .book-body {
+  left: var(--tutorial-sidebar-width);
+}
+
+.book .book-header h1 {
+  color: #64748b;
+  font-family:
+    "Latin Modern Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+}
+
+.book .book-summary nav {
+  padding-top: 0;
+}
+
+.book .book-summary nav ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.book .book-summary nav ul ul {
+  padding-left: 0.95rem;
+}
+
+.book .book-summary nav li {
+  line-height: 1.28;
+  margin: 0;
+}
+
+.book .book-summary nav li.toc-title a {
+  color: #2d3748;
+  font-size: 0.98rem;
+  padding: 0.82rem 0.95rem;
+}
+
+.book .book-summary nav li.divider {
+  border-top: 1px solid #e5e5e5;
+  height: 1px;
+  margin: 0.3rem 0;
+  padding: 0;
+}
+
+.book .book-summary nav a {
+  border-left: 3px solid transparent;
+  color: #2d3748;
+  display: block;
+  font-size: 0.95rem;
+  overflow: hidden;
+  padding: 0.34rem 0.9rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.book .book-summary nav a:hover,
+.book .book-summary nav a:focus {
+  background: #f0f4f8;
+  border-left-color: #2b6cb0;
+  color: #1d4f8f;
+}
+
+.book .book-summary nav code {
+  font-family: var(--tutorial-code-font);
+  font-size: 0.86em;
+}
+
+.book .book-summary nav i.fa-check {
+  color: #cbd5e1;
+  margin-right: 0.35rem;
+}
+
+.book .book-summary nav li.active > a,
+.book .book-summary nav li.toc-reference-link > a:hover,
+.book .book-summary nav li.toc-reference-link > a:focus {
+  background: #eef5fb;
+  border-left-color: #1f6f9f;
+  color: #185f8a;
+}
+
+.book .book-body .page-wrapper .page-inner {
+  max-width: 800px;
+  padding: 20px 0 40px;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal {
+  color: #000000;
+  font-size: 17.5px;
+  font-weight: 475;
+  line-height: 1.7;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .tutorial-title-block {
+  max-width: var(--tutorial-text-width);
+  margin: 3.8rem 0 3.8rem 0;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .tutorial-title-block
+  h1.title {
+  border-bottom: none;
+  color: #000000;
+  font-size: 2em;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.85rem 0;
+  padding: 0;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .tutorial-subtitle {
+  color: #000000;
+  font-size: 1.18em;
+  font-weight: 475;
+  line-height: 1.42;
+  margin: 0 0 0.85rem 0;
+  max-width: var(--tutorial-text-width);
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .tutorial-meta-block {
+  color: #000000;
+  font-size: 1em;
+  line-height: 1.7;
+  margin-top: 0;
+  max-width: var(--tutorial-text-width);
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .tutorial-meta-block
+  div {
+  margin-bottom: 0.3em;
+  overflow-wrap: anywhere;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .tutorial-meta-block
+  span {
+  color: #000000;
+  font-weight: 700;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .workflow-compact {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  max-width: var(--tutorial-text-width);
+  margin: 1.2rem 0 1.6rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .workflow-compact
+  div {
+  border: 1px solid #d8dde4;
+  border-radius: 4px;
+  padding: 7px 6px 6px;
+  min-height: 54px;
+  color: #1f2933;
+  background: #ffffff;
+  font-size: 0.76rem;
+  line-height: 1.16;
+  text-align: center;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .workflow-compact
+  span {
+  display: block;
+  width: 17px;
+  height: 17px;
+  margin: 0 auto 4px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #111111;
+  font-size: 0.68rem;
+  line-height: 17px;
+  font-weight: 700;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal p:not(:has(img)),
+.book .book-body .page-wrapper .page-inner section.normal ul,
+.book .book-body .page-wrapper .page-inner section.normal ol,
+.book .book-body .page-wrapper .page-inner section.normal blockquote {
+  max-width: var(--tutorial-text-width);
+}
+
+.book .book-body .page-wrapper .page-inner section.normal p:not(:has(img)),
+.book .book-body .page-wrapper .page-inner section.normal blockquote {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal p {
+  margin-top: 0.55rem;
+  margin-bottom: 0.82rem;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal ul,
+.book .book-body .page-wrapper .page-inner section.normal ol {
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 2em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal #header h1.title {
+  border-bottom: none;
+  color: #000000;
+  font-size: 2em;
+  line-height: 1.2;
+  margin-bottom: 0.85em;
+  max-width: var(--tutorial-heading-width);
+  padding-bottom: 0;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h1,
+.book .book-body .page-wrapper .page-inner section.normal h2,
+.book .book-body .page-wrapper .page-inner section.normal h3,
+.book .book-body .page-wrapper .page-inner section.normal h4,
+.book .book-body .page-wrapper .page-inner section.normal h5,
+.book .book-body .page-wrapper .page-inner section.normal h6 {
+  color: #000000;
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-top: 1.275em;
+  margin-bottom: 0.85em;
+  max-width: var(--tutorial-heading-width);
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h1 {
+  font-size: 1.88em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h2 {
+  font-size: 1.58em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h3 {
+  font-size: 1.34em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h4 {
+  font-size: 1.16em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h5,
+.book .book-body .page-wrapper .page-inner section.normal h6 {
+  font-size: 1em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .figure {
+  width: 100%;
+  max-width: var(--tutorial-figure-width);
+  margin: 1.25rem auto 1.55rem;
+  text-align: center;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal p:has(> img) {
+  max-width: var(--tutorial-figure-width);
+  margin: 1.25rem auto 1.55rem auto;
+  text-align: center;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .figcaption,
+.book .book-body .page-wrapper .page-inner section.normal p.caption {
+  color: #777777;
+  font-family:
+    "Latin Modern Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.96em;
+  font-style: normal;
+  line-height: 1.35;
+  margin: -0.65rem auto 1.75rem auto;
+  max-width: var(--tutorial-figure-width);
+  text-align: left;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .tutorial-figure-caption {
+  color: #444444;
+  font-size: 0.91em;
+  line-height: 1.45;
+  margin: -0.55rem auto 1.65rem auto;
+  max-width: var(--tutorial-figure-width);
+  text-align: left;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .tutorial-figure-caption
+  strong {
+  font-weight: 700;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal a.figure-ref {
+  color: #1f6f9f;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal a.figure-ref:hover,
+.book .book-body .page-wrapper .page-inner section.normal a.figure-ref:focus {
+  color: #185f8a;
+  text-decoration: underline;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal sup a {
+  color: #1f6f9f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal sup a:hover,
+.book .book-body .page-wrapper .page-inner section.normal sup a:focus {
+  color: #185f8a;
+  text-decoration: underline;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .reference-list {
+  font-size: 0.96em;
+  line-height: 1.55;
+  max-width: var(--tutorial-text-width);
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .reference-list li {
+  margin-bottom: 0.72rem;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .function-index {
+  max-width: var(--tutorial-text-width);
+  margin: 1.15rem 0 1.6rem 0;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .function-index-item {
+  border-bottom: 1px solid #e5e7eb;
+  display: grid;
+  gap: 0.12rem;
+  padding: 0.62rem 0;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-index-item
+  a {
+  color: #1f6f9f;
+  font-family: var(--tutorial-code-font);
+  font-size: 0.94em;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-index-item
+  a:hover,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-index-item
+  a:focus {
+  color: #185f8a;
+  text-decoration: underline;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-index-item
+  p {
+  color: #333333;
+  font-size: 0.94em;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.function-reference {
+  border-top: 1px solid #d9e2ec;
+  max-width: var(--tutorial-text-width);
+  margin: 1.1rem 0 1.45rem 0;
+  padding-top: 0.15rem;
+  scroll-margin-top: 84px;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.function-reference
+  summary {
+  color: #1f6f9f;
+  cursor: pointer;
+  font-family: var(--tutorial-code-font);
+  font-size: 1.02em;
+  font-weight: 700;
+  line-height: 1.35;
+  list-style-position: outside;
+  padding: 0.7rem 0 0.55rem 0;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.function-reference[open]
+  summary {
+  margin-bottom: 0.4rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  h2,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  h3 {
+  margin-top: 1rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  h3 {
+  color: #185f8a;
+  font-size: 1.02em;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  table {
+  border-collapse: collapse;
+  font-size: 0.92em;
+  margin: 0.75rem 0 1.1rem 0;
+  max-width: var(--tutorial-text-width);
+  width: 100%;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  th,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 0.45rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  th {
+  color: #111111;
+  font-weight: 700;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .function-reference
+  td:first-child {
+  white-space: nowrap;
+  width: 28%;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .figure-anchor {
+  scroll-margin-top: 84px;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .mermaid {
+  background: #ffffff;
+  font-family: "Inter", "Latin Modern Sans", Arial, sans-serif;
+  font-size: 16px;
+  margin: 1.25rem auto 1.55rem;
+  max-width: var(--tutorial-mermaid-width);
+  overflow-x: auto;
+  padding: 0.4rem 0;
+  text-align: center;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .mermaid svg {
+  height: auto;
+  min-width: 600px;
+  max-width: 100%;
+  width: 100% !important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .mermaid .nodeLabel,
+.book .book-body .page-wrapper .page-inner section.normal .mermaid .edgeLabel {
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .mermaid
+  .cluster-label,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .mermaid
+  .cluster-label
+  span,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  .mermaid
+  .cluster-label
+  .nodeLabel {
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid) {
+  background-color: #242424 !important;
+  border: 0 !important;
+  color: #f3f3f3 !important;
+  font-family: var(--tutorial-code-font) !important;
+  font-size: 0.86em;
+  font-weight: 400;
+  font-variant-ligatures: none;
+  line-height: 1.45;
+  max-width: var(--tutorial-code-width);
+  margin: 1.25rem auto 1.45rem auto;
+  overflow-x: auto;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal code {
+  background-color: #f7f7f7;
+  border: none;
+  color: inherit;
+  font-family: var(--tutorial-code-font);
+  font-size: 0.85em;
+  font-weight: 400;
+  font-variant-ligatures: none;
+  padding: 0.2em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h2 code,
+.book .book-body .page-wrapper .page-inner section.normal h3 code {
+  display: inline-block;
+  line-height: 1.22;
+  padding: 0.08em 0.24em 0.14em 0.24em;
+  vertical-align: baseline;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  pre:not(.mermaid)
+  code,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  pre:not(.mermaid)
+  code
+  span {
+  background-color: transparent !important;
+  color: inherit;
+  font-family: var(--tutorial-code-font) !important;
+}
+
+.book .book-summary ul.summary li a {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal .anchor-section {
+  display: none !important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal details.code-fold {
+  border: 1px solid #2f2f2f;
+  border-radius: 4px;
+  background-color: #242424 !important;
+  max-width: var(--tutorial-code-width);
+  margin: 1.25rem auto 1.45rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  summary {
+  background: #1f1f1f;
+  color: #ffffff !important;
+  cursor: pointer;
+  font-weight: 700;
+  list-style: disclosure-closed;
+  padding: 0.55rem 0.75rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  summary,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  summary
+  * {
+  color: #ffffff !important;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold[open]
+  summary {
+  border-bottom: 1px solid #3a3a3a;
+  list-style: disclosure-open;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  .sourceCode,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  details.code-fold
+  pre {
+  background-color: #242424 !important;
+  border: 0 !important;
+  color: #f3f3f3 !important;
+  font-family: var(--tutorial-code-font) !important;
+  margin: 0;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal div.sourceCode,
+.book .book-body .page-wrapper .page-inner section.normal pre.sourceCode,
+.book .book-body .page-wrapper .page-inner section.normal code.sourceCode,
+.book .book-body .page-wrapper .page-inner section.normal div.sourceCode pre,
+.book .book-body .page-wrapper .page-inner section.normal div.sourceCode code {
+  background-color: #242424 !important;
+  color: #e6edf3 !important;
+  font-family: var(--tutorial-code-font) !important;
+  font-weight: 400;
+  font-variant-ligatures: none;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal div.sourceCode {
+  max-width: var(--tutorial-code-width);
+  margin: 1.25rem auto 1.45rem auto;
+  overflow-x: auto;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span {
+  background-color: transparent !important;
+  font-family: var(--tutorial-code-font) !important;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.al,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.er {
+  color: #ff7b72 !important;
+  font-weight: 700;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.an,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.co,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.cv,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.do,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.in,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.wa {
+  color: #8b949e !important;
+  font-style: italic;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.at,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.dt,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.va {
+  color: #ffa657 !important;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.bn,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.cn,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.dv,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.fl {
+  color: #79c0ff !important;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.bu,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.cf,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.im,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.kw,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.pp {
+  color: #ff7b72 !important;
+  font-weight: 700;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.ch,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.sc,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.ss,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.st,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.vs {
+  color: #a5d6ff !important;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.fu {
+  color: #d2a8ff !important;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.op,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  div.sourceCode
+  code
+  span.ot {
+  color: #ffab70 !important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal #session-info pre,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  #session-info
+  pre
+  code,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  #session-info
+  pre
+  code
+  span {
+  color: #ffffff !important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal table {
+  margin-top: 1.15rem;
+  margin-bottom: 1.45rem;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal table caption {
+  caption-side: top;
+  text-align: left;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal table.argument-table {
+  width: 100%;
+  max-width: var(--tutorial-text-width);
+  margin: 1.15rem auto 1.45rem auto;
+  font-size: 1rem;
+  line-height: 1.42;
+  border-collapse: collapse;
+  border-top: 1px solid #2f3640;
+  border-bottom: 1px solid #2f3640;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.argument-table
+  th {
+  padding: 0.62rem 0.78rem;
+  color: #111827;
+  font-weight: 700;
+  background: #f3f5f7;
+  border-bottom: 1px solid #2f3640;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.argument-table
+  td {
+  padding: 0.58rem 0.78rem;
+  vertical-align: top;
+  border-bottom: 1px solid #d8dee5;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.argument-table
+  tr:last-child
+  td {
+  border-bottom: none;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.argument-table
+  th:first-child,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.argument-table
+  td:first-child {
+  width: 11.5rem;
+  white-space: nowrap;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.argument-table
+  code {
+  color: #1f2937;
+  background: #edf0f3;
+  border: 1px solid #d5dbe2;
+  border-radius: 4px;
+  padding: 0.1rem 0.28rem;
+  font-size: 0.95rem;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.sample-summary-table {
+  width: 100%;
+  max-width: var(--tutorial-text-width);
+  margin: 1.65rem auto 2rem auto;
+  font-size: 1.06rem;
+  line-height: 1.34;
+  border-collapse: collapse;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.sample-summary-table
+  caption {
+  margin-bottom: 0.8rem;
+  font-size: 1.02rem;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.sample-summary-table
+  th,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.sample-summary-table
+  td {
+  padding: 0.52rem 0.62rem;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.sample-summary-table
+  th:first-child,
+.book
+  .book-body
+  .page-wrapper
+  .page-inner
+  section.normal
+  table.sample-summary-table
+  td:first-child {
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .book.with-summary .book-summary,
+  .book .book-summary {
+    display: none;
+  }
+
+  .book.with-summary .book-body,
+  .book .book-body,
+  .book.with-summary .book-header,
+  .book .book-header {
+    left: 0;
+  }
+
+  .book .book-body .page-wrapper .page-inner {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .book .book-body .page-wrapper .page-inner section.normal p:not(:has(img)),
+  .book .book-body .page-wrapper .page-inner section.normal ul,
+  .book .book-body .page-wrapper .page-inner section.normal ol,
+  .book .book-body .page-wrapper .page-inner section.normal blockquote,
+  .book .book-body .page-wrapper .page-inner section.normal h1,
+  .book .book-body .page-wrapper .page-inner section.normal h2,
+  .book .book-body .page-wrapper .page-inner section.normal h3,
+  .book .book-body .page-wrapper .page-inner section.normal .figure,
+  .book .book-body .page-wrapper .page-inner section.normal p:has(> img),
+  .book .book-body .page-wrapper .page-inner section.normal div.sourceCode,
+  .book .book-body .page-wrapper .page-inner section.normal pre:not(.mermaid),
+  .book .book-body .page-wrapper .page-inner section.normal details.code-fold,
+  .book
+    .book-body
+    .page-wrapper
+    .page-inner
+    section.normal
+    table.argument-table,
+  .book
+    .book-body
+    .page-wrapper
+    .page-inner
+    section.normal
+    table.sample-summary-table {
+    max-width: 100%;
+  }
+
+  .book .book-body .page-wrapper .page-inner section.normal .mermaid svg {
+    min-width: 600px;
+  }
+
+  .book .book-body .page-wrapper .page-inner section.normal .workflow-compact {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .book .book-body .page-wrapper .page-inner section.normal {
+    font-size: 17.5px;
+    line-height: 1.56;
+  }
+
+  .book
+    .book-body
+    .page-wrapper
+    .page-inner
+    section.normal
+    table.argument-table,
+  .book
+    .book-body
+    .page-wrapper
+    .page-inner
+    section.normal
+    table.sample-summary-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .book
+    .book-body
+    .page-wrapper
+    .page-inner
+    section.normal
+    table.sample-summary-table
+    caption {
+    display: block;
+    max-width: calc(100vw - 76px);
+    min-width: 0;
+    text-align: left;
+    white-space: normal;
+    width: calc(100vw - 76px);
+  }
+
+  .book .book-body .page-wrapper .page-inner section.normal .mermaid svg {
+    min-width: 560px;
+  }
+
+  .book .book-body .page-wrapper .page-inner section.normal .workflow-compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
