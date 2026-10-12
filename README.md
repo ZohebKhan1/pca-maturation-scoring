@@ -1,80 +1,37 @@
 # Differentiation timing score
 
-[See differentiation maturation scoring example here.](https://zohebkhan1.github.io/pca-maturation-scoring/)
+These R functions estimate differentiation timing from bulk RNA-seq expression by comparing samples with a reference time course. The workflow selects time-dependent genes, fits a trajectory through the reference timepoints in principal component analysis (PCA) space, and projects each sample onto that trajectory. It returns a predicted reference time, a differentiation score from 0 to 1, and a squared distance that helps assess how closely the sample fits the reference.
 
-These R functions estimate a sample's position along a differentiation time course from bulk RNA-seq expression. They learn a reference trajectory from time-dependent genes and project samples onto it in principal-component space.
-
-Given raw counts, variance-stabilized expression, and matching sample metadata, the workflow selects time-dependent genes and returns a predicted reference time, an endpoint-scaled differentiation score, and squared distance from the trajectory.
-
-## API
-
-- [`get_temporal_genes()`](functions/get_temporal_genes.R) selects genes with time-dependent expression using raw counts, VST expression, and sample metadata.
-- [`score_differentiation_timing()`](functions/score_differentiation_timing.R) fits a reference trajectory and projects samples onto it.
-- [`run_loo_maturation()`](functions/run_loo_maturation.R) repeats gene selection and trajectory scoring while holding out each cell line for validation.
+The [online tutorial](https://zohebkhan1.github.io/pca-maturation-scoring/) explains the method using a cardiomyocyte differentiation time course. It includes gene selection, trajectory fitting, figures, leave-one-cell-line-out validation, and guidance for applying the method to another study.
 
 ## Quick start
 
-Temporal-gene selection requires `DESeq2` and `edgeR` from Bioconductor:
+Download or clone this repository and open R in its root directory. Gene selection requires DESeq2 and edgeR from Bioconductor:
 
 ```r
 install.packages("BiocManager")
 BiocManager::install(c("DESeq2", "edgeR"))
 ```
 
-The code below uses your own `counts`, `vst`, and `metadata` objects. It downloads the two functions used for gene selection and scoring; it does not download the example data.
+The example below uses the included counts, variance-stabilized (VST) expression, and metadata from [GSE122380](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380). The loader aligns both matrices to the metadata sample order. Gene selection accounts for cell-line differences in this reference.
 
 ```r
-download.file(
-  "https://raw.githubusercontent.com/ZohebKhan1/pca-maturation-scoring/main/functions/get_temporal_genes.R",
-  "get_temporal_genes.R",
-  mode = "wb"
-)
-download.file(
-  "https://raw.githubusercontent.com/ZohebKhan1/pca-maturation-scoring/main/functions/score_differentiation_timing.R",
-  "score_differentiation_timing.R",
-  mode = "wb"
-)
+source("data/load_GSE122380_data.R")
+source("functions/get_temporal_genes.R")
+source("functions/score_differentiation_timing.R")
 
-source("get_temporal_genes.R")
-source("score_differentiation_timing.R")
-
-# Keep both matrices in metadata sample order.
-sample_ids <- as.character(metadata$sample_id)
-counts <- counts[, sample_ids, drop = FALSE]
-vst <- vst[, sample_ids, drop = FALSE]
-```
-
-## Select temporal/time-dependent genes
-
-`get_temporal_genes()` applies three filters within the reference samples. A gene must pass all three filters to be used for the trajectory:
-
-1. Expression filter: retain genes with sufficient expression across reference timepoints.
-2. DESeq2 LRT: retain genes for which categorical time improves the count model, after any requested covariate adjustment.
-3. VST-range filter: retain genes with enough variation across reference timepoints in VST expression.
-
-<p align="center"><img src="docs/assets/diagrams/temporal_gene_selection_v2.png" alt="Reference counts and metadata pass through an expression filter, DESeq2 LRT, and VST range filter to produce temporal genes." width="560"></p>
-
-```r
+reference_data <- load_GSE122380_data()
 temporal_selection <- get_temporal_genes(
-  raw_counts = counts,
-  vst_expression = vst,
-  metadata = metadata
+  raw_counts = reference_data$counts,
+  vst_expression = reference_data$vst,
+  metadata = reference_data$metadata,
+  adjustment_covariates = "cell_line"
 )
 
-temporal_genes <- temporal_selection$temporal_genes
-```
-
-## Define the reference differentiation trajectory
-
-`score_differentiation_timing()` fits centered, unscaled PCA to the mean temporal-gene profile at each reference timepoint. It connects the ordered timepoint centroids with line segments and projects each sample to its nearest point on that trajectory.
-
-<p align="center"><img src="docs/assets/diagrams/reference_trajectory_v2.png" alt="Temporal genes and reference samples define a PCA reference space and trajectory; samples are projected to return predicted time, score, and squared distance." width="700"></p>
-
-```r
 timing_fit <- score_differentiation_timing(
-  expression_matrix = vst,
-  metadata = metadata,
-  temporal_genes = temporal_genes
+  expression_matrix = reference_data$vst,
+  metadata = reference_data$metadata,
+  temporal_genes = temporal_selection$temporal_genes
 )
 
 timing_fit$scores[, c(
@@ -86,14 +43,26 @@ timing_fit$scores[, c(
 )]
 ```
 
-To score new samples, select temporal genes and fit the trajectory using reference samples that are not part of the scored set, then pass those IDs through `reference_samples`. Reference samples need finite timepoints; scored non-reference samples may have missing timepoints.
+This example scores the reference samples themselves. To evaluate experimental samples, select genes from an independent reference cohort and pass its IDs through `reference_samples` when scoring. The tutorial shows how to select a reference group and assess predictions in held-out samples.
+
+## How scoring works
+
+[`get_temporal_genes()`](functions/get_temporal_genes.R) selects genes with sufficient expression, a significant time effect in a DESeq2 likelihood-ratio test, and sufficient variation across mean VST expression at reference timepoints. All three filters use the reference samples:
+
+<p align="center"><img src="docs/assets/diagrams/temporal_gene_selection_v2.png" alt="Reference counts and metadata pass through an expression filter, DESeq2 likelihood-ratio test, and VST range filter to select temporal genes." width="560"></p>
+
+[`score_differentiation_timing()`](functions/score_differentiation_timing.R) fits centered, unscaled PCA to the mean temporal-gene expression profile at each reference timepoint. It connects the resulting centroids in time order and projects each sample onto the nearest trajectory segment:
+
+<p align="center"><img src="docs/assets/diagrams/reference_trajectory_v2.png" alt="Temporal genes and reference samples define a PCA trajectory. Sample projections give predicted time, differentiation score, and squared distance." width="700"></p>
+
+[`run_loo_maturation()`](functions/run_loo_maturation.R) validates prediction by repeating gene selection and trajectory fitting while holding out each cell line in turn.
 
 ## Input requirements
 
-- `get_temporal_genes()` requires integer-like, unnormalized counts. It calculates TMM CPM internally and also requires VST expression with the same gene and sample identifiers as the count matrix.
-- `get_temporal_genes()` requires one metadata row per expression sample, matching sample IDs, and finite numeric timepoints.
-- `score_differentiation_timing()` requires matching sample IDs, normalized expression such as VST expression, and temporal genes selected without using the samples being scored.
-- `run_loo_maturation()` requires count and VST matrices plus metadata containing `sample_id`, `cell_line`, and `day_numeric`; it selects genes and fits the trajectory separately for each held-out cell line.
+- **Gene selection:** integer-like, unnormalized counts and VST expression with matching gene and sample identifiers. Both matrices have genes in rows and samples in columns. The function calculates TMM-normalized counts per million (CPM) internally.
+- **Metadata:** one row per sample, matching sample IDs, and finite numeric timepoints for the reference samples. The default column names are `sample_id` and `day_numeric`.
+- **Scoring:** normalized expression, matching metadata, and selected temporal genes. The reference requires at least two distinct, finite numeric timepoints; non-reference samples can have missing timepoints.
+- **Validation:** aligned count and VST matrices, with `sample_id`, `cell_line`, and `day_numeric` in the metadata.
 
 ## Interpret the result
 
@@ -103,17 +72,4 @@ To score new samples, select temporal genes and fit the trajectory using referen
 - `differentiation_score` maps the earliest and latest reference timepoints to 0 and 1.
 - `squared_distance` is the squared distance to the nearest fitted trajectory segment in PCA space.
 
-The score is relative to the selected reference. Compare scores within the same reference frame and inspect `squared_distance` when a sample may not fit the learned trajectory.
-
-## Data and tutorial
-
-The repository includes processed metadata, raw counts, and VST expression from [GEO accession GSE122380](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380). These files support the tutorial but are not required for the Quick start. The tutorial source is [`docs/tutorial/tutorial.Rmd`](docs/tutorial/tutorial.Rmd), and the rendered tutorial is available [on GitHub Pages](https://zohebkhan1.github.io/pca-maturation-scoring/).
-
-The tutorial covers the full analysis workflow, figures, leave-one-cell-line-out validation, interpretation, and adaptation. The functions are [`get_temporal_genes.R`](functions/get_temporal_genes.R), [`score_differentiation_timing.R`](functions/score_differentiation_timing.R), and [`run_loo_maturation.R`](functions/run_loo_maturation.R).
-
-## Citations
-
-1. Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. *Genome Biology*. 2014;15:550. [doi:10.1186/s13059-014-0550-8](https://doi.org/10.1186/s13059-014-0550-8)
-2. Robinson MD, McCarthy DJ, Smyth GK. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. *Bioinformatics*. 2010;26(1):139–140. [doi:10.1093/bioinformatics/btp616](https://doi.org/10.1093/bioinformatics/btp616)
-3. Strober BJ, Elorbany R, Rhodes K, et al. Dynamic genetic regulation of gene expression during cellular differentiation. *Science*. 2019;364(6447):1287–1290. [doi:10.1126/science.aaw0040](https://doi.org/10.1126/science.aaw0040)
-4. [NCBI GEO accession GSE122380](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380)
+Interpret the score relative to the reference timepoints and compare samples scored with the same reference model. Read `squared_distance` alongside the score to identify samples whose expression fits the reference path poorly. See the [tutorial](https://zohebkhan1.github.io/pca-maturation-scoring/) for interpretation, validation results, and references; its source is [`docs/tutorial/tutorial.Rmd`](docs/tutorial/tutorial.Rmd).
