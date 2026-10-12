@@ -141,15 +141,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path=""><a href="#reference-dataset"><i class="fa fa-check"></i><b>3</b> Reference dataset</a></li>
 <li class="chapter" data-level="4" data-path=""><a href="#scoring-workflow"><i class="fa fa-check"></i><b>4</b> Scoring workflow</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path=""><a href="#select-temporal-genes"><i class="fa fa-check"></i><b>4.1</b> Select temporal genes</a></li>
-<li class="chapter" data-level="4.2" data-path=""><a href="#fit-the-pca-reference-space"><i class="fa fa-check"></i><b>4.2</b> Fit the PCA reference space</a></li>
-<li class="chapter" data-level="4.3" data-path=""><a href="#build-and-score-the-reference-trajectory"><i class="fa fa-check"></i><b>4.3</b> Build and score the reference trajectory</a></li>
+<li class="chapter" data-level="4.1" data-path=""><a href="#temporal-gene-selection"><i class="fa fa-check"></i><b>4.1</b> Temporal-gene selection</a></li>
+<li class="chapter" data-level="4.2" data-path=""><a href="#reference-pca"><i class="fa fa-check"></i><b>4.2</b> Reference PCA</a></li>
+<li class="chapter" data-level="4.3" data-path=""><a href="#trajectory-fitting-and-sample-projection"><i class="fa fa-check"></i><b>4.3</b> Trajectory fitting and sample projection</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path=""><a href="#leave-one-cell-line-out-validation"><i class="fa fa-check"></i><b>5</b> Leave-one-cell-line-out validation</a></li>
 <li class="chapter" data-level="6" data-path=""><a href="#interpreting-results"><i class="fa fa-check"></i><b>6</b> Interpreting results</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path=""><a href="#read-the-score-and-distance-together"><i class="fa fa-check"></i><b>6.1</b> Read the score and distance together</a></li>
-<li class="chapter" data-level="6.2" data-path=""><a href="#apply-the-method-to-another-study"><i class="fa fa-check"></i><b>6.2</b> Apply the method to another study</a></li>
+<li class="chapter" data-level="6.1" data-path=""><a href="#scores-and-projection-distances"><i class="fa fa-check"></i><b>6.1</b> Scores and projection distances</a></li>
+<li class="chapter" data-level="6.2" data-path=""><a href="#reference-selection-for-another-study"><i class="fa fa-check"></i><b>6.2</b> Reference selection for another study</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path=""><a href="#references"><i class="fa fa-check"></i><b>7</b> References</a></li>
 <li class="chapter" data-level="8" data-path=""><a href="#session-information"><i class="fa fa-check"></i><b>8</b> Session information</a></li>
@@ -206,30 +206,22 @@ PCA-based scoring of differentiation timing from bulk RNA-seq time-course data
 </div>
 <div id="introduction" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Introduction<a href="#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Samples collected on the same day of a differentiation experiment can differ in their developmental progression. Bulk RNA-seq measures gene expression across these samples, providing a way to assess their progression relative to a reference time course. This tutorial uses time-dependent gene expression to estimate where each sample falls along that reference.</p>
-<p>The tutorial is intended for researchers who have processed bulk RNA-seq data and want to compare differentiation timing across samples or experimental conditions. It explains temporal-gene selection, principal component analysis (PCA), trajectory fitting, and validation using a cardiomyocyte differentiation time course. The code examples assume basic familiarity with R and RNA-seq expression matrices.</p>
-<p>The workflow has three stages:</p>
-<ol style="list-style-type: decimal">
-<li>Select genes whose expression changes across the reference time course.</li>
-<li>Fit PCA to the mean expression profile at each reference timepoint and connect the resulting points in time order.</li>
-<li>Project each sample onto the trajectory.</li>
-</ol>
-<p>Each sample receives a predicted reference time, a differentiation score scaled from 0 to 1, and a squared distance from the trajectory. The predicted time and score describe differentiation relative to the selected reference. The distance helps assess how closely the sample resembles the reference at its predicted position.</p>
+<p>Differentiation timing is estimated by projecting bulk RNA-seq samples onto a reference trajectory in principal component analysis (PCA) space. PCA is fitted to the mean expression of temporal genes at each reference timepoint, and the resulting centroids are connected in time order. Each sample’s position on the trajectory gives a predicted reference time and a differentiation score from 0 to 1. The projection distance measures fit to the reference.</p>
+<p>The analysis uses a cardiomyocyte differentiation time course from GSE122380, with leave-one-cell-line-out validation to assess prediction across cell lines.</p>
 </div>
 <div id="function-inputs" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">2</span> Function inputs<a href="#function-inputs" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The workflow uses two functions. <code>get_temporal_genes()</code> selects time-dependent genes from raw counts and variance-stabilized (VST) expression in the reference samples. <code>score_differentiation_timing()</code> then uses the selected genes and normalized expression, such as VST expression, to fit the trajectory and score samples.</p>
-<p>Both matrices must have genes in rows and samples in columns, with unique gene and sample identifiers. Gene selection requires integer-like, unnormalized counts and a VST matrix with the same gene and sample identifiers. The metadata must contain one row per sample, a sample ID column, and a numeric timepoint column. The default column names are <code>sample_id</code> and <code>day_numeric</code>; use <code>sample_id_col</code> and <code>time_col</code> to specify other names.</p>
-<p>By default, the scoring function uses all supplied samples to define the reference. For a study with reference and experimental samples, select temporal genes from the reference cohort and pass its sample IDs through <code>reference_samples</code> when scoring. Both functions require at least two distinct, finite numeric timepoints in the reference. Samples outside the reference can have missing timepoints.</p>
-<p>Gene selection requires the Bioconductor packages DESeq2 and edgeR. Install them before running the examples:</p>
+<p><code>get_temporal_genes()</code> requires integer-like raw counts and variance-stabilized (VST) expression with matching gene and sample identifiers. <code>score_differentiation_timing()</code> uses normalized expression and the selected temporal genes. In both matrices, rows are genes and columns are samples. Row and column names must be unique, with one metadata row per sample.</p>
+<p>The default metadata columns are <code>sample_id</code> and <code>day_numeric</code>; other names can be specified through <code>sample_id_col</code> and <code>time_col</code>. The reference must span at least two distinct, finite numeric timepoints. Non-reference samples can have missing timepoints.</p>
+<p>The scorer uses all supplied samples as the reference unless <code>reference_samples</code> specifies a subset. For comparisons across experimental conditions, gene selection and trajectory fitting are restricted to the reference cohort.</p>
+<p>Gene selection requires DESeq2 and edgeR:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;BiocManager&#39;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">&#39;DESeq2&#39;</span>, <span class="st">&#39;edgeR&#39;</span>))</span></code></pre></div>
 </div>
 <div id="reference-dataset" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">3</span> Reference dataset<a href="#reference-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The example uses processed data from <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380">NCBI GEO accession GSE122380</a>, a bulk RNA-seq time course of human induced pluripotent stem cell differentiation into cardiomyocytes. The reference contains 192 samples from 13 cell lines collected across differentiation days 1 through 15.</p>
-<p>The repository includes sample metadata, a raw gene-count matrix, and a VST expression matrix. These files contain the inputs needed for gene selection and scoring, following read processing, alignment, quantification, and variance-stabilizing transformation.</p>
-<p>To follow the example, download or clone the <a href="https://github.com/ZohebKhan1/pca-maturation-scoring">repository</a> and open R in its root directory. Load the data with the supplied loader, which puts both matrices in metadata sample order:</p>
+<p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380">GSE122380</a> contains 192 bulk RNA-seq samples from 13 human induced pluripotent stem cell lines collected over days 1 through 15 of cardiomyocyte differentiation. The metadata, raw counts, and VST expression are included in the <a href="https://github.com/ZohebKhan1/pca-maturation-scoring">repository</a>.</p>
+<p>The code runs from the repository root. <code>load_GSE122380_data()</code> aligns the count and VST matrices to the metadata sample order:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;data/load_GSE122380_data.R&#39;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;functions/get_temporal_genes.R&#39;</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;functions/score_differentiation_timing.R&#39;</span>)</span>
@@ -238,7 +230,6 @@ PCA-based scoring of differentiation timing from bulk RNA-seq time-course data
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> reference_data<span class="sc">$</span>metadata</span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>counts <span class="ot">&lt;-</span> reference_data<span class="sc">$</span>counts</span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>vst <span class="ot">&lt;-</span> reference_data<span class="sc">$</span>vst</span></code></pre></div>
-<p>The table below shows the sample and cell-line coverage at each differentiation day.</p>
 <div class="table-scroll" role="region" aria-label="Samples and cell lines by differentiation day" tabindex="0">
 <table class="sample-summary-table">
 <caption>
@@ -400,7 +391,7 @@ Cell lines
 </tbody>
 </table>
 </div>
-<p>Before fitting the trajectory, examine how expression changes across the reference time course. Figure 1 shows a PCA of the most variable VST genes and correlations between day-mean expression profiles. Together, these views help assess whether sample expression follows the known differentiation sequence.</p>
+<p>PCA of the most variable genes and correlations between day-mean expression profiles show the temporal structure of the reference (Figure 1).</p>
 <div id="fig-reference-overview" class="figure-anchor">
 
 </div>
@@ -408,23 +399,23 @@ Cell lines
 <div class="tutorial-figure-caption">
 <strong>Figure 1.</strong> GSE122380 reference time course and day-level expression correlation. <strong>a.</strong> PCA using the top 10% most variable VST genes, colored by differentiation day. <strong>b.</strong> Pearson correlation between day-mean profiles from the same variable-gene set.
 </div>
-<p>The ordering by day supports fitting a trajectory to this reference. The scoring PCA below focuses on temporal genes and the mean expression profile at each reference timepoint.</p>
+<p>The scoring model uses temporal genes and their mean expression at each timepoint.</p>
 </div>
 <div id="scoring-workflow" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Scoring workflow<a href="#scoring-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="select-temporal-genes" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Select temporal genes<a href="#select-temporal-genes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>First, select genes whose expression changes across the reference time course. <code>get_temporal_genes()</code> applies three sequential filters, using raw counts for the expression filter and DESeq2 likelihood-ratio test (LRT), followed by VST expression for the range filter. A gene must pass all three filters to enter the trajectory model.</p>
+<div id="temporal-gene-selection" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Temporal-gene selection<a href="#temporal-gene-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>get_temporal_genes()</code> applies three sequential filters within the reference cohort. Raw counts are used for the expression filter and DESeq2 likelihood-ratio test (LRT), and VST expression is used for the range filter. The trajectory model includes genes that pass all three:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Expression filter.</strong> The function normalizes counts using the trimmed mean of M-values (TMM) method and calculates counts per million (CPM). For each gene, it calculates the mean CPM at each reference timepoint and keeps the gene when its largest timepoint mean reaches the expression threshold.</li>
+<li><strong>Expression filter.</strong> Counts are normalized by the trimmed mean of M-values (TMM) method and expressed as counts per million (CPM). Genes are retained if their highest mean CPM across reference timepoints reaches the expression threshold.</li>
 <li><strong>DESeq2 likelihood-ratio test.</strong> The full model includes categorical time and any requested adjustment covariates. The reduced model contains the adjustment covariates without time. Genes with an adjusted LRT p-value below the selected threshold continue to the final filter.</li>
-<li><strong>VST-range filter.</strong> The function calculates the mean VST expression at each reference timepoint and keeps genes whose range across those means reaches the selected threshold.</li>
+<li><strong>VST-range filter.</strong> Genes are retained if the range of their mean VST expression across reference timepoints reaches the selected threshold.</li>
 </ol>
 <p>The LRT tests whether adding categorical time improves the count model. If the full and reduced models have maximized log likelihoods <code>ell_full</code> and <code>ell_reduced</code>, the likelihood-ratio statistic is</p>
 <p><span class="math display">\[
 \mathrm{LR} = 2(\ell_\mathrm{full} - \ell_\mathrm{reduced}).
 \]</span></p>
-<p>Treating time as a categorical factor allows the test to detect nonlinear expression changes across timepoints. For GSE122380, both models include <code>cell_line</code> to account for differences among cell lines. With <code>adjustment_covariates = 'cell_line'</code>, the full model is <code>~ cell_line + day_numeric</code> and the reduced model is <code>~ cell_line</code>. The function converts <code>day_numeric</code> to a factor for this test. If no adjustment covariates are supplied, the reduced model is the intercept-only model, <code>~ 1</code>.</p>
+<p>For GSE122380, the full model is <code>~ cell_line + day_numeric</code> and the reduced model is <code>~ cell_line</code>. Time is converted to a categorical factor, allowing nonlinear expression changes across days. Including <code>cell_line</code> in both models accounts for differences among cell lines. With no adjustment covariates, the reduced model is <code>~ 1</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;functions/get_temporal_genes.R&#39;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>temporal_selection <span class="ot">&lt;-</span> <span class="fu">get_temporal_genes</span>(</span>
@@ -437,8 +428,8 @@ Cell lines
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>)</span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>temporal_genes <span class="ot">&lt;-</span> temporal_selection<span class="sc">$</span>temporal_genes</span></code></pre></div>
-<p>For a dataset containing several experimental groups, use <code>reference_group_col</code> and <code>reference_group_value</code> together to select one group as the reference. These arguments restrict the input to that group before applying the three filters and fitting the DESeq2 models.</p>
-<p>The example uses the default thresholds: a maximum day-mean TMM CPM of at least 10, an adjusted LRT p-value below <code>1e-7</code>, and a day-mean VST range of at least 0.6. Table 4.1 shows how many genes remain after filtering. When applying the method to another study, choose thresholds that account for its library sizes, sample size, timepoint coverage, and experimental design.</p>
+<p><code>reference_group_col</code> and <code>reference_group_value</code> restrict all three filters to a specified group of reference samples.</p>
+<p>The default thresholds are a maximum day-mean TMM CPM of at least 10, an adjusted LRT p-value below <code>1e-7</code>, and a day-mean VST range of at least 0.6. The number of genes retained at each step is shown in Table 4.1. Thresholds for another study depend on its library sizes, sample size, timepoint coverage, and experimental design.</p>
 <table class="sample-summary-table">
 <caption>
 <span id="tab:lrt-summary-table">Table 4.1: </span>Sequential temporal-gene filtering.
@@ -488,7 +479,7 @@ Genes passing all filters and used for scoring
 </tr>
 </tbody>
 </table>
-<p>To inspect the selected expression patterns, Figure 2 shows the first 1,500 temporal genes in LRT result order. PCA, scoring, and validation use the complete set of selected temporal genes.</p>
+<p>Figure 2 shows the first 1,500 temporal genes in LRT result order. PCA, scoring, and validation use the complete temporal-gene set.</p>
 <div id="fig-temporal-heatmap" class="figure-anchor">
 
 </div>
@@ -496,7 +487,7 @@ Genes passing all filters and used for scoring
 <div class="tutorial-figure-caption">
 <strong>Figure 2.</strong> Heatmap of the 1,500 displayed temporal genes across the reference samples, ordered by differentiation day.
 </div>
-<p>Figure 3 groups the heatmap genes into four clusters to summarize their temporal expression patterns. Gene Ontology (GO) Biological Process enrichment helps interpret the processes represented in each cluster, using the 1,500 displayed genes as the enrichment universe. Clustering and GO enrichment provide biological context for the plots; the scoring model continues to use all selected temporal genes together.</p>
+<p>The heatmap genes form four temporal expression clusters (Figure 3). Gene Ontology (GO) Biological Process enrichment is calculated for each cluster using the 1,500 displayed genes as the enrichment universe. These analyses describe the temporal expression patterns; scoring uses all selected temporal genes together.</p>
 <div id="fig-temporal-clusters" class="figure-anchor">
 
 </div>
@@ -505,20 +496,20 @@ Genes passing all filters and used for scoring
 <strong>Figure 3.</strong> Temporal clusters and GO enrichment for the 1,500 heatmap genes. Each row pairs a cluster trajectory with its top enriched GO Biological Process terms.
 </div>
 </div>
-<div id="fit-the-pca-reference-space" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Fit the PCA reference space<a href="#fit-the-pca-reference-space" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Next, use the selected temporal genes to define the reference PCA space. The scoring function first averages expression across reference samples at each timepoint, then fits PCA to these mean profiles. Each timepoint therefore contributes one profile to the fit, and the resulting trajectory follows the mean expression changes across time.</p>
+<div id="reference-pca" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Reference PCA<a href="#reference-pca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The reference PCA is fitted to mean temporal-gene expression at each timepoint. Each timepoint contributes one expression profile to the fit, regardless of its sample count.</p>
 <p>Let <span class="math inline">\(\mathbf{x}_i\)</span> be the normalized expression vector for sample <span class="math inline">\(i\)</span>, restricted to the selected temporal genes. For a reference timepoint <span class="math inline">\(t\)</span>, let <span class="math inline">\(\bar{\mathbf{x}}_t\)</span> be the mean vector across its reference samples:</p>
 <p><span class="math display">\[
 \bar{\mathbf{x}}_t = \frac{1}{n_t}\sum_{i:\,t_i=t} \mathbf{x}_i.
 \tag{1}
 \]</span></p>
-<p>The function centers each gene across the timepoint means and retains its original variance scale when fitting PCA. It keeps the smallest number of principal components (PCs) that together explain at least 99% of the variance between timepoint means. Let <span class="math inline">\(\boldsymbol{\mu}\)</span> be the mean of those profiles and let <span class="math inline">\(W\)</span> contain the retained PCA loading vectors. The PCA coordinates for sample <span class="math inline">\(i\)</span> are</p>
+<p>PCA is centered without variance scaling. The smallest number of principal components (PCs) explaining at least 99% of the variance between timepoint means is retained. With <span class="math inline">\(\boldsymbol{\mu}\)</span> denoting the mean of those profiles and <span class="math inline">\(W\)</span> the retained loading vectors, the PCA coordinates for sample <span class="math inline">\(i\)</span> are</p>
 <p><span class="math display">\[
 \mathbf{z}_i = (\mathbf{x}_i - \boldsymbol{\mu})W.
 \tag{2}
 \]</span></p>
-<p>This transformation places reference and experimental samples in the same reference PCA space. In the GSE122380 fit, seven PCs meet the 99% variance target. The number of retained PCs depends on the reference cohort and the selected temporal genes.</p>
+<p>Reference and experimental samples are projected using the same centering and loadings. Seven PCs meet the 99% variance target in GSE122380; the retained number depends on the reference cohort and temporal-gene set.</p>
 <div id="fig-pca-day" class="figure-anchor">
 
 </div>
@@ -526,7 +517,7 @@ Genes passing all filters and used for scoring
 <div class="tutorial-figure-caption">
 <strong>Figure 4.</strong> Individual samples projected into centered, unscaled PCA spaces fitted to reference timepoint means. The full temporal-gene set defines the scoring model. The C1+C2 and C3+C4 subsets show how early and late expression patterns contribute to the time-course structure.
 </div>
-<p>PCA loadings identify the genes that contribute most strongly to each axis. Figure 5 labels genes with the largest positive and negative PC1 and PC2 loadings and shows GO enrichment for the strongest PC1 loadings. This analysis helps interpret the expression changes represented by the reference axes.</p>
+<p>Figure 5 shows genes with the largest positive and negative PC1 and PC2 loadings, with GO enrichment for the strongest PC1 loadings.</p>
 <div id="fig-pc1-validation" class="figure-anchor">
 
 </div>
@@ -534,11 +525,11 @@ Genes passing all filters and used for scoring
 <div class="tutorial-figure-caption">
 <strong>Figure 5.</strong> PCA loading genes and GO enrichment. <strong>a-b.</strong> The ten largest positive and negative PC1 and PC2 loading genes. Ambiguous Ensembl-to-symbol mappings retain the Ensembl ID. <strong>c-d.</strong> GO enrichment among the 500 strongest negative and positive PC1 loadings.
 </div>
-<p>The sign of a PCA axis is arbitrary. For readability, PC1 is oriented toward increasing differentiation day in the figures. Distances and timing scores are preserved when an axis is reversed.</p>
+<p>PC1 is oriented toward increasing differentiation day in the figures. This choice of axis sign preserves distances and timing scores.</p>
 </div>
-<div id="build-and-score-the-reference-trajectory" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Build and score the reference trajectory<a href="#build-and-score-the-reference-trajectory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>After fitting PCA, the function maps each reference timepoint mean to a centroid in the retained PC space. It connects adjacent centroids in time order to form a trajectory made of finite line segments, also called a polyline. This path can bend across several PCs as expression changes during differentiation.</p>
+<div id="trajectory-fitting-and-sample-projection" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Trajectory fitting and sample projection<a href="#trajectory-fitting-and-sample-projection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The reference timepoint means define centroids in the retained PCA space. Connecting adjacent centroids in time order produces a polyline trajectory that can bend across multiple PCs.</p>
 <p>For one segment, let <span class="math inline">\(\mathbf{a}\)</span> and <span class="math inline">\(\mathbf{b}\)</span> be its start and end centroids, and let <span class="math inline">\(\mathbf{z}\)</span> be a sample’s PCA coordinate. The segment direction is <span class="math inline">\(\mathbf{v}=\mathbf{b}-\mathbf{a}\)</span>. The closest point on the finite segment is</p>
 <p><span class="math display">\[
 \alpha = \operatorname{clip}_{[0,1]}
@@ -550,15 +541,15 @@ Genes passing all filters and used for scoring
 \mathbf{q}=\mathbf{a}+\alpha\mathbf{v}.
 \tag{3}
 \]</span></p>
-<p>Clipping <span class="math inline">\(\alpha\)</span> to the interval from 0 to 1 keeps the projected point within the segment. The function evaluates every segment and selects the one with the smallest squared distance <span class="math inline">\(\lVert\mathbf{z}-\mathbf{q}\rVert^2\)</span>. It then interpolates time between that segment’s endpoints:</p>
+<p>The projection is clipped to each finite segment by constraining <span class="math inline">\(\alpha\)</span> between 0 and 1. The segment minimizing <span class="math inline">\(\lVert\mathbf{z}-\mathbf{q}\rVert^2\)</span> determines the sample’s assignment, and its endpoint times are used to interpolate predicted time:</p>
 <p><span class="math display">\[
 \widehat{t}=t_a+\alpha(t_b-t_a),
 \qquad
 s=\frac{\widehat{t}-t_{\min}}{t_{\max}-t_{\min}}.
 \tag{4}
 \]</span></p>
-<p>Here, <span class="math inline">\(t_a\)</span> and <span class="math inline">\(t_b\)</span> are the segment endpoint times, <span class="math inline">\(\widehat{t}\)</span> is the predicted time, and <span class="math inline">\(s\)</span> is the differentiation score. The earliest and latest reference times correspond to scores of 0 and 1. Segment clipping keeps every prediction within this reference time range.</p>
-<p>The function omits segments whose endpoints have identical coordinates. If the trajectory folds back near itself, a sample can lie close to several segments with different time assignments. Review the trajectory plot and squared distances when assessing these cases, because a small distance alone may leave the time assignment ambiguous.</p>
+<p>Here, <span class="math inline">\(t_a\)</span> and <span class="math inline">\(t_b\)</span> are the segment endpoint times, <span class="math inline">\(\widehat{t}\)</span> is predicted time, and <span class="math inline">\(s\)</span> is the differentiation score. Scores are bounded between 0 and 1, corresponding to the earliest and latest reference times.</p>
+<p>Zero-length segments are omitted. If the trajectory folds back near itself, nearby segments can yield ambiguous time assignments even when projection distances are small.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;functions/score_differentiation_timing.R&#39;</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>timing_fit <span class="ot">&lt;-</span> <span class="fu">score_differentiation_timing</span>(</span>
@@ -576,7 +567,7 @@ s=\frac{\widehat{t}-t_{\min}}{t_{\max}-t_{\min}}.
 <span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>  <span class="st">&#39;differentiation_score&#39;</span>,</span>
 <span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="st">&#39;squared_distance&#39;</span></span>
 <span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>)]</span></code></pre></div>
-<p>Figure 6 shows the fitted trajectory in the first two PCs. Scoring uses distances across all retained PCs, so the figure provides a two-dimensional view of the fitted path.</p>
+<p>Figure 6 displays the first two PCs of the fitted trajectory. Projection distances are calculated across all retained PCs.</p>
 <div id="fig-timing-polyline" class="figure-anchor">
 
 </div>
@@ -584,7 +575,7 @@ s=\frac{\widehat{t}-t_{\min}}{t_{\max}-t_{\min}}.
 <div class="tutorial-figure-caption">
 <strong>Figure 6.</strong> Differentiation trajectory in reference PCA space. Black points are day centroids; arrows connect them in day order. The day 1 and day 15 centroids anchor scores 0 and 1.
 </div>
-<p>Time is interpolated within each segment using its two endpoint times. The trajectory can therefore have different distances per unit time across successive intervals. Figure 7 shows the scores obtained by projecting the reference samples back onto this path. Because these samples also define the model, the figure describes its fit to the reference cohort.</p>
+<p>Time is interpolated separately within each segment, allowing distances per unit time to vary across intervals. Figure 7 shows the reference samples projected back onto the fitted trajectory.</p>
 <div id="fig-score-by-day" class="figure-anchor">
 
 </div>
@@ -592,20 +583,14 @@ s=\frac{\widehat{t}-t_{\min}}{t_{\max}-t_{\min}}.
 <div class="tutorial-figure-caption">
 <strong>Figure 7.</strong> Reference-sample differentiation timing scores by observed day. Dashed lines mark the bounded reference endpoints at 0 and 1.
 </div>
-<p>The spread within each day shows variation in predicted timing among reference samples. To assess prediction in samples excluded from model fitting, the next section holds out each cell line in turn.</p>
+<p>These scores describe fit within the reference cohort. Prediction in held-out samples is assessed by leave-one-cell-line-out validation.</p>
 </div>
 </div>
 <div id="leave-one-cell-line-out-validation" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Leave-one-cell-line-out validation<a href="#leave-one-cell-line-out-validation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Leave-one-cell-line-out validation tests how well the reference trajectory predicts differentiation time in a cell line excluded from training. For each cell line, the workflow:</p>
-<ol style="list-style-type: decimal">
-<li>removes that cell line from the training reference;</li>
-<li>selects temporal genes using the remaining cell lines;</li>
-<li>fits the PCA and centroid trajectory using the remaining cell lines; and</li>
-<li>projects the held-out samples onto that fitted trajectory.</li>
-</ol>
-<p>Temporal-gene selection, including the count-based DESeq2 LRT, is repeated in every fold. All folds use the supplied VST matrix, since the repository contains the transformed values without the upstream transformation procedure. The results therefore measure transfer to held-out cell lines within this processed cohort, conditional on the shared VST matrix. Assessing transfer to an independently processed study requires a separate validation dataset.</p>
-<p>The validation function also labels genes with positive Spearman correlations with time as maturation genes and those with negative correlations as progenitor genes. These labels summarize fold-specific expression patterns. The accuracy results below use the complete temporal-gene set selected in each fold.</p>
+<p>Each cell line is held out in turn. Temporal-gene selection, including the DESeq2 LRT, and PCA trajectory fitting are repeated using the remaining cell lines. The held-out samples are then projected onto that fold’s reference trajectory.</p>
+<p>All folds share the supplied VST matrix because the upstream transformation procedure is unavailable in the repository. Validation therefore assesses transfer across cell lines within this processed cohort, conditional on the shared transformation. Transfer to an independently processed study requires separate validation.</p>
+<p>Within each fold, genes with positive and negative Spearman correlations with time are labeled maturation and progenitor genes, respectively. Reported accuracy uses the complete temporal-gene set selected in that fold.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;functions/get_temporal_genes.R&#39;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;functions/score_differentiation_timing.R&#39;</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;functions/run_loo_maturation.R&#39;</span>)</span>
@@ -699,7 +684,7 @@ Predictions within 2 days
 </tr>
 </tbody>
 </table>
-<p>Across this cohort, the Pearson correlation between held-out predicted and observed days is 0.979. The median absolute error is 0.30 days, and 82.3% of predictions fall within one day of the observed time. These results support prediction within the GSE122380 reference and its processing pipeline. Performance in another study will depend on its biological and technical similarity to this reference.</p>
+<p>Held-out predictions have a Pearson correlation of 0.979 with observed days, a median absolute error of 0.30 days, and 82.3% of predictions within one day. These estimates apply to GSE122380 under the processing and validation scheme described above.</p>
 <div id="fig-loo-cell-line-predictions" class="figure-anchor">
 
 </div>
@@ -707,7 +692,7 @@ Predictions within 2 days
 <div class="tutorial-figure-caption">
 <strong>Figure 8.</strong> Held-out predictions for 12 cell lines. Each panel reports Pearson <span class="math inline">\(r\)</span> and squared Pearson correlation, <span class="math inline">\(r^2\)</span>, to summarize linear association between observed and predicted days.
 </div>
-<p>Prediction patterns vary across cell lines. Review these panels to identify systematic timing shifts or intervals with weaker agreement. Pearson <span class="math inline">\(r\)</span> and <span class="math inline">\(r^2\)</span> describe association; use the absolute prediction errors below to assess accuracy on the day scale.</p>
+<p>Pearson <span class="math inline">\(r\)</span> and <span class="math inline">\(r^2\)</span> summarize association, while absolute prediction error measures accuracy on the day scale. Figures 9 and 10 show the pooled predictions and errors by day.</p>
 <div id="fig-loo-summary" class="figure-anchor">
 
 </div>
@@ -715,39 +700,36 @@ Predictions within 2 days
 <div class="tutorial-figure-caption">
 <strong>Figure 9.</strong> Predicted versus observed differentiation day for all held-out samples. The dashed line is identity; the solid line is an ordinary least-squares summary.
 </div>
-<p>The identity line marks exact agreement between predicted and observed days. The fitted line summarizes their linear relationship across the cohort. Sample-level deviations from identity determine the timing errors.</p>
 <p>For held-out sample <span class="math inline">\(i\)</span>, absolute prediction error is</p>
 <p><span class="math display">\[
 e_i = |\widehat{t}_i - t_i|.
 \tag{5}
 \]</span></p>
-<p>Figure 10 summarizes the mean absolute error at each observed day. The error bars show one standard deviation across held-out samples at that day.</p>
+<p>Figure 10 shows mean absolute error by differentiation day, with error bars representing one standard deviation across held-out samples.</p>
 <div id="fig-loo-timepoint-accuracy" class="figure-anchor">
 
 </div>
 <p><img class="tutorial-figure" src="assets/figures/GSE122380_loo_timepoint_accuracy.png" alt="Mean absolute held-out prediction error by observed differentiation day, with standard-deviation error bars." style="width:82%;"></p>
 <div class="tutorial-figure-caption">
-<strong>Figure 10.</strong> Absolute held-out prediction error by day. Lower values indicate closer timing predictions.
+<strong>Figure 10.</strong> Absolute held-out prediction error by day.
 </div>
-<p>Compare errors across days to identify intervals where predictions are less accurate. The overall summary can conceal such differences, particularly when sample coverage varies across the time course.</p>
 </div>
 <div id="interpreting-results" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">6</span> Interpreting results<a href="#interpreting-results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="read-the-score-and-distance-together" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Read the score and distance together<a href="#read-the-score-and-distance-together" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Use the sample-level <code>timing_fit$scores</code> table to read the result:</p>
+<div id="scores-and-projection-distances" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Scores and projection distances<a href="#scores-and-projection-distances" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>timing_fit$scores</code> contains the sample-level estimates:</p>
 <ul>
 <li><code>predicted_time</code> gives the sample’s position on the original reference-time scale.</li>
 <li><code>differentiation_score</code> rescales that position so the earliest and latest reference times are 0 and 1.</li>
 <li><code>squared_distance</code> measures how close the sample is to its nearest trajectory segment in the retained PCA space.</li>
 </ul>
-<p>Interpret the score in relation to the reference timepoints. A score of 0.5 places the predicted time halfway between the earliest and latest reference times. In this day 1 to day 15 reference, it corresponds to a predicted day of 8. The biological meaning of that position depends on the differentiation process and the stages represented in the reference.</p>
-<p>Read <code>squared_distance</code> alongside the score. A sample with a large distance has an expression profile that fits the reference path poorly, even though the function assigns it a predicted time. Compare its distance with those of reference samples and consider possible differences in cell composition, experimental conditions, or batch before drawing a biological conclusion.</p>
+<p>Scores are specific to the reference lineage, differentiation protocol, and sampled time range. Comparisons across conditions require a shared reference model.</p>
+<p>A large projection distance relative to reference samples indicates poor fit to the trajectory and limits the interpretation of predicted time. Differences in cell composition, treatment response, or batch can produce these deviations.</p>
 </div>
-<div id="apply-the-method-to-another-study" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Apply the method to another study<a href="#apply-the-method-to-another-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Choose reference samples with known timepoints that span the differentiation stages relevant to the study. Select temporal genes from those reference samples, then use the same reference to fit PCA and the trajectory. Keeping experimental samples out of both fitting steps allows their scores to be interpreted relative to the reference.</p>
-<p>For example, if metadata for your own study identifies samples as <code>reference</code> in a <code>group</code> column, the code below selects genes from that group and scores every sample. Here, <code>counts</code>, <code>vst</code>, and <code>metadata</code> are your study’s aligned inputs, with <code>sample_id</code> and <code>day_numeric</code> columns in the metadata. The scoring matrix contains both reference and experimental samples:</p>
+<div id="reference-selection-for-another-study" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Reference selection for another study<a href="#reference-selection-for-another-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For comparisons across conditions, temporal-gene selection and trajectory fitting use an independent reference group. The following example identifies that group through a metadata column named <code>group</code>, with reference samples labeled <code>reference</code>. Here, <code>counts</code>, <code>vst</code>, and <code>metadata</code> contain aligned reference and experimental samples from the new study, with the same <code>sample_id</code> and <code>day_numeric</code> columns used above:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>temporal_selection <span class="ot">&lt;-</span> <span class="fu">get_temporal_genes</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">raw_counts =</span> counts,</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">vst_expression =</span> vst,</span>
@@ -762,8 +744,8 @@ e_i = |\widehat{t}_i - t_i|.
 <span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>  <span class="at">temporal_genes =</span> temporal_selection<span class="sc">$</span>temporal_genes,</span>
 <span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>  <span class="at">reference_samples =</span> temporal_selection<span class="sc">$</span>reference_samples</span>
 <span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>)</span></code></pre></div>
-<p>Experimental samples can have missing timepoints when the group arguments above identify the reference samples with known times. Alternatively, subset the inputs to reference samples for gene selection, then pass the combined expression matrix and metadata to the scorer with the selected reference IDs. Include relevant adjustment covariates in gene selection when the reference design supports them.</p>
-<p>Before comparing scores, check that gene and sample identifiers match across inputs and that reference and experimental expression values use compatible normalization. Compare scores within a shared reference model and review experimental-sample distances against the reference distances. If the biological process or batch structure differs substantially, choose a suitable reference and validate prediction in that setting.</p>
+<p>Experimental samples can have missing timepoints. Adjustment covariates can be included in gene selection when supported by the reference design.</p>
+<p>The reference should span the relevant differentiation stages and use gene identifiers and normalization compatible with the experimental samples. Differences in protocol, cell composition, or batch can alter scores and projection distances. Application to a substantially different dataset requires validation in that setting.</p>
 </div>
 </div>
 <div id="references" class="section level1 hasAnchor" number="7">

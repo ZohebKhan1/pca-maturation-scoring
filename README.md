@@ -1,19 +1,19 @@
 # Differentiation timing score
 
-These R functions estimate differentiation timing from bulk RNA-seq expression by comparing samples with a reference time course. The workflow selects time-dependent genes, fits a trajectory through the reference timepoints in principal component analysis (PCA) space, and projects each sample onto that trajectory. It returns a predicted reference time, a differentiation score from 0 to 1, and a squared distance that helps assess how closely the sample fits the reference.
+These R functions estimate differentiation timing in bulk RNA-seq samples relative to a reference time course. Principal component analysis (PCA) is fitted to the mean expression of temporal genes at each reference timepoint, and the resulting centroids are connected in time order. Each sample is projected onto this trajectory to obtain a predicted reference time, a differentiation score from 0 to 1, and a squared projection distance.
 
-The [online tutorial](https://zohebkhan1.github.io/pca-maturation-scoring/) explains the method using a cardiomyocyte differentiation time course. It includes gene selection, trajectory fitting, figures, leave-one-cell-line-out validation, and guidance for applying the method to another study.
+The [GSE122380 analysis](https://zohebkhan1.github.io/pca-maturation-scoring/) includes temporal-gene selection, trajectory fitting, and leave-one-cell-line-out validation in a cardiomyocyte differentiation time course.
 
 ## Quick start
 
-Download or clone this repository and open R in its root directory. Gene selection requires DESeq2 and edgeR from Bioconductor:
+The example runs from the repository root and requires DESeq2 and edgeR:
 
 ```r
 install.packages("BiocManager")
 BiocManager::install(c("DESeq2", "edgeR"))
 ```
 
-The example below uses the included counts, variance-stabilized (VST) expression, and metadata from [GSE122380](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380). The loader aligns both matrices to the metadata sample order. Gene selection accounts for cell-line differences in this reference.
+The repository includes counts, variance-stabilized (VST) expression, and metadata from [GSE122380](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122380). Gene selection accounts for cell-line differences through `adjustment_covariates = "cell_line"`.
 
 ```r
 source("data/load_GSE122380_data.R")
@@ -43,9 +43,9 @@ timing_fit$scores[, c(
 )]
 ```
 
-This example scores the reference samples themselves. To evaluate experimental samples, select genes from an independent reference cohort and pass its IDs through `reference_samples` when scoring. The tutorial shows how to select a reference group and assess predictions in held-out samples.
+This fit scores the reference samples. To score experimental samples against an independent reference cohort, select genes within that cohort and pass its sample IDs through `reference_samples` when scoring.
 
-## How scoring works
+## Method
 
 [`get_temporal_genes()`](functions/get_temporal_genes.R) selects genes with sufficient expression, a significant time effect in a DESeq2 likelihood-ratio test, and sufficient variation across mean VST expression at reference timepoints. All three filters use the reference samples:
 
@@ -64,7 +64,7 @@ This example scores the reference samples themselves. To evaluate experimental s
 - **Scoring:** normalized expression, matching metadata, and selected temporal genes. The reference requires at least two distinct, finite numeric timepoints; non-reference samples can have missing timepoints.
 - **Validation:** aligned count and VST matrices, with `sample_id`, `cell_line`, and `day_numeric` in the metadata.
 
-## Interpret the result
+## Output
 
 `timing_fit$scores` contains one row per sample:
 
@@ -72,4 +72,4 @@ This example scores the reference samples themselves. To evaluate experimental s
 - `differentiation_score` maps the earliest and latest reference timepoints to 0 and 1.
 - `squared_distance` is the squared distance to the nearest fitted trajectory segment in PCA space.
 
-Interpret the score relative to the reference timepoints and compare samples scored with the same reference model. Read `squared_distance` alongside the score to identify samples whose expression fits the reference path poorly. See the [tutorial](https://zohebkhan1.github.io/pca-maturation-scoring/) for interpretation, validation results, and references; its source is [`docs/tutorial/tutorial.Rmd`](docs/tutorial/tutorial.Rmd).
+Scores are specific to the reference lineage, protocol, and time range. Large projection distances relative to reference samples indicate poor fit and limit the interpretation of predicted time. The [analysis](https://zohebkhan1.github.io/pca-maturation-scoring/) includes validation results, reference selection, and citations; its source is [`docs/tutorial/tutorial.Rmd`](docs/tutorial/tutorial.Rmd).
